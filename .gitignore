@@ -5,3 +5,4 @@ output
 phpMyAdmin
 venv
 src/__pycache__
+xampp-control.ini
