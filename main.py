@@ -24,7 +24,7 @@ style.configure("Big.TButton", font=("Arial", 12), padding=10, width=20, height=
 style.configure("Small.TButton", font=("Arial", 10), padding=10, width=20, height=5)
 
 # Обозначение версии приложения
-text_version = ttk.Label(root, text="Версия: 1.3", font=("Arial", 8))
+text_version = ttk.Label(root, text="Версия: 1.4", font=("Arial", 8))
 text_version.pack(anchor=W)
 
 # Текст 'Главное меню', который будет использовать шрифт Arial 12 пунктов
@@ -233,22 +233,29 @@ def edit_xampp_control_button():
         # Если переменная пуста, то значение берется из того что пользователь ввел
         if result_port_mysql is None:
             result_port_mysql = str(enter_pole_mysql.get())
+        else:
+            # Если пользователь заменит число, то оно введется в переменную
+            result_port_mysql = str(enter_pole_mysql.get())
 
         print(result_port_mysql)
         
         if result_port_apache is None:
+            result_port_apache = str(enter_pole_apache.get())
+        else:
             result_port_apache = str(enter_pole_apache.get())
 
         print(result_port_apache)
 
         if result_port_apachessl is None:
             result_port_apachessl = str(enter_pole_apachessl.get())
+        else:
+            result_port_mysql = str(enter_pole_apachessl.get())
 
         print(result_port_apachessl)
 
         # Перезапуск программы в случае если нету прав администратора
         if ctypes.windll.shell32.IsUserAnAdmin():
-            edit_file_xampp_control(str(result_port_mysql), str(result_port_apachessl), str(result_port_apache))
+            edit_file_xampp_control(result_port_apache, result_port_apachessl, result_port_mysql)
         else:
             print("Ошибка: Требуются права администратора.")
             run_as_admin()

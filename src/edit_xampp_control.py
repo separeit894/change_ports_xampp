@@ -16,7 +16,8 @@ def run_as_admin():
         None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1)
     sys.exit(0)
 
-def edit_file_xampp_control(mysql_port, apachessl_port, apache_port):
+def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
+    print(apache_port, apachessl_port, mysql_port)
     print("Функция edit_file_xampp_control запущена!")
 
     file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
@@ -43,28 +44,35 @@ def edit_file_xampp_control(mysql_port, apachessl_port, apache_port):
 
         if not in_section:
             continue
-        # Находим строго слово "Apache" и так далее
-        if re.search(r'\bApache\b', line):
-            apache_line_index = i
-            result = line.split("=")
-            result[1] = f"={apache_port}"
-            line = "".join(result)
-            lines[i] = f"{line}\n"
-            print(f"Нашёл Apache на строке {i}: {lines[i]}")
-        elif re.search(r'\bApacheSSL\b', line):
-            apachessl_line_index = i
-            result = line.split("=")
-            result[1] = f"={apachessl_port}"
-            line = "".join(result)
-            lines[i] = f"{line}\n"
-            print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
-        elif re.search(r'\bMySQL\b', line):
-            mysql_line_index = i
-            result = line.split("=")
-            result[1] = f"={mysql_port}"
-            line = "".join(result)
-            lines[i] = f"{line}\n"
-            print(f"Нашёл MySQL на строке {i}: {lines[i]}")
+
+        # Если переменная не имеет значения None, то переходит к внутреннему условию
+        if not apache_port == "None":
+            # Находим строго слово "Apache" и так далее
+            if re.search(r'\bApache\b', line):
+                apache_line_index = i
+                result = line.split("=")
+                result[1] = f"={apache_port}"
+                line = "".join(result)
+                lines[i] = f"{line}\n"
+                print(f"Нашёл Apache на строке {i}: {lines[i]}")
+
+        if not apachessl_port == "None":
+            if re.search(r'\bApacheSSL\b', line):
+                apachessl_line_index = i
+                result = line.split("=")
+                result[1] = f"={apachessl_port}"
+                line = "".join(result)
+                lines[i] = f"{line}\n"
+                print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
+                
+        if not mysql_port == "None":      
+            if re.search(r'\bMySQL\b', line):
+                mysql_line_index = i
+                result = line.split("=")
+                result[1] = f"={mysql_port}"
+                line = "".join(result)
+                lines[i] = f"{line}\n"
+                print(f"Нашёл MySQL на строке {i}: {lines[i]}")
 
     # Записываем изменения в файл
     with open("xampp-control.ini", "w", encoding="utf-8") as file:
