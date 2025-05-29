@@ -26,7 +26,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         print(f"[Ошибка] Файл {file_path} не найден!")
         return
 
-    with open(file_path, 'r', encoding="utf-8") as file:
+    with open(file_path, 'r', encoding="cp1251") as file:
         lines = file.readlines()
 
     in_section = False
@@ -75,7 +75,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                 print(f"Нашёл MySQL на строке {i}: {lines[i]}")
 
     # Записываем изменения в файл
-    with open("xampp-control.ini", "w", encoding="utf-8") as file:
+    with open("xampp-control.ini", "w", encoding="cp1251") as file:
         file.writelines(lines)
     print("Запись файла")
 
