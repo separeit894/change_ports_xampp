@@ -1,8 +1,9 @@
+from tkinter import messagebox
 import ctypes
+import traceback
 import sys
 import os
 import re
-
 
 
 def is_admin():
@@ -17,68 +18,80 @@ def run_as_admin():
     sys.exit(0)
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
-    print(apache_port, apachessl_port, mysql_port)
-    print("Функция edit_file_xampp_control запущена!")
+    try:
+        print(apache_port, apachessl_port, mysql_port)
+        print("Функция edit_file_xampp_control запущена!")
 
-    file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
+        file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
 
-    if not os.path.exists(file_path):
-        print(f"[Ошибка] Файл {file_path} не найден!")
-        return
+        with open(file_path, 'r', encoding="utf-8", errors="ignore") as file:
+            lines = file.readlines()
 
-    with open(file_path, 'r', encoding="cp1251") as file:
-        lines = file.readlines()
+        # Если нету папки backup, то он её создает
+        if not os.path.exists("backup"):
+            os.makedirs("backup")
 
-    in_section = False
-    apache_line_index = apachessl_line_index = mysql_line_index = None
+        # Если нету резервного файла, то он его создает
+        if not os.path.exists("backup/xampp-control.ini"):
+            with open("backup/xampp-control.ini", "w", encoding="utf-8") as file:
+                file.writelines(lines)
 
-    for i, line in enumerate(lines):
-        line = line.strip()
+        in_section = False
+        apache_line_index = apachessl_line_index = mysql_line_index = None
 
-        if line == "[ServicePorts]":
-            in_section = True
-            continue
+        for i, line in enumerate(lines):
+            line = line.strip()
 
-        if in_section and line.startswith("["):
-            break  # выходим из раздела
+            if line == "[ServicePorts]":
+                in_section = True
+                continue
 
-        if not in_section:
-            continue
+            if in_section and line.startswith("["):
+                break  # выходим из раздела
 
-        # Если переменная не имеет значения None, то переходит к внутреннему условию
-        if not apache_port == "None":
-            # Находим строго слово "Apache" и так далее
-            if re.search(r'\bApache\b', line):
-                apache_line_index = i
-                result = line.split("=")
-                result[1] = f"={apache_port}"
-                line = "".join(result)
-                lines[i] = f"{line}\n"
-                print(f"Нашёл Apache на строке {i}: {lines[i]}")
+            if not in_section:
+                continue
 
-        if not apachessl_port == "None":
-            if re.search(r'\bApacheSSL\b', line):
-                apachessl_line_index = i
-                result = line.split("=")
-                result[1] = f"={apachessl_port}"
-                line = "".join(result)
-                lines[i] = f"{line}\n"
-                print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
-                
-        if not mysql_port == "None":      
-            if re.search(r'\bMySQL\b', line):
-                mysql_line_index = i
-                result = line.split("=")
-                result[1] = f"={mysql_port}"
-                line = "".join(result)
-                lines[i] = f"{line}\n"
-                print(f"Нашёл MySQL на строке {i}: {lines[i]}")
+            # Если переменная не имеет значения None, то переходит к внутреннему условию
+            if not apache_port == "None":
+                # Находим строго слово "Apache" и так далее
+                if re.search(r'\bApache\b', line):
+                    apache_line_index = i
+                    result = line.split("=")
+                    result[1] = f"={apache_port}"
+                    line = "".join(result)
+                    lines[i] = f"{line}\n"
+                    print(f"Нашёл Apache на строке {i}: {lines[i]}")
 
-    # Записываем изменения в файл
-    with open("xampp-control.ini", "w", encoding="cp1251") as file:
-        file.writelines(lines)
-    print("Запись файла")
+            if not apachessl_port == "None":
+                if re.search(r'\bApacheSSL\b', line):
+                    apachessl_line_index = i
+                    result = line.split("=")
+                    result[1] = f"={apachessl_port}"
+                    line = "".join(result)
+                    lines[i] = f"{line}\n"
+                    print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
+                    
+            if not mysql_port == "None":      
+                if re.search(r'\bMySQL\b', line):
+                    mysql_line_index = i
+                    result = line.split("=")
+                    result[1] = f"={mysql_port}"
+                    line = "".join(result)
+                    lines[i] = f"{line}\n"
+                    print(f"Нашёл MySQL на строке {i}: {lines[i]}")
 
+        # Записываем изменения в файл
+        with open("xampp-control.ini", "w", encoding="utf-8", errors="ignore") as file:
+            file.writelines(lines)
+        print("Запись файла")
+    except BaseException as e:
+        # Переходим в исключения если возникла, какая нибудь ошибка
+        print("Переход в исключения")
+        tb = traceback.format_exc()
+        messagebox.showerror("Обнаружена ошибка", f"{tb}")
+    
+        
 
 if __name__ == "__main__":
     if ctypes.windll.shell32.IsUserAnAdmin():

@@ -24,7 +24,7 @@ style.configure("Big.TButton", font=("Arial", 12), padding=10, width=20, height=
 style.configure("Small.TButton", font=("Arial", 10), padding=10, width=20, height=5)
 
 # Обозначение версии приложения
-text_version = ttk.Label(root, text="Версия: 1.6", font=("Arial", 8))
+text_version = ttk.Label(root, text="Версия: 1.7", font=("Arial", 8))
 text_version.pack(anchor=W)
 
 # Текст 'Главное меню', который будет использовать шрифт Arial 12 пунктов
