@@ -53,7 +53,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                 continue
 
             # Если переменная не имеет значения None, то переходит к внутреннему условию
-            if not apache_port == "None":
+            if not apache_port == "None" and apache_port != "":
                 # Находим строго слово "Apache" и так далее
                 if re.search(r'\bApache\b', line):
                     apache_line_index = i
@@ -63,7 +63,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                     lines[i] = f"{line}\n"
                     print(f"Нашёл Apache на строке {i}: {lines[i]}")
 
-            if not apachessl_port == "None":
+            if not apachessl_port == "None" and apachessl_port != "":
                 if re.search(r'\bApacheSSL\b', line):
                     apachessl_line_index = i
                     result = line.split("=")
@@ -72,7 +72,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                     lines[i] = f"{line}\n"
                     print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
                     
-            if not mysql_port == "None":      
+            if not mysql_port == "None" and mysql_port != "":      
                 if re.search(r'\bMySQL\b', line):
                     mysql_line_index = i
                     result = line.split("=")

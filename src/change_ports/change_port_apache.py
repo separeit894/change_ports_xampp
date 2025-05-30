@@ -5,6 +5,7 @@ from tkinter import messagebox
 
 def change_port_apache(new_port):
     try:
+        print(f"Тип переменной new_port {new_port}")
         # Cначала считываю файл, чтобы сделать backup
         with open("apache/conf/httpd.conf", 'r', encoding="utf-8") as file:
             src = file.readlines()
