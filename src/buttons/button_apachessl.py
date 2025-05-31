@@ -21,7 +21,7 @@ def apachessl_button(root, style):
     enter_pole.pack(anchor=CENTER, pady=30)
 
     # Будет работать после того как пользователь кликнул по кнопке 'Применить'
-    result_label = ttk.Label(window, text="Порт изменен", font=("Arial", 12))
+    #result_label = ttk.Label(window, text="Порт изменен", font=("Arial", 12))
 
     # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
     def on_submit():
@@ -31,9 +31,9 @@ def apachessl_button(root, style):
         print("Вы ввели:", enter_pole.get())
         if not result_port_apachessl == "": 
             # Выводит строку с успешным изменением порта ( см. 84 строку кода )
-            result_label.pack(anchor=CENTER, pady=20, padx=20)
+            #result_label.pack(anchor=CENTER, pady=20, padx=20)
             # Через 3000 мс (3 секунды) удаляем надпись
-            window.after(3000, result_label.pack_forget)
+            #window.after(3000, result_label.pack_forget)
             # Передаем значение нового порта в функцию
             change_port_ssl(result_port_apachessl)
 

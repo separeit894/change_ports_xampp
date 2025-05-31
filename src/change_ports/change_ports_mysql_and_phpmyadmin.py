@@ -68,6 +68,7 @@ def change_port_mysql(new_port):
         # Сохраняем результат
         with open("phpMyAdmin/config.inc.php", "w", encoding="utf-8") as file:
             file.writelines(src)
+        messagebox.showinfo("Информация","Порт изменен успешно!")
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Переход в исключения")

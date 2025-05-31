@@ -19,6 +19,7 @@ def run_as_admin():
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
     try:
+        count = 0
         print(apache_port, apachessl_port, mysql_port)
         print("Функция edit_file_xampp_control запущена!")
 
@@ -62,6 +63,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                     line = "".join(result)
                     lines[i] = f"{line}\n"
                     print(f"Нашёл Apache на строке {i}: {lines[i]}")
+                    count += 1
 
             if not apachessl_port == "None" and apachessl_port != "":
                 if re.search(r'\bApacheSSL\b', line):
@@ -71,6 +73,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                     line = "".join(result)
                     lines[i] = f"{line}\n"
                     print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
+                    count += 1
                     
             if not mysql_port == "None" and mysql_port != "":      
                 if re.search(r'\bMySQL\b', line):
@@ -81,10 +84,20 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                     lines[i] = f"{line}\n"
                     print(f"Нашёл MySQL на строке {i}: {lines[i]}")
 
+                    count += 1
+
         # Записываем изменения в файл
-        with open("xampp-control.ini", "w", encoding="utf-8", errors="ignore") as file:
-            file.writelines(lines)
-        print("Запись файла")
+        if count > 0:
+            with open("xampp-control.ini", "w", encoding="utf-8", errors="ignore") as file:
+                file.writelines(lines)
+            print("Запись файла")
+            if count > 1:
+                messagebox.showinfo("Информация","Порты изменены успешно!")
+            else:
+                messagebox.showinfo("Информация","Порт изменен успешно!")
+
+        return True
+        
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Переход в исключения")
@@ -96,6 +109,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 if __name__ == "__main__":
     if ctypes.windll.shell32.IsUserAnAdmin():
         edit_file_xampp_control()
+        messagebox.showinfo("Информация","Порт изменен успешно!")
     else:
         print("Ошибка: Требуются права администратора.")
         run_as_admin()

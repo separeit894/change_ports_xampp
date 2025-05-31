@@ -2,13 +2,17 @@ import ctypes
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+from tkinter import messagebox
+import sys, os
 from ..change_ports.edit_xampp_control import run_as_admin, is_admin, edit_file_xampp_control
 
-result_port_mysql = None
-result_port_apache = None
-result_port_apachessl = None
+sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 # Xampp-control.ini
+result_port_apache = None
+result_port_apachessl = None
+result_port_mysql = None
+
 
 def edit_xampp_control_button(root, style):
     if ctypes.windll.shell32.IsUserAnAdmin():
@@ -54,19 +58,9 @@ def edit_xampp_control_button(root, style):
         enter_pole_mysql.pack(side=tk.LEFT)
         enter_pole_mysql.insert(0, str(result_port_mysql))
 
-        
-
-        # Будет работать после того как пользователь кликнул по кнопке 'Применить'
-        result_label = ttk.Label(window, text="Порты изменены", font=("Arial", 12))
-
-
         # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
         def on_submit():
             global result_port_apache, result_port_mysql, result_port_apachessl
-            # Выводит строку с успешным изменением порта ( см. 124 строку кода )
-            result_label.pack(anchor=CENTER, pady=20, padx=20)
-            # Через 3000 мс (3 секунды) удаляем надпись
-            window.after(3000, result_label.pack_forget)
 
             # Если переменная пуста, то значение берется из того что пользователь ввел
             if result_port_mysql is None:
@@ -94,6 +88,7 @@ def edit_xampp_control_button(root, style):
             # Перезапуск программы в случае если нету прав администратора
             
             edit_file_xampp_control(result_port_apache, result_port_apachessl, result_port_mysql)
+                   
     else:
         print("Ошибка: Требуются права администратора.")
         run_as_admin()
@@ -105,3 +100,6 @@ def edit_xampp_control_button(root, style):
     """
     submit_button = ttk.Button(window, text="Применить", command=on_submit, style="Small.TButton")
     submit_button.pack()
+
+if __name__ == "__main__":
+    edit_file_xampp_control()
