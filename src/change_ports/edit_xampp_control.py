@@ -7,12 +7,14 @@ import re
 
 
 def is_admin():
+    # Функция, которая проверяет запущена программа с правами администратора или нет
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
 
 def run_as_admin():
+    # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1)
     sys.exit(0)
@@ -20,9 +22,6 @@ def run_as_admin():
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
     try:
         count = 0
-        print(apache_port, apachessl_port, mysql_port)
-        print("Функция edit_file_xampp_control запущена!")
-
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
 
         with open(file_path, 'r', encoding="utf-8", errors="ignore") as file:

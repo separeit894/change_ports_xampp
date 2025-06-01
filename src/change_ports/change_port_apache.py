@@ -1,12 +1,12 @@
 import os
 import sys
 import traceback
+
 from tkinter import messagebox
+
 
 def change_port_apache(new_port):
     try:
-        
-        print(f"Тип переменной new_port {new_port}")
         # Cначала считываю файл, чтобы сделать backup
         with open("apache/conf/httpd.conf", 'r', encoding="utf-8") as file:
             src = file.readlines()
@@ -69,7 +69,6 @@ def change_port_apache(new_port):
             file.writelines(src)
         
         messagebox.showinfo("Информация","Порт изменен успешно!")
-        return new_port
         
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
