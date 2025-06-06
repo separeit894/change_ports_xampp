@@ -1,12 +1,22 @@
 import os
 import sys
 import traceback
+import psutil
 
 from tkinter import messagebox
 
 
 def change_port_apache(new_port):
     try:
+        # Если служба запущена, то мы её отключаем
+        process_name = "httpd.exe"
+        
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'] == process_name:
+                print(f"PID процесса '{process_name}': {proc.info['pid']}")
+                p = psutil.Process(proc.info['pid'])
+                p.terminate()
+
         # Cначала считываю файл, чтобы сделать backup
         with open("apache/conf/httpd.conf", 'r', encoding="utf-8") as file:
             src = file.readlines()
@@ -15,11 +25,10 @@ def change_port_apache(new_port):
         if not os.path.exists("backup"):
             os.makedirs("backup")
         
-        """ 
-        Если до этого порты менялись, то уже есть первоначальный бэкап,
-        и заменятся он не будет. Это делается для того чтобы сохранить рабочий вариант файла,
-        перезаписывание возможно приведет к неисправной обработке файла xampp
-        """
+        # Если до этого порты менялись, то уже есть первоначальный бэкап,
+        # и заменятся он не будет. Это делается для того чтобы сохранить рабочий вариант файла,
+        # перезаписывание возможно приведет к неисправной обработке файла xampp
+        
         if not os.path.exists("backup/httpd.conf"):
             with open("backup/httpd.conf", "w", encoding="utf-8") as file:
                 file.writelines(src)
@@ -27,10 +36,9 @@ def change_port_apache(new_port):
         # Создаем переменную в которую будем вводить порт
         index_port_listen = None
 
-        """
-        Проходясь по циклу, скрипт ищет строку #Listen
-        Чтобы затем заменить порт
-        """
+        # Проходясь по циклу, скрипт ищет строку #Listen
+        # Чтобы затем заменить порт
+        
         for i, line in enumerate(src):
             # Проверям не начинается строка с #, в ином случае просто игнорируем строку
             if not line.startswith("#"):
@@ -45,12 +53,12 @@ def change_port_apache(new_port):
 
         # Создаем вторую переменную, в которую позже будем хранить новое значения порта
         index_port_servername = None
-        """
-        Цикл считывает строки файла,
-        в if проверяется не начинается файл с #, 
-        если да, то он пропускает строку
-        если нет, то он продолжает считывать строку, иская слово ServerName
-        """
+
+        # Цикл считывает строки файла,
+        # в if проверяется не начинается файл с #, 
+        # если да, то он пропускает строку
+        # если нет, то он продолжает считывать строку, иская слово ServerName
+        
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "ServerName" in src[i]:

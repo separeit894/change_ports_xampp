@@ -1,11 +1,22 @@
 import os
 import sys
 import traceback
+import psutil
+
 from tkinter import messagebox
 
 
 def change_port_mysql(new_port):
     try:
+        # Если служба запущена, то мы её отключаем
+        process_name = "mysqld.exe"
+
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'] == process_name:
+                print(f"PID процесса '{process_name}': {proc.info['pid']}")
+                p = psutil.Process(proc.info['pid'])
+                p.terminate()
+
         # Сначала открываю файл, чтобы сделать его backup
         with open("mysql/bin/my.ini", "r", encoding="utf-8") as file:
             src = file.readlines()
@@ -57,11 +68,10 @@ def change_port_mysql(new_port):
                     index_cfg_server = i
                     # меняем порт
                     src[i] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
-
-        """ 
-        В случае, если переменная пустая, то есть так и не нашла эту строку ( см. 52 строку кода )
-        то он эту строку создаст по умолчанию на 21 строке кода ( не знаю почему на 21, мне просто так захотелось )
-        """
+                    
+        # В случае, если переменная пустая, то есть так и не нашла эту строку ( см. 52 строку кода )
+        # то он эту строку создаст по умолчанию на 21 строке кода ( не знаю почему на 21, мне просто так захотелось )
+        
         if index_cfg_server is None:
             src[21] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
 

@@ -57,10 +57,8 @@ def main():
         pady=30
         )
 
-    """
-    Внизу кнопка 'Apache', прикреплен к главному окну ( root )
-    Используется стиль Big.TButton ( см. 16 стр )
-    """
+    # Внизу кнопка 'Apache', прикреплен к главному окну ( root ). Используется стиль Big.TButton ( см. 16 стр )
+    
     button_apache = ttk.Button(
         root,
         text="Apache",
@@ -74,10 +72,8 @@ def main():
         padx=100
         )
 
-    """
-    Кнопка 'ApacheSSL', прикреплен к главному окну ( root )
-    Используется стиль Big.TButton ( см. 16 стр )
-    """
+    # Кнопка 'ApacheSSL', прикреплен к главному окну ( root ). Используется стиль Big.TButton ( см. 16 стр )
+    
     button_apachessl = ttk.Button(
         root,
         text="ApacheSSL",
@@ -85,13 +81,13 @@ def main():
         style="Big.TButton",
     )
     # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
-    button_apachessl.pack(anchor=CENTER, fill=tk.X, padx=100)
+    button_apachessl.pack(
+        anchor=CENTER, 
+        fill=tk.X, 
+        padx=100
+        )
 
-    """
-    Кнопка 'MySQL', прикреплена к главному окну ( root )
-    Ссылается на функцию 'mysql_button' (см. код с 116 - 134 стр.)
-    Используется стиль Big.TButton ( см. 16 стр )
-    """
+    # Кнопка 'MySQL', прикреплена к главному окну ( root ). Ссылается на функцию 'mysql_button' (см. код с 116 - 134 стр.). Используется стиль Big.TButton ( см. 16 стр )
     button_mysql = ttk.Button(
         root,
         text="MySQL",
@@ -99,12 +95,15 @@ def main():
         style="Big.TButton",
     )
     # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
-    button_mysql.pack(anchor=CENTER, fill=tk.X, padx=100)
+    button_mysql.pack(
+        anchor=CENTER, 
+        fill=tk.X, 
+        padx=100
+        )
 
-    """
-    Кнопка 'edit xampp control.ini', прикреплена к главному окну ( root )
-    Используется стиль Big.TButton ( см. 16 стр )
-    """
+    
+    #Кнопка 'edit xampp control.ini', прикреплена к главному окну ( root ). Используется стиль Big.TButton ( см. 16 стр )
+    
     button_xampp_control = ttk.Button(
         root,
         text="\tEdit xampp control.ini\nТребуются права администратора!",
@@ -112,11 +111,14 @@ def main():
         style="Big.TButton",
     )
     # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
-    button_xampp_control.pack(anchor=CENTER, fill=tk.X, padx=100)
+    button_xampp_control.pack(
+        anchor=CENTER, 
+        fill=tk.X, 
+        padx=100
+        )
 
-    """
-    Эта кнопка сделана для того чтобы восстановить файлы, в случае их некорректной работы    
-    """
+    # Эта кнопка сделана для того чтобы восстановить файлы, в случае их некорректной работы    
+    
     button_file_recovery = ttk.Button(
         root,
         text="Восстановление файлов",
@@ -124,7 +126,11 @@ def main():
         style="Big.TButton",
     )
     # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
-    button_file_recovery.pack(anchor=CENTER, fill=tk.X, padx=100)
+    button_file_recovery.pack(
+        anchor=CENTER, 
+        fill=tk.X, 
+        padx=100
+        )
 
     # Запускается цикл
     root.mainloop()

@@ -157,11 +157,8 @@ def edit_xampp_control_button(root, style):
         print("Ошибка: Требуются права администратора.")
         run_as_admin()
 
-    """
-    Кнопка 'Применить', прикрепляется к окну window.
-    Ссылается на функцию on_submit
-    Имеет стиль 'Small.TButton'
-    """
+    # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'
+
     submit_button = ttk.Button(
         window,
         text="Применить",

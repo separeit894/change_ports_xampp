@@ -39,11 +39,8 @@ def apachessl_button(root, style):
             # Передаем значение нового порта в функцию
             change_port_ssl(result_port_apachessl)
 
-    """
-    Кнопка 'Применить', прикрепляется к окну window.
-    Ссылается на функцию on_submit
-    Имеет стиль 'Small.TButton 
-    """
+    # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit Имеет стиль 'Small.TButton 
+    
     submit_button = ttk.Button(window, text="Применить", command=on_submit, style="Small.TButton")
     submit_button.pack()
 

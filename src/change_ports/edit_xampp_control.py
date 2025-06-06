@@ -4,6 +4,7 @@ import traceback
 import sys
 import os
 import re
+import psutil
 
 
 def is_admin():
@@ -21,6 +22,13 @@ def run_as_admin():
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
     try:
+        process_name = "xampp-control.exe"
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'] == process_name:
+                print(f"PID процесса '{process_name}': {proc.info['pid']}")
+                p = psutil.Process(proc.info['pid'])
+                p.terminate()
+
         count = 0
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
 

@@ -1,12 +1,21 @@
 import os
 import sys
 import traceback
+import psutil 
 
 from tkinter import messagebox
 
 
 def change_port_ssl(new_port):
     try:
+        # Если служба запущена, то мы её отключаем
+        process_name = "httpd.exe"
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'] == process_name:
+                print(f"PID процесса '{process_name}': {proc.info['pid']}")
+                p = psutil.Process(proc.info['pid'])
+                p.terminate()
+
         # Сначала открываю файл, чтобы сделать его backup
         with open("apache/conf/extra/httpd-ssl.conf", "r", encoding="utf-8") as file:
             src = file.readlines()
@@ -21,13 +30,13 @@ def change_port_ssl(new_port):
         # Создаем переменную, в которой позже будем хранить значения нового порта
         index_listen = None
 
-        """
-        Цикл считывает файл, проходит по каждой строке
-        Внешнее условие проверяет - не начинается строка #, 
-        если он начинается #, то он пропускает строку файла
-        если нет, он начинает искать слово Listen,
-        и если он его находит, присваивает значения номера строки в переменную
-        """
+        
+        # Цикл считывает файл, проходит по каждой строке
+        # Внешнее условие проверяет - не начинается строка #, 
+        # если он начинается #, то он пропускает строку файла
+        # если нет, он начинает искать слово Listen,
+        # и если он его находит, присваивает значения номера строки в переменную
+        
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "Listen" in src[i]:
@@ -40,14 +49,14 @@ def change_port_ssl(new_port):
         # Новая переменная, которая будет хранить порт
         index_virtualhost = None
 
-        """
-        Тот же цикл, что и с 28 - 32 строку кода,
-        Так же проверяет не начинается строка #
-        если да, пропускает строку
-        если нет, переходит к внутреннему условие 
-        Но он уже ищет <VirtualHost _default_:
-        После : мы уже ставим другой порт
-        """
+        
+        # Тот же цикл, что и с 28 - 32 строку кода,
+        # Так же проверяет не начинается строка #
+        # если да, пропускает строку
+        # если нет, переходит к внутреннему условие 
+        # Но он уже ищет <VirtualHost _default_:
+        # После : мы уже ставим другой порт
+        
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "<VirtualHost _default_:" in src[i]:
@@ -59,9 +68,9 @@ def change_port_ssl(new_port):
 
         # Переменная, которая будет хранить значение порта
         index_servername = None
-        """
-        Тот же самый цикл что и с 48 - 52 строку кода
-        """
+        
+        # Тот же самый цикл что и с 48 - 52 строку кода
+        
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "ServerName" in src[i]:

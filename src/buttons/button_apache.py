@@ -35,10 +35,7 @@ def apache_button(root, style):
         if not result_port_apache == "": 
             change_port_apache(result_port_apache)
 
-    """
-    Кнопка submit_button, прикрепляется к окну window
-    Используется стиль 'Small.TButton'
-    """
+    # Кнопка submit_button, прикрепляется к окну window Используется стиль 'Small.TButton'
     submit_button = ttk.Button(window, text="Применить", command=on_submit, style="Small.TButton")
     submit_button.pack()
     
