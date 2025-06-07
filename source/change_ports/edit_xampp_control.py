@@ -3,11 +3,17 @@ import traceback
 import sys
 import os
 import re
+import importlib
 
-from tkinter import messagebox
 
 from ..shutting_down_processes import xampp_control_process_off
 
+console = False
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--console":
+        console = True
+else:
+    messagebox = importlib.import_module("tkinter.messagebox")
 
 def is_admin():
     # Функция, которая проверяет запущена программа с правами администратора или нет
@@ -19,8 +25,10 @@ def is_admin():
 
 def run_as_admin():
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
-    ctypes.windll.shell32.ShellExecuteW(
-        None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1)
+    if console:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"{os.path.abspath(sys.argv[0])} --console", None, 1)
+    else:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1)
     sys.exit(0)
 
 
@@ -98,18 +106,27 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
             with open("xampp-control.ini", "w", encoding="utf-8", errors="ignore") as file:
                 file.writelines(lines)
             print("Запись файла")
-            if count > 1:
-                messagebox.showinfo("Информация","Порты изменены успешно!")
-            else:
-                messagebox.showinfo("Информация","Порт изменен успешно!")
+            if console:
+                if count > 1:
+                    print("Порты изменены успешно!")
+                else:
+                    print("Порт изменен успешно!")
 
-        return True
+            else:
+                if count > 1:
+                    messagebox.showinfo("Информация","Порты изменены успешно!")
+                else:
+                    messagebox.showinfo("Информация","Порт изменен успешно!")
         
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Переход в исключения")
         tb = traceback.format_exc()
-        messagebox.showerror("Обнаружена ошибка", f"{tb}")
+
+        if console:
+            print(f"Обнаружена ошибка!\n{tb}")
+        else:
+            messagebox.showerror("Обнаружена ошибка", f"{tb}")
     
         
 

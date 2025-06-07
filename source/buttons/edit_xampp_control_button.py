@@ -2,7 +2,7 @@ import sys
 import os
 import ctypes
 
-from tkinter import *
+from tkinter import Toplevel
 from tkinter import ttk
 import tkinter as tk
 from tkinter import messagebox

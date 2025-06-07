@@ -1,7 +1,7 @@
 import os
 import sys
 
-from tkinter import *
+from tkinter import Toplevel
 from tkinter import ttk
 import tkinter as tk
 
@@ -17,9 +17,10 @@ def bfiles_recovery(root, style):
     window.geometry("500x300")
 
     # Восстановления файла Apache
+    spaces_for_apache = "           "
     button_apache = ttk.Button(
         window, 
-        text="Восстановить файл\n\tApache", 
+        text=f"Восстановить файл\n{spaces_for_apache}Apache", 
         command=file_recovery_apache, 
         style="Big.TButton"
         )
@@ -31,9 +32,10 @@ def bfiles_recovery(root, style):
         )
 
     # Восстановление файла ApacheSSL
+    spaces_for_apachessl = "        "
     button_apachessl = ttk.Button(
         window, 
-        text="Восстановить файл\nApacheSSL", 
+        text=f"Восстановить файл\n{spaces_for_apachessl}ApacheSSL", 
         command=file_recovery_apachessl, 
         style="Big.TButton"
         )
@@ -45,9 +47,10 @@ def bfiles_recovery(root, style):
         )
 
     # Восстановление файлов MySQL
+    spaces_for_mysql = "           "
     button_mysql = ttk.Button(
         window, 
-        text="Восстановить файл\n\tMySQL", 
+        text=f"Восстановить файл\n{spaces_for_mysql}MySQL", 
         command=file_recovery_mysql, 
         style="Big.TButton"
         )
@@ -61,7 +64,7 @@ def bfiles_recovery(root, style):
     # Восстановление файла xampp-control.ini
     button_xampp_control = ttk.Button(
         window, 
-        text="Восстановить файл\nxampp-control.ini", 
+        text="Восстановить файл\n    xampp-control.ini", 
         command=file_recovery_xampp_control, 
         style="Big.TButton"
         )

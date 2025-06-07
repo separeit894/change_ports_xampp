@@ -1,11 +1,16 @@
 import os
 import sys
 import traceback
-# import subprocess
-
-from tkinter import messagebox
+import importlib
 
 from ..shutting_down_processes import apachessl_process_off
+
+console = False
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--console":
+        console = True
+else:
+    messagebox = importlib.import_module("tkinter.messagebox")
 
 
 def change_port_ssl(new_port):
@@ -80,13 +85,20 @@ def change_port_ssl(new_port):
         # Сохраняем изменный файл
         with open("apache/conf/extra/httpd-ssl.conf", "w", encoding="utf-8") as file:
             file.writelines(src)
-        messagebox.showinfo("Информация","Порт изменен успешно!")
+
+        if console:
+            print("Порт ApacheSSL изменен успешно!")
+        else:
+            messagebox.showinfo("Информация","Порт изменен успешно!")
         
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Переход в исключения")
         tb = traceback.format_exc()
-        messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+        if console:
+            print(f"Обнаружена ошибка!\n{tb}")
+        else:
+            messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 
 if __name__ == "__main__":
     change_port_ssl()

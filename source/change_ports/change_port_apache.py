@@ -1,9 +1,14 @@
 import os
 import sys
 import traceback
-# import subprocess
+import importlib
 
-from tkinter import messagebox
+console = False
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--console":
+        console = True
+else:
+    messagebox = importlib.import_module("tkinter.messagebox")
 
 from ..shutting_down_processes import apache_process_off
 
@@ -72,13 +77,22 @@ def change_port_apache(new_port):
         with open("apache/conf/httpd.conf", "w", encoding="utf-8") as file:
             file.writelines(src)
         
-        messagebox.showinfo("Информация","Порт изменен успешно!")
+        if console:
+            print("Порт Apache изменен успешно!")
+        else:
+            messagebox.showinfo("Информация","Порт изменен успешно!")
+        
         
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Переход в исключения")
         tb = traceback.format_exc()
-        messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+        if console:
+            print(f"Обнаружена ошибка!\n{tb}")
+        else:
+            messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+    
+
 
 if __name__ == "__main__":
     change_port_apache()

@@ -1,7 +1,8 @@
 import os
 import sys
 
-from tkinter import *
+from tkinter import Toplevel
+from tkinter import CENTER
 from tkinter import ttk
 
 from ..change_ports.change_ports_mysql_and_phpmyadmin import change_port_mysql
