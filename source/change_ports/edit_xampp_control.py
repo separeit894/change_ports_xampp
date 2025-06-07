@@ -1,10 +1,12 @@
-from tkinter import messagebox
 import ctypes
 import traceback
 import sys
 import os
 import re
-import psutil
+
+from tkinter import messagebox
+
+from ..shutting_down_processes import xampp_control_process_off
 
 
 def is_admin():
@@ -14,20 +16,18 @@ def is_admin():
     except:
         return False
 
+
 def run_as_admin():
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1)
     sys.exit(0)
 
+
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
     try:
-        process_name = "xampp-control.exe"
-        for proc in psutil.process_iter(['pid', 'name']):
-            if proc.info['name'] == process_name:
-                print(f"PID процесса '{process_name}': {proc.info['pid']}")
-                p = psutil.Process(proc.info['pid'])
-                p.terminate()
+        
+        xampp_control_process_off()
 
         count = 0
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно

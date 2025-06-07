@@ -1,21 +1,15 @@
 import os
 import sys
 import traceback
-import psutil
 
 from tkinter import messagebox
 
+from ..shutting_down_processes import mysql_process_off
 
 def change_port_mysql(new_port):
     try:
-        # Если служба запущена, то мы её отключаем
-        process_name = "mysqld.exe"
 
-        for proc in psutil.process_iter(['pid', 'name']):
-            if proc.info['name'] == process_name:
-                print(f"PID процесса '{process_name}': {proc.info['pid']}")
-                p = psutil.Process(proc.info['pid'])
-                p.terminate()
+        mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         with open("mysql/bin/my.ini", "r", encoding="utf-8") as file:

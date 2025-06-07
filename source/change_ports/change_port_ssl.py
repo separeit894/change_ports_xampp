@@ -1,20 +1,17 @@
 import os
 import sys
 import traceback
-import psutil 
+# import subprocess
 
 from tkinter import messagebox
+
+from ..shutting_down_processes import apachessl_process_off
 
 
 def change_port_ssl(new_port):
     try:
-        # Если служба запущена, то мы её отключаем
-        process_name = "httpd.exe"
-        for proc in psutil.process_iter(['pid', 'name']):
-            if proc.info['name'] == process_name:
-                print(f"PID процесса '{process_name}': {proc.info['pid']}")
-                p = psutil.Process(proc.info['pid'])
-                p.terminate()
+        
+        apachessl_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         with open("apache/conf/extra/httpd-ssl.conf", "r", encoding="utf-8") as file:

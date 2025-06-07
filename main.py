@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 
-from src import *
+from source import *
 
 result_port_mysql = None
 result_port_apache = None
@@ -36,7 +36,7 @@ def main():
     # Обозначение версии приложения
     text_version = ttk.Label(
         root, 
-        text="Версия: 2.1", 
+        text="Версия: 2.2", 
         font=("Arial", 8)
         )
     
