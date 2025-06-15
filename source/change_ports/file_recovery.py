@@ -4,12 +4,15 @@ import ctypes
 import traceback
 import importlib
 
+
 console = False
+
 if len(sys.argv) > 1:
     if sys.argv[1] == "--console":
         console = True
 else:
     messagebox = importlib.import_module("tkinter.messagebox")
+
 
 from ..change_ports.edit_xampp_control import run_as_admin
 from ..shutting_down_processes import apache_process_off
@@ -21,6 +24,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 
 def file_recovery_apache():
+    from ...main import console_argv
+    console = console_argv
     # Функция берет резервный файл, и записывает его данные в основной
     try:
 

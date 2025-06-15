@@ -3,16 +3,26 @@ from .functional_console import apachessl
 from .functional_console import mysql
 from .functional_console import xampp_control
 from .functional_console import file_recovery_c
+import  sys
+import ctypes
+
+def create_console():
+    ctypes.windll.kernel32.AllocConsole()
+    sys.stdout = open('CONOUT$', 'w')  # Перенаправляем стандартный вывод в консоль
+    sys.stderr = open('CONOUT$', 'w')
+    sys.stdin = open('CONIN$', 'r')
 
 def console():
+    create_console()
     while True:
-        print("1. Изменить порт Apache ")
-        print("2. Изменить порт ApacheSSL ")
-        print("3. Изменить порт MySQL ")
-        print("4. Edit xampp control.ini. Требуются права администратора! ")
-        print("5. Восстановить файлы ")
+        print("1. Change port Apache ")
+        print("2. Change port ApacheSSL ")
+        print("3. Change port MySQL ")
+        print("4. Edit xampp control.ini. Administrator rights required! ")
+        print("5. Recover files ")
 
-        choise = int(input("Выберите пункт меню ( 1 - 5 ): "))
+        choise = int(input("Select a menu item ( 1 - 5 ): "))
+        
         if choise == 1:
             apache()
         elif choise == 2:
@@ -24,7 +34,7 @@ def console():
         elif choise == 5:
             file_recovery_c()
         else:
-            print('Вы выбрали некорректный номер!')
+            print('You have selected an incorrect number!')
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@ if len(sys.argv) > 1:
 else:
     messagebox = importlib.import_module("tkinter.messagebox")
 
+
 def is_admin():
     # Функция, которая проверяет запущена программа с правами администратора или нет
     try:
