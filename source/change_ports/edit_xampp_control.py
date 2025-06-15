@@ -26,7 +26,15 @@ def is_admin():
 
 def run_as_admin():
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
+    if len(sys.argv) > 1:
+        print(sys.argv[1])
+        if "--console" in sys.argv:
+            print("провериал условие")
+            console = True
+
     if console:
+        print("Запускаю консоль")
+        print(f"{os.path.abspath(sys.argv[0])} --console")
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"{os.path.abspath(sys.argv[0])} --console", None, 1)
     else:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1)

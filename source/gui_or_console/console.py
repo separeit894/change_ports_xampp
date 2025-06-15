@@ -6,14 +6,14 @@ from .functional_console import file_recovery_c
 import  sys
 import ctypes
 
-def create_console():
-    ctypes.windll.kernel32.AllocConsole()
-    sys.stdout = open('CONOUT$', 'w')  # Перенаправляем стандартный вывод в консоль
-    sys.stderr = open('CONOUT$', 'w')
-    sys.stdin = open('CONIN$', 'r')
+# def create_console():
+#     ctypes.windll.kernel32.AllocConsole()
+#     sys.stdout = open('CONOUT$', 'w')  # Перенаправляем стандартный вывод в консоль
+#     sys.stderr = open('CONOUT$', 'w')
+#     sys.stdin = open('CONIN$', 'r')
 
 def console():
-    create_console()
+    # create_console()
     while True:
         print("1. Change port Apache ")
         print("2. Change port ApacheSSL ")

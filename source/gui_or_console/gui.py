@@ -37,7 +37,7 @@ def gui():
     # Обозначение версии приложения
     text_version = ttk.Label(
         root, 
-        text="Версия: 2.3", 
+        text="Версия: 2.4", 
         font=("Arial", 8)
         )
     
