@@ -24,24 +24,24 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 
 def file_recovery_apache():
-    from ...main import console_argv
-    console = console_argv
     # Функция берет резервный файл, и записывает его данные в основной
     try:
 
         apache_process_off()
 
-        with open("backup/httpd.conf", "r", encoding="utf-8", errors="ignore") as file:
+        backup_path = "backup/httpd.conf"
+        with open(backup_path, "r", encoding="utf-8", errors="ignore") as file:
             src = file.readlines()
 
-        with open("apache/conf/httpd.conf", "w", encoding="utf-8", errors="ignore") as file:
+        file_path = "apache/conf/httpd.conf"
+        with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
             file.writelines(src)
 
-        print("Файл перезаписан")
+        print("File overwritten")
 
     except BaseException as e:
         if console:
-            print(f"Обнаружена ошибка\n{traceback.format_exc()}")
+            print(f"An error has been detected\n{traceback.format_exc()}")
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
@@ -50,16 +50,18 @@ def file_recovery_apachessl():
 
         apachessl_process_off()
 
-        with open("backup/httpd-ssl.conf", "r", encoding="utf-8", errors="ignore") as file:
+        backup_path = "backup/httpd-ssl.conf"
+        with open(backup_path, "r", encoding="utf-8", errors="ignore") as file:
             src = file.readlines()
 
-        with open("apache/conf/extra/httpd-ssl.conf", "w", encoding="utf-8", errors="ignore") as file:
+        file_path = "apache/conf/extra/httpd-ssl.conf"
+        with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
             file.writelines(src)
 
-        print("Файл перезаписан")
+        print("File overwritten")
     except BaseException as e:
         if console:
-            print(f"Обнаружена ошибка\n{traceback.format_exc()}")
+            print(f"An error has been detected\n{traceback.format_exc()}")
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
@@ -69,24 +71,28 @@ def file_recovery_mysql():
         mysql_process_off()
 
         # Восстановление файла my.ini MySQL
-        with open("backup/my.ini", "r", encoding="utf-8", errors="ignore") as file:
+        backup_path_ini = "backup/my.ini"
+        with open(backup_path_ini, "r", encoding="utf-8", errors="ignore") as file:
             src = file.readlines()
 
-        with open("mysql/bin/my.ini", "w", encoding="utf-8", errors="ignore") as file:
+        file_path_ini = "mysql/bin/my.ini"
+        with open(file_path_ini, "w", encoding="utf-8", errors="ignore") as file:
             file.writelines(src)
 
         # Восстановление файла config.inc.php phpMyAdmin
-        with open("backup/config.inc.php", "r", encoding="utf-8", errors="ignore") as file:
+        backup_path_php = "backup/config.inc.php" 
+        with open(backup_path_php, "r", encoding="utf-8", errors="ignore") as file:
             src_config = file.readlines()
 
-        with open("phpMyAdmin/config.inc.php", "w", encoding="utf-8", errors="ignore") as file:
+        file_path_php = "phpMyAdmin/config.inc.php"
+        with open(file_path_php, "w", encoding="utf-8", errors="ignore") as file:
             file.writelines(src_config)
         
-        print("Файл перезаписан")
+        print("File overwritten")
 
     except BaseException as e:
         if console:
-            print(f"Обнаружена ошибка\n{traceback.format_exc()}")
+            print(f"An error has been detected\n{traceback.format_exc()}")
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
@@ -97,19 +103,21 @@ def file_recovery_xampp_control():
             
             xampp_control_process_off()
 
-            with open("backup/xampp-control.ini", "r", encoding="utf-8", errors="ignore") as file:
+            backup_path = "backup/xampp-control.ini"
+            with open(backup_path, "r", encoding="utf-8", errors="ignore") as file:
                 src = file.readlines()
 
-            with open("xampp-control.ini", "w", encoding="utf-8", errors="ignore") as file:
+            file_path = "xampp-control.ini"
+            with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
                 file.writelines(src)
                 
         except BaseException as e:
             if console:
-                print(f"Обнаружена ошибка\n{traceback.format_exc()}")
+                print(f"An error has been detected\n{traceback.format_exc()}")
             else:
                 messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
     else:
-        print("Ошибка: Требуются права администратора.")
+        print("Error: Administrator privileges are required.")
         run_as_admin()
 
 

@@ -1,12 +1,14 @@
-from source import gui
-from source import console
+from source import mode_gui
+from source import mode_console
 
 import sys
 import subprocess
 import ctypes
-console_argv = False
-def create_console():
 
+console_argv = False
+
+
+def create_console():
     ctypes.windll.kernel32.AllocConsole()
     sys.stdout = open('CONOUT$', 'w')  # Перенаправляем стандартный вывод в консоль
     sys.stderr = open('CONOUT$', 'w')
@@ -17,9 +19,9 @@ if __name__ == "__main__":
         if "--console" in sys.argv:
             console_argv = True
             create_console()
-            console()
+            mode_console()
         else:
-            gui()
+            mode_gui()
     else:
         subprocess.run(["cmd", "/c", "echo 'Для того чтобы узнать о программе --help'"])
-        gui()
+        mode_gui()

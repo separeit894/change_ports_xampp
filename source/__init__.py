@@ -8,6 +8,6 @@ from .buttons.button_mysql import mysql_button
 from .buttons.edit_xampp_control_button import edit_xampp_control_button
 from .buttons.button_files_recovery import bfiles_recovery
 from .change_ports.file_recovery import file_recovery_mysql, file_recovery_apache, file_recovery_apachessl, file_recovery_xampp_control
-from .gui_or_console import gui
-from .gui_or_console import console
-from .gui_or_console.functional_console import apache
+from .gui_or_console import mode_console
+from .gui_or_console import mode_gui
+# from .gui_or_console.functional_console import apache_mode_console

@@ -19,14 +19,19 @@ def change_port_ssl(new_port):
         apachessl_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
-        with open("apache/conf/extra/httpd-ssl.conf", "r", encoding="utf-8") as file:
+        file_path = "apache/conf/extra/httpd-ssl.conf"
+        with open(file_path, "r", encoding="utf-8") as file:
             src = file.readlines()
+
         # Если нету папки backup, то он её создает
-        if not os.path.exists("backup"):
-            os.makedirs("backup")
+        backup = "backup"
+        if not os.path.exists(backup):
+            os.makedirs(backup)
+
         # Если нету резервного файла, то он его создает
-        if not os.path.exists("backup/httpd-ssl.conf"):
-            with open("backup/httpd-ssl.conf", "w", encoding="utf-8") as file:
+        backup_path = "backup/httpd-ssl.conf"
+        if not os.path.exists(backup_path):
+            with open(backup_path, "w", encoding="utf-8") as file:
                 file.writelines(src)
         
         # Создаем переменную, в которой позже будем хранить значения нового порта
@@ -83,20 +88,20 @@ def change_port_ssl(new_port):
         src[index_servername] = f"ServerName www.example.com:{new_port}\n"
 
         # Сохраняем изменный файл
-        with open("apache/conf/extra/httpd-ssl.conf", "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="utf-8") as file:
             file.writelines(src)
 
         if console:
-            print("Порт ApacheSSL изменен успешно!")
+            print("ApacheSSL port changed successfully!")
         else:
             messagebox.showinfo("Информация","Порт изменен успешно!")
         
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Переход в исключения")
+        print("Entering exceptions")
         tb = traceback.format_exc()
         if console:
-            print(f"Обнаружена ошибка!\n{tb}")
+            print(f"An error has been detected!\n{tb}")
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 

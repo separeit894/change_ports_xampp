@@ -1,17 +1,24 @@
 from ...change_ports import change_port_ssl
 
-def apachessl():
-    while True:
-        print("1. Ввести новый порт ApacheSSL: ")
-        print("2. Вернуться в главное меню")
+import traceback
 
-        choise = int(input("Выберите пункт меню ( 1 - 2 ): "))
-        if choise == 1:
-            new_port = str(input("Введите новый порт: "))
-            change_port_ssl(new_port)
-            break
-        elif choise == 2:
-            break
+def apachessl_mode_console():
+    try:
+        while True:
+            print("1. Enter a new Apache SSL port: ")
+            print("2. Go back to the main menu")
+
+            choise = int(input("Select a menu item ( 1 - 2 ): "))
+            if choise == 1:
+                new_port = str(input("Enter a new port: "))
+                change_port_ssl(new_port)
+                break
+            elif choise == 2:
+                break
+    
+    except BaseException as e:
+        tb = traceback.format_exc()
+        print(f"An error has been detected!\n{tb}")
 
 if __name__ == "__main__":
-    apachessl()
+    apachessl_mode_console()
