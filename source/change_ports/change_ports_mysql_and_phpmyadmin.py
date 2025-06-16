@@ -18,16 +18,19 @@ def change_port_mysql(new_port):
         mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
-        with open("mysql/bin/my.ini", "r", encoding="utf-8") as file:
+        file_path = "mysql/bin/my.ini"
+        with open(file_path, "r", encoding="utf-8") as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
-        if not os.path.exists("backup"):
-            os.makedirs("backup")
+        backup = "backup"
+        if not os.path.exists(backup):
+            os.makedirs(backup)
 
         # Если нету резервного файла, то он его создает
-        if not os.path.exists("backup/my.ini"):
-            with open("backup/my.ini", "w", encoding="utf-8") as file:
+        backup_path_ini = "backup/my.ini"
+        if not os.path.exists(backup_path_ini):
+            with open(backup_path_ini, "w", encoding="utf-8") as file:
                 file.writelines(src)
 
 
@@ -41,16 +44,18 @@ def change_port_mysql(new_port):
                     src[i] = f"port={new_port}\n"
 
         # Сохраняет измененный файл
-        with open("mysql/bin/my.ini", "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="utf-8") as file:
             file.writelines(src)
 
         # Считываем другой файл
-        with open("phpMyAdmin/config.inc.php", "r", encoding="utf-8") as file:
+        file_path_php = "phpMyAdmin/config.inc.php"
+        with open(file_path_php, "r", encoding="utf-8") as file:
             src = file.readlines()
 
         # Если нету первого резервного файла, то он его создает
-        if not os.path.exists("backup/config.inc.php"):
-            with open("backup/config.inc.php", "w", encoding="utf-8") as file:
+        backup_path_php = "backup/config.inc.php"
+        if not os.path.exists(backup_path_php):
+            with open(backup_path_php, "w", encoding="utf-8") as file:
                 file.writelines(src)
 
 
@@ -76,21 +81,21 @@ def change_port_mysql(new_port):
             src[21] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
 
         # Сохраняем результат
-        with open("phpMyAdmin/config.inc.php", "w", encoding="utf-8") as file:
+        with open(file_path_php, "w", encoding="utf-8") as file:
             file.writelines(src)
 
         if console:
-            print("Порт MySQL изменен успешно!")
+            print("MySQL port changed successfully!")
         else:
             messagebox.showinfo("Информация","Порт изменен успешно!")
 
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Переход в исключения")
+        print("Entering exceptions")
         tb = traceback.format_exc()
 
         if console:
-            print(f"Обнаружна ошибка!\n{tb}")
+            print(f"An error has been detected!\n{tb}")
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 

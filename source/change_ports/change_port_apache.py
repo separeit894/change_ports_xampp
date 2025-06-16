@@ -19,19 +19,21 @@ def change_port_apache(new_port):
         apache_process_off()
 
         # Cначала считываю файл, чтобы сделать backup
-        with open("apache/conf/httpd.conf", 'r', encoding="utf-8") as file:
+        file_path = "apache/conf/httpd.conf"
+        with open(file_path, 'r', encoding="utf-8") as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
-        if not os.path.exists("backup"):
-            os.makedirs("backup")
+        backup = "backup"
+        if not os.path.exists(backup):
+            os.makedirs(backup)
         
         # Если до этого порты менялись, то уже есть первоначальный бэкап,
         # и заменятся он не будет. Это делается для того чтобы сохранить рабочий вариант файла,
         # перезаписывание возможно приведет к неисправной обработке файла xampp
-        
-        if not os.path.exists("backup/httpd.conf"):
-            with open("backup/httpd.conf", "w", encoding="utf-8") as file:
+        backup_path = "backup/httpd.conf"
+        if not os.path.exists(backup_path):
+            with open(backup_path, "w", encoding="utf-8") as file:
                 file.writelines(src)
 
         # Создаем переменную в которую будем вводить порт
@@ -74,11 +76,11 @@ def change_port_apache(new_port):
         src[index_port_servername] = result
 
         # Сохраняем уже измененный файл
-        with open("apache/conf/httpd.conf", "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="utf-8") as file:
             file.writelines(src)
         
         if console:
-            print("Порт Apache изменен успешно!")
+            print("Apache port changed successfully!")
         else:
             messagebox.showinfo("Информация","Порт изменен успешно!")
         

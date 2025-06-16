@@ -1,6 +1,6 @@
 from ...change_ports import change_port_mysql
 
-def mysql():
+def mysql_mode_console():
     while True:
         print("1. Enter new port MySQL: ")
         print("2. Return to main menu")
@@ -14,4 +14,4 @@ def mysql():
             break
 
 if __name__ == "__main__":
-    mysql()
+    mysql_mode_console()

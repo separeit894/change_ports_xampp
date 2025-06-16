@@ -30,6 +30,7 @@ def run_as_admin():
         print(sys.argv[1])
         if "--console" in sys.argv:
             print("провериал условие")
+            global console
             console = True
 
     if console:
@@ -53,12 +54,14 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
             lines = file.readlines()
 
         # Если нету папки backup, то он её создает
-        if not os.path.exists("backup"):
-            os.makedirs("backup")
+        backup = "backup"
+        if not os.path.exists(backup):
+            os.makedirs(backup)
 
         # Если нету резервного файла, то он его создает
-        if not os.path.exists("backup/xampp-control.ini"):
-            with open("backup/xampp-control.ini", "w", encoding="utf-8") as file:
+        backup_path = "backup/xampp-control.ini"
+        if not os.path.exists(backup_path):
+            with open(backup_path, "w", encoding="utf-8") as file:
                 file.writelines(lines)
 
         in_section = False
@@ -112,14 +115,14 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 
         # Записываем изменения в файл
         if count > 0:
-            with open("xampp-control.ini", "w", encoding="utf-8", errors="ignore") as file:
+            with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
                 file.writelines(lines)
-            print("Запись файла")
+            print("Writing file")
             if console:
                 if count > 1:
-                    print("Порты изменены успешно!")
+                    print("Ports changed successfully!")
                 else:
-                    print("Порт изменен успешно!")
+                    print("Port changed successfully!")
 
             else:
                 if count > 1:
@@ -129,11 +132,11 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Переход в исключения")
+        print("Entering exceptions")
         tb = traceback.format_exc()
 
         if console:
-            print(f"Обнаружена ошибка!\n{tb}")
+            print(f"An error has been detected!\n{tb}")
         else:
             messagebox.showerror("Обнаружена ошибка", f"{tb}")
     
@@ -144,5 +147,5 @@ if __name__ == "__main__":
         edit_file_xampp_control()
         messagebox.showinfo("Информация","Порт изменен успешно!")
     else:
-        print("Ошибка: Требуются права администратора.")
+        print("Error: Administrator privileges are required.")
         run_as_admin()

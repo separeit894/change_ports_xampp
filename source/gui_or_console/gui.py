@@ -10,7 +10,7 @@ result_port_apache = None
 result_port_apachessl = None
 
 
-def gui():
+def mode_gui():
     root = Tk()
     root.title("Change Ports Xampp")
     # Создаю окно на 600x400
@@ -37,7 +37,7 @@ def gui():
     # Обозначение версии приложения
     text_version = ttk.Label(
         root, 
-        text="Версия: 2.4", 
+        text="Версия: 2.5", 
         font=("Arial", 8)
         )
     
@@ -138,4 +138,4 @@ def gui():
 
 
 if __name__ == "__main__":
-    gui()
+    mode_gui()

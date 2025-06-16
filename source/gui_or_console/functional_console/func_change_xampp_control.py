@@ -2,7 +2,7 @@ import ctypes
 from ...change_ports import run_as_admin
 from ...change_ports import edit_file_xampp_control
 
-def xampp_control():
+def xampp_control_mode_console():
     if ctypes.windll.shell32.IsUserAnAdmin():
         while True:
             print("1. Enter new port Apache : ")
@@ -27,4 +27,4 @@ def xampp_control():
         run_as_admin()
 
 if __name__ == "__main__":
-    xampp_control()
+    xampp_control_mode_console()
