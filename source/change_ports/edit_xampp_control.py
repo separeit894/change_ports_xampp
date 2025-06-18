@@ -29,7 +29,6 @@ def run_as_admin():
     if len(sys.argv) > 1:
         print(sys.argv[1])
         if "--console" in sys.argv:
-            print("провериал условие")
             global console
             console = True
 

@@ -41,7 +41,7 @@ def mode_gui():
         # Обозначение версии приложения
         text_version = ttk.Label(
             root, 
-            text="Версия: 2.5", 
+            text="Версия: 2.6", 
             font=("Arial", 8)
             )
         
@@ -141,7 +141,7 @@ def mode_gui():
         root.mainloop()
     
     except BaseException as e:
-        tb = traceback.fromat_exc()
+        tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
 
 

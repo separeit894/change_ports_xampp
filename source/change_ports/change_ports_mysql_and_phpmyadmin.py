@@ -12,6 +12,7 @@ if len(sys.argv) > 1:
 else:
     messagebox = importlib.import_module("tkinter.messagebox")
 
+
 def change_port_mysql(new_port):
     try:
 

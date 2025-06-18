@@ -2,10 +2,7 @@ from source import mode_gui
 from source import mode_console
 
 import sys
-import subprocess
 import ctypes
-
-console_argv = False
 
 
 def create_console():
@@ -14,14 +11,16 @@ def create_console():
     sys.stderr = open('CONOUT$', 'w')
     sys.stdin = open('CONIN$', 'r')
 
-if __name__ == "__main__":
+
+def main():
     if len(sys.argv) > 1:
-        if "--console" in sys.argv:
-            console_argv = True
-            create_console()
-            mode_console()
-        else:
-            mode_gui()
+            if "--console" in sys.argv:
+                create_console()
+                mode_console()
+            else:
+                mode_gui()
     else:
-        subprocess.run(["cmd", "/c", "echo 'Для того чтобы узнать о программе --help'"])
         mode_gui()
+
+if __name__ == "__main__":
+    main()
