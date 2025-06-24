@@ -2,16 +2,6 @@ import os
 import sys
 import ctypes
 import traceback
-import importlib
-
-
-console = False
-
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--console":
-        console = True
-else:
-    messagebox = importlib.import_module("tkinter.messagebox")
 
 
 from ..change_ports.edit_xampp_control import run_as_admin
@@ -22,11 +12,20 @@ from ..shutting_down_processes import xampp_control_process_off
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
+console, messagebox = None, None
+
+
+def defining_variables():
+    from ..gui_or_console import mode_console_or_gui
+
+    global console, messagebox
+    console, messagebox = mode_console_or_gui()
+
 
 def file_recovery_apache():
+    defining_variables()
     # Функция берет резервный файл, и записывает его данные в основной
     try:
-
         apache_process_off()
 
         backup_path = "backup/httpd.conf"
@@ -45,9 +44,10 @@ def file_recovery_apache():
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
-def file_recovery_apachessl():
-    try:
 
+def file_recovery_apachessl():
+    defining_variables()
+    try:
         apachessl_process_off()
 
         backup_path = "backup/httpd-ssl.conf"
@@ -65,9 +65,10 @@ def file_recovery_apachessl():
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
-def file_recovery_mysql():
-    try:
 
+def file_recovery_mysql():
+    defining_variables()
+    try:
         mysql_process_off()
 
         # Восстановление файла my.ini MySQL
@@ -80,14 +81,14 @@ def file_recovery_mysql():
             file.writelines(src)
 
         # Восстановление файла config.inc.php phpMyAdmin
-        backup_path_php = "backup/config.inc.php" 
+        backup_path_php = "backup/config.inc.php"
         with open(backup_path_php, "r", encoding="utf-8", errors="ignore") as file:
             src_config = file.readlines()
 
         file_path_php = "phpMyAdmin/config.inc.php"
         with open(file_path_php, "w", encoding="utf-8", errors="ignore") as file:
             file.writelines(src_config)
-        
+
         print("File overwritten")
 
     except BaseException as e:
@@ -98,9 +99,9 @@ def file_recovery_mysql():
 
 
 def file_recovery_xampp_control():
+    defining_variables()
     if ctypes.windll.shell32.IsUserAnAdmin():
         try:
-            
             xampp_control_process_off()
 
             backup_path = "backup/xampp-control.ini"
@@ -110,7 +111,7 @@ def file_recovery_xampp_control():
             file_path = "xampp-control.ini"
             with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
                 file.writelines(src)
-                
+
         except BaseException as e:
             if console:
                 print(f"An error has been detected\n{traceback.format_exc()}")
@@ -126,4 +127,3 @@ if __name__ == "__main__":
     file_recovery_apachessl()
     file_recovery_mysql()
     file_recovery_xampp_control()
-    

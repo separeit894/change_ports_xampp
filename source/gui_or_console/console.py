@@ -1,6 +1,7 @@
 from .functional_console import *
 import traceback
 
+
 def mode_console():
     try:
         while True:
@@ -11,7 +12,7 @@ def mode_console():
             print("5. Recover files ")
 
             choise = int(input("Select a menu item ( 1 - 5 ): "))
-            
+
             if choise == 1:
                 apache_mode_console()
             elif choise == 2:
@@ -23,10 +24,11 @@ def mode_console():
             elif choise == 5:
                 file_recovery_mode_console()
             else:
-                print('You have selected an incorrect number!')
+                print("You have selected an incorrect number!")
     except BaseException as e:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
+
 
 if __name__ == "__main__":
     mode_console()

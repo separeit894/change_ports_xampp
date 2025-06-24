@@ -1,32 +1,53 @@
 import subprocess
 
+process_name_httpd = "httpd.exe"
+process_name_mysqld = "mysqld.exe"
+process_name_xampp_control = "xampp-control.exe"
+
 
 def apache_process_off():
     # Если служба запущена, то мы её отключаем
-    process_name = "httpd.exe"
 
-    subprocess.run(["taskkill", "/F", "/IM", process_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(
+        ["taskkill", "/F", "/IM", process_name_httpd],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    )
 
 
 def apachessl_process_off():
     # Если служба запущена, то мы её отключаем
-    process_name = "httpd.exe"
 
-    subprocess.run(["taskkill", "/F", "/IM", process_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(
+        ["taskkill", "/F", "/IM", process_name_httpd],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    )
 
 
 def mysql_process_off():
     # Если служба запущена, то мы её отключаем
-    process_name = "mysqld.exe"
 
-    subprocess.run(["taskkill", "/F", "/IM", process_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(
+        ["taskkill", "/F", "/IM", process_name_mysqld],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    )
 
 
 def xampp_control_process_off():
     # Если служба запущена, то мы её отключаем
-    process_name = "xampp-control.exe"
-    
-    subprocess.run(["taskkill", "/F", "/IM", process_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    subprocess.run(
+        ["taskkill", "/F", "/IM", process_name_xampp_control],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        creationflags=subprocess.CREATE_NO_WINDOW,
+    )
+
 
 if __name__ == "__main__":
     apache_process_off()

@@ -5,17 +5,19 @@ import importlib
 
 from ..shutting_down_processes import mysql_process_off
 
-console = False
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--console":
-        console = True
-else:
-    messagebox = importlib.import_module("tkinter.messagebox")
+console, messagebox = None, None
+
+
+def defining_variables():
+    from ..gui_or_console import mode_console_or_gui
+
+    global console, messagebox
+    console, messagebox = mode_console_or_gui()
 
 
 def change_port_mysql(new_port):
     try:
-
+        defining_variables()
         mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
@@ -34,12 +36,11 @@ def change_port_mysql(new_port):
             with open(backup_path_ini, "w", encoding="utf-8") as file:
                 file.writelines(src)
 
-
         # Цикл считывает каждую строку файла
         for i, line in enumerate(src):
             # Если строка не начинается с #, то он переходит к внутреннему условию
             if not line.startswith("#"):
-                # Если он находит слово port, присваевает новый порт 
+                # Если он находит слово port, присваевает новый порт
                 if "port" in src[i]:
                     print(i, line)
                     src[i] = f"port={new_port}\n"
@@ -59,7 +60,6 @@ def change_port_mysql(new_port):
             with open(backup_path_php, "w", encoding="utf-8") as file:
                 file.writelines(src)
 
-
         # Новая переменная, которая будет в себе содержать измененное содержимое строки с портом
         index_cfg_server = None
 
@@ -74,10 +74,10 @@ def change_port_mysql(new_port):
                     index_cfg_server = i
                     # меняем порт
                     src[i] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
-                    
+
         # В случае, если переменная пустая, то есть так и не нашла эту строку ( см. 52 строку кода )
         # то он эту строку создаст по умолчанию на 21 строке кода ( не знаю почему на 21, мне просто так захотелось )
-        
+
         if index_cfg_server is None:
             src[21] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
 
@@ -88,7 +88,7 @@ def change_port_mysql(new_port):
         if console:
             print("MySQL port changed successfully!")
         else:
-            messagebox.showinfo("Информация","Порт изменен успешно!")
+            messagebox.showinfo("Информация", "Порт изменен успешно!")
 
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
@@ -99,6 +99,7 @@ def change_port_mysql(new_port):
             print(f"An error has been detected!\n{tb}")
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+
 
 if __name__ == "__main__":
     change_port_mysql()

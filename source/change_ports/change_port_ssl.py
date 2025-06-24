@@ -1,21 +1,22 @@
 import os
-import sys
 import traceback
-import importlib
+
 
 from ..shutting_down_processes import apachessl_process_off
 
-console = False
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--console":
-        console = True
-else:
-    messagebox = importlib.import_module("tkinter.messagebox")
+console, messagebox = None, None
+
+
+def defining_variables():
+    from ..gui_or_console import mode_console_or_gui
+
+    global console, messagebox
+    console, messagebox = mode_console_or_gui()
 
 
 def change_port_ssl(new_port):
     try:
-        
+        defining_variables()
         apachessl_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
@@ -33,17 +34,16 @@ def change_port_ssl(new_port):
         if not os.path.exists(backup_path):
             with open(backup_path, "w", encoding="utf-8") as file:
                 file.writelines(src)
-        
+
         # Создаем переменную, в которой позже будем хранить значения нового порта
         index_listen = None
 
-        
         # Цикл считывает файл, проходит по каждой строке
-        # Внешнее условие проверяет - не начинается строка #, 
+        # Внешнее условие проверяет - не начинается строка #,
         # если он начинается #, то он пропускает строку файла
         # если нет, он начинает искать слово Listen,
         # и если он его находит, присваивает значения номера строки в переменную
-        
+
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "Listen" in src[i]:
@@ -56,14 +56,13 @@ def change_port_ssl(new_port):
         # Новая переменная, которая будет хранить порт
         index_virtualhost = None
 
-        
         # Тот же цикл, что и с 28 - 32 строку кода,
         # Так же проверяет не начинается строка #
         # если да, пропускает строку
-        # если нет, переходит к внутреннему условие 
+        # если нет, переходит к внутреннему условие
         # Но он уже ищет <VirtualHost _default_:
         # После : мы уже ставим другой порт
-        
+
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "<VirtualHost _default_:" in src[i]:
@@ -75,9 +74,9 @@ def change_port_ssl(new_port):
 
         # Переменная, которая будет хранить значение порта
         index_servername = None
-        
+
         # Тот же самый цикл что и с 48 - 52 строку кода
-        
+
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "ServerName" in src[i]:
@@ -94,8 +93,8 @@ def change_port_ssl(new_port):
         if console:
             print("ApacheSSL port changed successfully!")
         else:
-            messagebox.showinfo("Информация","Порт изменен успешно!")
-        
+            messagebox.showinfo("Информация", "Порт изменен успешно!")
+
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Entering exceptions")
@@ -104,6 +103,7 @@ def change_port_ssl(new_port):
             print(f"An error has been detected!\n{tb}")
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+
 
 if __name__ == "__main__":
     change_port_ssl()

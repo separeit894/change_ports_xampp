@@ -7,6 +7,7 @@ from ...change_ports import file_recovery_apachessl
 from ...change_ports import file_recovery_mysql
 from ...change_ports import file_recovery_xampp_control
 
+
 def file_recovery_mode_console():
     try:
         if ctypes.windll.shell32.IsUserAnAdmin():
@@ -31,10 +32,11 @@ def file_recovery_mode_console():
 
         else:
             run_as_admin()
-    
+
     except BaseException as e:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
+
 
 if __name__ == "__main__":
     file_recovery_mode_console

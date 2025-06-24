@@ -1,13 +1,11 @@
 import ctypes
 import traceback
 
-from ...change_ports import run_as_admin
-from ...change_ports import edit_file_xampp_control
-
-
-
 
 def xampp_control_mode_console():
+    from ...change_ports import run_as_admin
+    from ...change_ports import edit_file_xampp_control
+
     try:
         if ctypes.windll.shell32.IsUserAnAdmin():
             while True:
@@ -31,10 +29,11 @@ def xampp_control_mode_console():
 
         else:
             run_as_admin()
-    
+
     except BaseException as e:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
+
 
 if __name__ == "__main__":
     xampp_control_mode_console()

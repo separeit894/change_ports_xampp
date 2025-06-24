@@ -2,6 +2,7 @@ from ...change_ports import change_port_ssl
 
 import traceback
 
+
 def apachessl_mode_console():
     try:
         while True:
@@ -15,10 +16,11 @@ def apachessl_mode_console():
                 break
             elif choise == 2:
                 break
-    
+
     except BaseException as e:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
+
 
 if __name__ == "__main__":
     apachessl_mode_console()

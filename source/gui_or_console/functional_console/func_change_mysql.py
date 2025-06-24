@@ -1,8 +1,9 @@
-from ...change_ports import change_port_mysql
-
 import traceback
 
+
 def mysql_mode_console():
+    from ...change_ports import change_port_mysql
+
     try:
         while True:
             print("1. Enter new port MySQL: ")
@@ -19,6 +20,7 @@ def mysql_mode_console():
     except BaseException as e:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
+
 
 if __name__ == "__main__":
     mysql_mode_console()
