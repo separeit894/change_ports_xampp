@@ -1,8 +1,9 @@
-from ...change_ports import change_port_mysql
+
 
 import traceback
 
 def mysql_mode_console():
+    from ...change_ports import change_port_mysql
     try:
         while True:
             print("1. Enter new port MySQL: ")

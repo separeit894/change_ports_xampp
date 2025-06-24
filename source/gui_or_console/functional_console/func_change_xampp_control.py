@@ -1,13 +1,15 @@
 import ctypes
 import traceback
 
-from ...change_ports import run_as_admin
-from ...change_ports import edit_file_xampp_control
+
+
 
 
 
 
 def xampp_control_mode_console():
+    from ...change_ports import run_as_admin
+    from ...change_ports import edit_file_xampp_control
     try:
         if ctypes.windll.shell32.IsUserAnAdmin():
             while True:

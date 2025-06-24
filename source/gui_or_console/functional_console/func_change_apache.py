@@ -1,4 +1,4 @@
-from ...change_ports import change_port_apache
+
 import traceback
 
 def apache_mode_console():
@@ -21,4 +21,5 @@ def apache_mode_console():
 
 
 if __name__ == "__main__":
+    from ...change_ports import change_port_apache
     apache_mode_console()

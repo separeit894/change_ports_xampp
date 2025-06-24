@@ -33,6 +33,7 @@ def mysql_button(root, style):
         if not result_port_mysql == "": 
             # Передаем значение нового порта в функцию
             change_port_mysql(result_port_mysql)
+            window.after(250, window.destroy())
 
     
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'

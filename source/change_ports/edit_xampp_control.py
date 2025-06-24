@@ -3,18 +3,18 @@ import traceback
 import sys
 import os
 import re
-import importlib
 
 
 from ..shutting_down_processes import xampp_control_process_off
 
-console = False
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--console":
-        console = True
-else:
-    messagebox = importlib.import_module("tkinter.messagebox")
 
+
+console, messagebox = None, None
+
+def defining_variables():
+    from ..gui_or_console import mode_console_or_gui
+    global console, messagebox
+    console, messagebox = mode_console_or_gui()
 
 def is_admin():
     # Функция, которая проверяет запущена программа с правами администратора или нет
@@ -25,12 +25,10 @@ def is_admin():
 
 
 def run_as_admin():
+    
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
-    if len(sys.argv) > 1:
-        print(sys.argv[1])
-        if "--console" in sys.argv:
-            global console
-            console = True
+
+    defining_variables()
 
     if console:
         print("Запускаю консоль")
@@ -43,7 +41,7 @@ def run_as_admin():
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
     try:
-        
+        defining_variables()
         xampp_control_process_off()
 
         count = 0
@@ -64,7 +62,6 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
                 file.writelines(lines)
 
         in_section = False
-        apache_line_index = apachessl_line_index = mysql_line_index = None
 
         for i, line in enumerate(lines):
             line = line.strip()
@@ -138,13 +135,15 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
             print(f"An error has been detected!\n{tb}")
         else:
             messagebox.showerror("Обнаружена ошибка", f"{tb}")
+            
     
         
 
 if __name__ == "__main__":
+    
     if ctypes.windll.shell32.IsUserAnAdmin():
+        
         edit_file_xampp_control()
-        messagebox.showinfo("Информация","Порт изменен успешно!")
     else:
         print("Error: Administrator privileges are required.")
         run_as_admin()

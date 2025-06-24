@@ -5,7 +5,7 @@ from tkinter import Toplevel
 from tkinter import CENTER
 from tkinter import ttk
 
-from ..change_ports.change_port_apache import change_port_apache
+from ..change_ports import change_port_apache
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
@@ -35,6 +35,7 @@ def apache_button(root, style):
             )
         if not result_port_apache == "": 
             change_port_apache(result_port_apache)
+            window.after(250, window.destroy())
 
     # Кнопка submit_button, прикрепляется к окну window Используется стиль 'Small.TButton'
     submit_button = ttk.Button(window, text="Применить", command=on_submit, style="Small.TButton")

@@ -151,6 +151,7 @@ def edit_xampp_control_button(root, style):
                 result_port_apachessl, 
                 result_port_mysql
                 )
+            window.after(250, window.destroy())
                    
     else:
         # Перезапуск программы в случае если нету прав администратора

@@ -5,17 +5,18 @@ import importlib
 
 from ..shutting_down_processes import mysql_process_off
 
-console = False
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--console":
-        console = True
-else:
-    messagebox = importlib.import_module("tkinter.messagebox")
+
+
+console, messagebox = None, None
+def defining_variables():
+    from ..gui_or_console import mode_console_or_gui
+    global console, messagebox
+    console, messagebox = mode_console_or_gui()
 
 
 def change_port_mysql(new_port):
     try:
-
+        defining_variables()
         mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup

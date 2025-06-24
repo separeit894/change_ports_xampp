@@ -6,11 +6,8 @@ from tkinter import ttk
 import tkinter as tk
 import traceback
 
-from .. import *
+from ..buttons import apache_button, apachessl_button, mysql_button, edit_xampp_control_button, bfiles_recovery
 
-result_port_mysql = None
-result_port_apache = None
-result_port_apachessl = None
 
 
 def mode_gui():
@@ -41,7 +38,7 @@ def mode_gui():
         # Обозначение версии приложения
         text_version = ttk.Label(
             root, 
-            text="Версия: 2.6", 
+            text="Версия: 2.7", 
             font=("Arial", 8)
             )
         

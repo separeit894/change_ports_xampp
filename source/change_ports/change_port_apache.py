@@ -1,21 +1,18 @@
 import os
-import sys
 import traceback
-import importlib
-
-console = False
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--console":
-        console = True
-else:
-    messagebox = importlib.import_module("tkinter.messagebox")
 
 from ..shutting_down_processes import apache_process_off
+
+console, messagebox = None, None
+def defining_value():
+    from ..gui_or_console import mode_console_or_gui
+    global console, messagebox
+    console, messagebox = mode_console_or_gui()
 
 
 def change_port_apache(new_port):
     try:
-        
+        defining_value()
         apache_process_off()
 
         # Cначала считываю файл, чтобы сделать backup
@@ -97,4 +94,5 @@ def change_port_apache(new_port):
 
 
 if __name__ == "__main__":
+    
     change_port_apache()
