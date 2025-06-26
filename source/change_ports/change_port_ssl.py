@@ -3,6 +3,9 @@ import traceback
 
 
 from ..shutting_down_processes import apachessl_process_off
+from ..config import Escape_Sequences
+from ..color_output import Colors
+from ..config import file_encoding
 
 console, messagebox = None, None
 
@@ -22,7 +25,7 @@ def change_port_ssl(new_port):
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "apache/conf/extra/httpd-ssl.conf"
-        with open(file_path, "r", encoding="cp1252") as file:
+        with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -33,7 +36,7 @@ def change_port_ssl(new_port):
         # Если нету резервного файла, то он его создает
         backup_path = "backup/httpd-ssl.conf"
         if not os.path.exists(backup_path):
-            with open(backup_path, "w", encoding="cp1252") as file:
+            with open(backup_path, "w", encoding=file_encoding) as file:
                 file.writelines(src)
 
         # Создаем переменную, в которой позже будем хранить значения нового порта
@@ -88,11 +91,11 @@ def change_port_ssl(new_port):
         src[index_servername] = f"ServerName www.example.com:{new_port}\n"
 
         # Сохраняем изменный файл
-        with open(file_path, "w", encoding="cp1252") as file:
+        with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
 
         if console:
-            print("ApacheSSL port changed successfully!")
+            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}ApacheSSL port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
         else:
             messagebox.showinfo("Информация", "Порт изменен успешно!")
 
@@ -101,7 +104,7 @@ def change_port_ssl(new_port):
         print("Entering exceptions")
         tb = traceback.format_exc()
         if console:
-            print(f"An error has been detected!\n{tb}")
+            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 

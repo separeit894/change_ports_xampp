@@ -1,5 +1,3 @@
-import ctypes
-
 from tkinter import Toplevel
 from tkinter import ttk
 import tkinter as tk

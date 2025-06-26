@@ -2,6 +2,9 @@ import os
 import traceback
 
 from ..shutting_down_processes import apache_process_off
+from ..config import Escape_Sequences
+from ..config import file_encoding
+from ..color_output import Colors
 
 console, messagebox = None, None
 
@@ -21,7 +24,7 @@ def change_port_apache(new_port):
 
         # Cначала считываю файл, чтобы сделать backup
         file_path = "apache/conf/httpd.conf"
-        with open(file_path, "r", encoding="cp1252") as file:
+        with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -34,7 +37,7 @@ def change_port_apache(new_port):
         # перезаписывание возможно приведет к неисправной обработке файла xampp
         backup_path = "backup/httpd.conf"
         if not os.path.exists(backup_path):
-            with open(backup_path, "w", encoding="cp1252") as file:
+            with open(backup_path, "w", encoding=file_encoding) as file:
                 file.writelines(src)
 
         # Создаем переменную в которую будем вводить порт
@@ -77,11 +80,11 @@ def change_port_apache(new_port):
         src[index_port_servername] = result
 
         # Сохраняем уже измененный файл
-        with open(file_path, "w", encoding="cp1252") as file:
+        with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
 
         if console:
-            print("Apache port changed successfully!")
+            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Apache port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
         else:
             messagebox.showinfo("Информация", "Порт изменен успешно!")
 
@@ -90,7 +93,7 @@ def change_port_apache(new_port):
         print("Переход в исключения")
         tb = traceback.format_exc()
         if console:
-            print(f"Обнаружена ошибка!\n{tb}")
+            print(f"{Escape_Sequences.double_new_line}{Colors.RED}Обнаружена ошибка!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 

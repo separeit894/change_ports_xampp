@@ -6,11 +6,14 @@ from ...change_ports import file_recovery_apache
 from ...change_ports import file_recovery_apachessl
 from ...change_ports import file_recovery_mysql
 from ...change_ports import file_recovery_xampp_control
+from ...config import Escape_Sequences
+from ...color_output import Colors
 
 
 def file_recovery_mode_console():
-    try:
-        if ctypes.windll.shell32.IsUserAnAdmin():
+    
+    if ctypes.windll.shell32.IsUserAnAdmin():
+        try:
             while True:
                 print("1. Restore Apache file: ")
                 print("2. Restore ApacheSSL file: ")
@@ -30,12 +33,12 @@ def file_recovery_mode_console():
                 elif choise == 5:
                     break
 
-        else:
-            run_as_admin()
+        except BaseException as e:
+            tb = traceback.format_exc()
+            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
 
-    except BaseException as e:
-        tb = traceback.format_exc()
-        print(f"An error has been detected!\n{tb}")
+    else:
+        run_as_admin()
 
 
 if __name__ == "__main__":

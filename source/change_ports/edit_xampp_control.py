@@ -4,8 +4,10 @@ import sys
 import os
 import re
 
-
 from ..shutting_down_processes import xampp_control_process_off
+from ..config import Escape_Sequences
+from ..config import file_encoding
+from ..color_output import Colors
 
 
 console, messagebox = None, None
@@ -19,6 +21,7 @@ def defining_variables():
 
 
 def is_admin():
+    defining_variables()
     # Функция, которая проверяет запущена программа с правами администратора или нет
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -32,7 +35,6 @@ def run_as_admin():
     defining_variables()
 
     if console:
-        print("Запускаю консоль")
         print(f"{os.path.abspath(sys.argv[0])} --console")
         ctypes.windll.shell32.ShellExecuteW(
             None,
@@ -58,7 +60,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         count = 0
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
 
-        with open(file_path, "r", encoding="cp1252") as file:
+        with open(file_path, "r", encoding=file_encoding) as file:
             lines = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -69,7 +71,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         # Если нету резервного файла, то он его создает
         backup_path = "backup/xampp-control.ini"
         if not os.path.exists(backup_path):
-            with open(backup_path, "w", encoding="cp1252") as file:
+            with open(backup_path, "w", encoding=file_encoding) as file:
                 file.writelines(lines)
 
         in_section = False
@@ -91,7 +93,6 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
             if not apache_port == "None" and apache_port != "":
                 # Находим строго слово "Apache" и так далее
                 if re.search(r"\bApache\b", line):
-                    apache_line_index = i
                     result = line.split("=")
                     result[1] = f"={apache_port}"
                     line = "".join(result)
@@ -101,7 +102,6 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 
             if not apachessl_port == "None" and apachessl_port != "":
                 if re.search(r"\bApacheSSL\b", line):
-                    apachessl_line_index = i
                     result = line.split("=")
                     result[1] = f"={apachessl_port}"
                     line = "".join(result)
@@ -111,7 +111,6 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 
             if not mysql_port == "None" and mysql_port != "":
                 if re.search(r"\bMySQL\b", line):
-                    mysql_line_index = i
                     result = line.split("=")
                     result[1] = f"={mysql_port}"
                     line = "".join(result)
@@ -122,14 +121,14 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 
         # Записываем изменения в файл
         if count > 0:
-            with open(file_path, "w", encoding="cp1252") as file:
+            with open(file_path, "w", encoding=file_encoding) as file:
                 file.writelines(lines)
-            print("Writing file")
+            
             if console:
                 if count > 1:
-                    print("Ports changed successfully!")
+                    print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Ports changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
                 else:
-                    print("Port changed successfully!")
+                    print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
 
             else:
                 if count > 1:
@@ -143,12 +142,13 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         tb = traceback.format_exc()
 
         if console:
-            print(f"An error has been detected!\n{tb}")
+            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
         else:
             messagebox.showerror("Обнаружена ошибка", f"{tb}")
 
 
 if __name__ == "__main__":
+    defining_variables()
     if ctypes.windll.shell32.IsUserAnAdmin():
         edit_file_xampp_control()
     else:
