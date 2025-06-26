@@ -14,13 +14,14 @@ def defining_value():
 
 
 def change_port_apache(new_port):
+    defining_value()
     try:
-        defining_value()
+        
         apache_process_off()
 
         # Cначала считываю файл, чтобы сделать backup
         file_path = "apache/conf/httpd.conf"
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -33,7 +34,7 @@ def change_port_apache(new_port):
         # перезаписывание возможно приведет к неисправной обработке файла xampp
         backup_path = "backup/httpd.conf"
         if not os.path.exists(backup_path):
-            with open(backup_path, "w", encoding="utf-8") as file:
+            with open(backup_path, "w", encoding="cp1252") as file:
                 file.writelines(src)
 
         # Создаем переменную в которую будем вводить порт
@@ -76,7 +77,7 @@ def change_port_apache(new_port):
         src[index_port_servername] = result
 
         # Сохраняем уже измененный файл
-        with open(file_path, "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         if console:

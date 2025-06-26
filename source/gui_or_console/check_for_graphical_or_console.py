@@ -3,11 +3,18 @@ import importlib
 
 
 def mode_console_or_gui():
+    # Функция, проверяет - запущено приложение с параметром или нет
     if len(sys.argv) > 1:
+        print(len(sys.argv))
+        # Если условие верно, то запускается консольная версия
         if "--console" in sys.argv:
             console = True
             messagebox = None
-    else:
+        else:
+            # Иначе GUI
+            console = None
+            messagebox = importlib.import_module("tkinter.messagebox")
+    else:   
         console = None
         messagebox = importlib.import_module("tkinter.messagebox")
 

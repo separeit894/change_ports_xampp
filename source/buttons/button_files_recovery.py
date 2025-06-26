@@ -1,14 +1,8 @@
-import os
-import sys
-
 from tkinter import Toplevel
 from tkinter import ttk
 import tkinter as tk
 
 from ..change_ports.file_recovery import *
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 
 def bfiles_recovery(root, style):

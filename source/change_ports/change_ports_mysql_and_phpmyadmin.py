@@ -16,13 +16,14 @@ def defining_variables():
 
 
 def change_port_mysql(new_port):
+    defining_variables()
     try:
-        defining_variables()
+        
         mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "mysql/bin/my.ini"
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -33,7 +34,7 @@ def change_port_mysql(new_port):
         # Если нету резервного файла, то он его создает
         backup_path_ini = "backup/my.ini"
         if not os.path.exists(backup_path_ini):
-            with open(backup_path_ini, "w", encoding="utf-8") as file:
+            with open(backup_path_ini, "w", encoding="cp1252") as file:
                 file.writelines(src)
 
         # Цикл считывает каждую строку файла
@@ -46,18 +47,18 @@ def change_port_mysql(new_port):
                     src[i] = f"port={new_port}\n"
 
         # Сохраняет измененный файл
-        with open(file_path, "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         # Считываем другой файл
         file_path_php = "phpMyAdmin/config.inc.php"
-        with open(file_path_php, "r", encoding="utf-8") as file:
+        with open(file_path_php, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         # Если нету первого резервного файла, то он его создает
         backup_path_php = "backup/config.inc.php"
         if not os.path.exists(backup_path_php):
-            with open(backup_path_php, "w", encoding="utf-8") as file:
+            with open(backup_path_php, "w", encoding="cp1252") as file:
                 file.writelines(src)
 
         # Новая переменная, которая будет в себе содержать измененное содержимое строки с портом
@@ -82,7 +83,7 @@ def change_port_mysql(new_port):
             src[21] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
 
         # Сохраняем результат
-        with open(file_path_php, "w", encoding="utf-8") as file:
+        with open(file_path_php, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         if console:

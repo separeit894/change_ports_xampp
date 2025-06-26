@@ -33,7 +33,7 @@ def mode_gui():
         )
 
         # Обозначение версии приложения
-        text_version = ttk.Label(root, text="Версия: 2.7", font=("Arial", 8))
+        text_version = ttk.Label(root, text="Версия: 2.8", font=("Arial", 8))
 
         text_version.pack(anchor=W)
 

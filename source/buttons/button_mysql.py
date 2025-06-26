@@ -1,13 +1,8 @@
-import os
-import sys
-
 from tkinter import Toplevel
 from tkinter import CENTER
 from tkinter import ttk
 
 from ..change_ports.change_ports_mysql_and_phpmyadmin import change_port_mysql
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 
 def mysql_button(root, style):

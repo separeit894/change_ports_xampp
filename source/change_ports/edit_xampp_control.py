@@ -50,14 +50,15 @@ def run_as_admin():
 
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
+    defining_variables()
     try:
-        defining_variables()
+        
         xampp_control_process_off()
 
         count = 0
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
 
-        with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
+        with open(file_path, "r", encoding="cp1252") as file:
             lines = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -68,7 +69,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         # Если нету резервного файла, то он его создает
         backup_path = "backup/xampp-control.ini"
         if not os.path.exists(backup_path):
-            with open(backup_path, "w", encoding="utf-8") as file:
+            with open(backup_path, "w", encoding="cp1252") as file:
                 file.writelines(lines)
 
         in_section = False
@@ -121,7 +122,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 
         # Записываем изменения в файл
         if count > 0:
-            with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
+            with open(file_path, "w", encoding="cp1252") as file:
                 file.writelines(lines)
             print("Writing file")
             if console:

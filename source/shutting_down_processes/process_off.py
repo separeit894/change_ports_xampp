@@ -1,5 +1,6 @@
 import subprocess
 
+# Службы
 process_name_httpd = "httpd.exe"
 process_name_mysqld = "mysqld.exe"
 process_name_xampp_control = "xampp-control.exe"
@@ -10,9 +11,9 @@ def apache_process_off():
 
     subprocess.run(
         ["taskkill", "/F", "/IM", process_name_httpd],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        creationflags=subprocess.CREATE_NO_WINDOW,
+        stdout=subprocess.PIPE, # Не выводит в консоль
+        stderr=subprocess.PIPE, # Не выводит ошибки
+        creationflags=subprocess.CREATE_NO_WINDOW,  # Не создает окно
     )
 
 

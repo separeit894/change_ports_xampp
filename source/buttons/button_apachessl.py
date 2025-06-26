@@ -1,13 +1,8 @@
-import os
-import sys
-
 from tkinter import Toplevel
 from tkinter import CENTER
 from tkinter import ttk
 
 from ..change_ports.change_port_ssl import change_port_ssl
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 
 def apachessl_button(root, style):

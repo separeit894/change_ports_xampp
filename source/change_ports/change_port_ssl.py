@@ -15,13 +15,14 @@ def defining_variables():
 
 
 def change_port_ssl(new_port):
+    defining_variables()
     try:
-        defining_variables()
+        
         apachessl_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "apache/conf/extra/httpd-ssl.conf"
-        with open(file_path, "r", encoding="utf-8") as file:
+        with open(file_path, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         # Если нету папки backup, то он её создает
@@ -32,7 +33,7 @@ def change_port_ssl(new_port):
         # Если нету резервного файла, то он его создает
         backup_path = "backup/httpd-ssl.conf"
         if not os.path.exists(backup_path):
-            with open(backup_path, "w", encoding="utf-8") as file:
+            with open(backup_path, "w", encoding="cp1252") as file:
                 file.writelines(src)
 
         # Создаем переменную, в которой позже будем хранить значения нового порта
@@ -87,7 +88,7 @@ def change_port_ssl(new_port):
         src[index_servername] = f"ServerName www.example.com:{new_port}\n"
 
         # Сохраняем изменный файл
-        with open(file_path, "w", encoding="utf-8") as file:
+        with open(file_path, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         if console:

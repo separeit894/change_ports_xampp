@@ -1,11 +1,9 @@
-import sys
-import os
 import ctypes
 
 from tkinter import Toplevel
 from tkinter import ttk
 import tkinter as tk
-from tkinter import messagebox
+
 
 from ..change_ports.edit_xampp_control import (
     run_as_admin,
@@ -13,15 +11,15 @@ from ..change_ports.edit_xampp_control import (
     edit_file_xampp_control,
 )
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "..\.."))
 
 result_port_apache = None
 result_port_apachessl = None
 result_port_mysql = None
 
 
+
 def edit_xampp_control_button(root, style):
-    if ctypes.windll.shell32.IsUserAnAdmin():
+    if is_admin():
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
         window.title("Меню изменения портов в xampp_control.ini")
         window.geometry("500x300")
@@ -107,7 +105,14 @@ def edit_xampp_control_button(root, style):
             edit_file_xampp_control(
                 result_port_apache, result_port_apachessl, result_port_mysql
             )
+            
             window.after(250, window.destroy())
+        
+        submit_button = ttk.Button(
+        window, text="Применить", command=on_submit, style="Small.TButton"
+        )
+
+        submit_button.pack()
 
     else:
         # Перезапуск программы в случае если нету прав администратора
@@ -116,11 +121,7 @@ def edit_xampp_control_button(root, style):
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'
 
-    submit_button = ttk.Button(
-        window, text="Применить", command=on_submit, style="Small.TButton"
-    )
-
-    submit_button.pack()
+    
 
 
 if __name__ == "__main__":

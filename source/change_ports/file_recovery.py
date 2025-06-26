@@ -29,14 +29,15 @@ def file_recovery_apache():
         apache_process_off()
 
         backup_path = "backup/httpd.conf"
-        with open(backup_path, "r", encoding="utf-8", errors="ignore") as file:
+        with open(backup_path, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         file_path = "apache/conf/httpd.conf"
-        with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
+        with open(file_path, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         print("File overwritten")
+        messagebox.showinfo("Информация", "Файл восстановлен!")
 
     except BaseException as e:
         if console:
@@ -51,14 +52,15 @@ def file_recovery_apachessl():
         apachessl_process_off()
 
         backup_path = "backup/httpd-ssl.conf"
-        with open(backup_path, "r", encoding="utf-8", errors="ignore") as file:
+        with open(backup_path, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         file_path = "apache/conf/extra/httpd-ssl.conf"
-        with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
+        with open(file_path, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         print("File overwritten")
+        messagebox.showinfo("Информация", "Файл восстановлен!")
     except BaseException as e:
         if console:
             print(f"An error has been detected\n{traceback.format_exc()}")
@@ -73,23 +75,24 @@ def file_recovery_mysql():
 
         # Восстановление файла my.ini MySQL
         backup_path_ini = "backup/my.ini"
-        with open(backup_path_ini, "r", encoding="utf-8", errors="ignore") as file:
+        with open(backup_path_ini, "r", encoding="cp1252") as file:
             src = file.readlines()
 
         file_path_ini = "mysql/bin/my.ini"
-        with open(file_path_ini, "w", encoding="utf-8", errors="ignore") as file:
+        with open(file_path_ini, "w", encoding="cp1252") as file:
             file.writelines(src)
 
         # Восстановление файла config.inc.php phpMyAdmin
         backup_path_php = "backup/config.inc.php"
-        with open(backup_path_php, "r", encoding="utf-8", errors="ignore") as file:
+        with open(backup_path_php, "r", encoding="cp1252") as file:
             src_config = file.readlines()
 
         file_path_php = "phpMyAdmin/config.inc.php"
-        with open(file_path_php, "w", encoding="utf-8", errors="ignore") as file:
+        with open(file_path_php, "w", encoding="cp1252") as file:
             file.writelines(src_config)
 
         print("File overwritten")
+        messagebox.showinfo("Информация", "Файл восстановлен!")
 
     except BaseException as e:
         if console:
@@ -105,12 +108,14 @@ def file_recovery_xampp_control():
             xampp_control_process_off()
 
             backup_path = "backup/xampp-control.ini"
-            with open(backup_path, "r", encoding="utf-8", errors="ignore") as file:
+            with open(backup_path, "r", encoding="cp1252") as file:
                 src = file.readlines()
 
             file_path = "xampp-control.ini"
-            with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
+            with open(file_path, "w", encoding="cp1252") as file:
                 file.writelines(src)
+
+            messagebox.showinfo("Информация", "Файл восстановлен!")
 
         except BaseException as e:
             if console:
