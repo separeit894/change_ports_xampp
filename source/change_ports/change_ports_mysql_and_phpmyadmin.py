@@ -7,22 +7,14 @@ from ..shutting_down_processes import mysql_process_off
 from ..color_output import Colors
 from ..config import Escape_Sequences
 from ..config import file_encoding
+from ..config import defining_value_mode
 
 console, messagebox = None, None
 
 
-
-def defining_variables():
-    from ..gui_or_console import mode_console_or_gui
-
-    global console, messagebox
-    console, messagebox = mode_console_or_gui()
-
-
 def change_port_mysql(new_port):
-    defining_variables()
+    console, messagebox = defining_value_mode()
     try:
-        
         mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
@@ -91,7 +83,9 @@ def change_port_mysql(new_port):
             file.writelines(src)
 
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}MySQL port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.GREEN}MySQL port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showinfo("Информация", "Порт изменен успешно!")
 
@@ -101,7 +95,9 @@ def change_port_mysql(new_port):
         tb = traceback.format_exc()
 
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 

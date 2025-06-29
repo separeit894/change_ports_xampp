@@ -17,7 +17,6 @@ def mysql_button(root, style):
 
     # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
     def on_submit():
-
         result_port_mysql = str(enter_pole.get())
         print("Вы ввели:", enter_pole.get())
         if not result_port_mysql == "":

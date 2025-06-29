@@ -2,6 +2,7 @@ import ctypes
 import traceback
 
 from ...change_ports import run_as_admin
+from ...change_ports import is_admin
 from ...change_ports import file_recovery_apache
 from ...change_ports import file_recovery_apachessl
 from ...change_ports import file_recovery_mysql
@@ -11,8 +12,7 @@ from ...color_output import Colors
 
 
 def file_recovery_mode_console():
-    
-    if ctypes.windll.shell32.IsUserAnAdmin():
+    if is_admin():
         try:
             while True:
                 print("1. Restore Apache file: ")
@@ -35,7 +35,9 @@ def file_recovery_mode_console():
 
         except BaseException as e:
             tb = traceback.format_exc()
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
 
     else:
         run_as_admin()

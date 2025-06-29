@@ -15,7 +15,6 @@ result_port_apachessl = None
 result_port_mysql = None
 
 
-
 def edit_xampp_control_button(root, style):
     if is_admin():
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
@@ -103,11 +102,11 @@ def edit_xampp_control_button(root, style):
             edit_file_xampp_control(
                 result_port_apache, result_port_apachessl, result_port_mysql
             )
-            
+
             window.after(250, window.destroy())
-        
+
         submit_button = ttk.Button(
-        window, text="Применить", command=on_submit, style="Small.TButton"
+            window, text="Применить", command=on_submit, style="Small.TButton"
         )
 
         submit_button.pack()
@@ -118,8 +117,6 @@ def edit_xampp_control_button(root, style):
         run_as_admin()
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'
-
-    
 
 
 if __name__ == "__main__":

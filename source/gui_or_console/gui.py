@@ -14,6 +14,9 @@ from ..buttons import (
     bfiles_recovery,
 )
 
+from .update_cpx import update
+from ..config import version
+
 
 def mode_gui():
     try:
@@ -33,7 +36,8 @@ def mode_gui():
         )
 
         # Обозначение версии приложения
-        text_version = ttk.Label(root, text="Версия: 2.9", font=("Arial", 8))
+        version_int = version.split("-")[1]
+        text_version = ttk.Label(root, text=f"Версия: {version_int}", font=("Arial", 8))
 
         text_version.pack(anchor=W)
 
@@ -97,6 +101,7 @@ def mode_gui():
         button_file_recovery.pack(anchor=CENTER, fill=tk.X, padx=100)
 
         # Запускается цикл
+        update()
         root.mainloop()
 
     except BaseException as e:

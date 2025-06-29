@@ -9,19 +9,13 @@ from ..shutting_down_processes import xampp_control_process_off
 from ..config import Escape_Sequences
 from ..color_output import Colors
 from ..config import file_encoding
+from ..config import defining_value_mode
 
 console, messagebox = None, None
 
 
-def defining_variables():
-    from ..gui_or_console import mode_console_or_gui
-
-    global console, messagebox
-    console, messagebox = mode_console_or_gui()
-
-
 def file_recovery_apache():
-    defining_variables()
+    console, messagebox = defining_value_mode()
     # Функция берет резервный файл, и записывает его данные в основной
     try:
         apache_process_off()
@@ -34,21 +28,26 @@ def file_recovery_apache():
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
 
-        
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}File Apache overwritten{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.GREEN}File Apache overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
-            messagebox.showinfo("Успешное восстановление файла", "Файл Apache восстановлен!")
+            messagebox.showinfo(
+                "Успешное восстановление файла", "Файл Apache восстановлен!"
+            )
 
     except BaseException as e:
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
 
 def file_recovery_apachessl():
-    defining_variables()
+    console, messagebox = defining_value_mode()
     try:
         apachessl_process_off()
 
@@ -61,18 +60,24 @@ def file_recovery_apachessl():
             file.writelines(src)
 
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}File ApacheSSL overwritten{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.GREEN}File ApacheSSL overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
-            messagebox.showinfo("Успешное восстановление файла", "Файл ApacheSSL восстановлен!")
+            messagebox.showinfo(
+                "Успешное восстановление файла", "Файл ApacheSSL восстановлен!"
+            )
     except BaseException as e:
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
 
 def file_recovery_mysql():
-    defining_variables()
+    console, messagebox = defining_value_mode()
     try:
         mysql_process_off()
 
@@ -95,19 +100,25 @@ def file_recovery_mysql():
             file.writelines(src_config)
 
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Files MySQL overwrittens{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.GREEN}Files MySQL overwrittens{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
-            messagebox.showinfo("Успешное восстановление файлов", "Файлы MySQL восстановлены!")
+            messagebox.showinfo(
+                "Успешное восстановление файлов", "Файлы MySQL восстановлены!"
+            )
 
     except BaseException as e:
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
 
 
 def file_recovery_xampp_control():
-    defining_variables()
+    console, messagebox = defining_value_mode()
     if ctypes.windll.shell32.IsUserAnAdmin():
         try:
             xampp_control_process_off()
@@ -121,14 +132,20 @@ def file_recovery_xampp_control():
                 file.writelines(src)
 
             if console:
-                print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}File xampp-control overwritten{Colors.RESET}{Escape_Sequences.new_line}")
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.GREEN}File xampp-control overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                )
             else:
-                messagebox.showinfo("Успешное восстановление файла", "Файл xampp-control восстановлен!")
+                messagebox.showinfo(
+                    "Успешное восстановление файла", "Файл xampp-control восстановлен!"
+                )
 
         except BaseException as e:
             tb = traceback.format_exc()
             if console:
-                print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+                )
             else:
                 messagebox.showerror("Обнаружена ошибка", tb)
     else:

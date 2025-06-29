@@ -1,15 +1,15 @@
-import ctypes
 import traceback
 
 from ...config import Escape_Sequences
 from ...color_output import Colors
 
+
 def xampp_control_mode_console():
     from ...change_ports import run_as_admin
+    from ...change_ports import is_admin
     from ...change_ports import edit_file_xampp_control
 
-    
-    if ctypes.windll.shell32.IsUserAnAdmin():
+    if is_admin():
         try:
             while True:
                 print("1. Enter new port Apache : ")
@@ -32,11 +32,11 @@ def xampp_control_mode_console():
 
         except BaseException as e:
             tb = traceback.format_exc()
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
     else:
         run_as_admin()
-
-    
 
 
 if __name__ == "__main__":

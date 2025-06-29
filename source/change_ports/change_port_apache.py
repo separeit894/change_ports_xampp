@@ -6,20 +6,12 @@ from ..config import Escape_Sequences
 from ..config import file_encoding
 from ..color_output import Colors
 
-console, messagebox = None, None
-
-
-def defining_value():
-    from ..gui_or_console import mode_console_or_gui
-
-    global console, messagebox
-    console, messagebox = mode_console_or_gui()
+from ..config import defining_value_mode
 
 
 def change_port_apache(new_port):
-    defining_value()
+    console, messagebox = defining_value_mode()
     try:
-        
         apache_process_off()
 
         # Cначала считываю файл, чтобы сделать backup
@@ -84,7 +76,9 @@ def change_port_apache(new_port):
             file.writelines(src)
 
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Apache port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.GREEN}Apache port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showinfo("Информация", "Порт изменен успешно!")
 
@@ -93,7 +87,9 @@ def change_port_apache(new_port):
         print("Переход в исключения")
         tb = traceback.format_exc()
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}Обнаружена ошибка!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}Обнаружена ошибка!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 

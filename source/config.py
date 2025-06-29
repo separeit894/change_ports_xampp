@@ -7,3 +7,15 @@ class Escape_Sequences:
 
 # Кодировка для чтения файлов
 file_encoding = "cp1252"
+version = "V-3.0"
+
+
+def defining_value_mode():
+    from .gui_or_console import mode_console_or_gui
+
+    console, messagebox = mode_console_or_gui()
+    return console, messagebox
+
+
+if __name__ == "__main__":
+    defining_value_mode()

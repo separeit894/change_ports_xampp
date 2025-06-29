@@ -11,8 +11,8 @@ def apache_process_off():
 
     subprocess.run(
         ["taskkill", "/F", "/IM", process_name_httpd],
-        stdout=subprocess.PIPE, # Не выводит в консоль
-        stderr=subprocess.PIPE, # Не выводит ошибки
+        stdout=subprocess.PIPE,  # Не выводит в консоль
+        stderr=subprocess.PIPE,  # Не выводит ошибки
         creationflags=subprocess.CREATE_NO_WINDOW,  # Не создает окно
     )
 

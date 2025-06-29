@@ -1,7 +1,7 @@
 from source import mode_gui
 from source import mode_console
 
-import sys, os
+import sys
 import ctypes
 
 

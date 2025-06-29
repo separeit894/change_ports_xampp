@@ -8,20 +8,12 @@ from ..shutting_down_processes import xampp_control_process_off
 from ..config import Escape_Sequences
 from ..config import file_encoding
 from ..color_output import Colors
-
+from ..config import defining_value_mode
 
 console, messagebox = None, None
 
 
-def defining_variables():
-    from ..gui_or_console import mode_console_or_gui
-
-    global console, messagebox
-    console, messagebox = mode_console_or_gui()
-
-
 def is_admin():
-    defining_variables()
     # Функция, которая проверяет запущена программа с правами администратора или нет
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -32,7 +24,7 @@ def is_admin():
 def run_as_admin():
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
 
-    defining_variables()
+    console, messagebox = defining_value_mode()
 
     if console:
         print(f"{os.path.abspath(sys.argv[0])} --console")
@@ -52,9 +44,8 @@ def run_as_admin():
 
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
-    defining_variables()
+    console, messagebox = defining_value_mode()
     try:
-        
         xampp_control_process_off()
 
         count = 0
@@ -123,12 +114,16 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         if count > 0:
             with open(file_path, "w", encoding=file_encoding) as file:
                 file.writelines(lines)
-            
+
             if console:
                 if count > 1:
-                    print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Ports changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
+                    print(
+                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}Ports changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+                    )
                 else:
-                    print(f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}")
+                    print(
+                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+                    )
 
             else:
                 if count > 1:
@@ -142,7 +137,9 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
         tb = traceback.format_exc()
 
         if console:
-            print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+            print(
+                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+            )
         else:
             messagebox.showerror("Обнаружена ошибка", f"{tb}")
 

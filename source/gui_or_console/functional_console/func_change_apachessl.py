@@ -21,7 +21,9 @@ def apachessl_mode_console():
 
     except BaseException as e:
         tb = traceback.format_exc()
-        print(f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}")
+        print(
+            f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+        )
 
 
 if __name__ == "__main__":
