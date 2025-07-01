@@ -4,18 +4,21 @@ import traceback
 from ..color_output import Colors
 from ..config import Escape_Sequences
 
-from .update_cpx import update
+from .update_cpx import checking_for_update
+from .update_cpx import update_console
+
+
 
 
 def mode_console():
     try:
-        update()
         while True:
             print("1. Change port Apache ")
             print("2. Change port ApacheSSL ")
             print("3. Change port MySQL ")
             print("4. Edit xampp control.ini. Administrator rights required! ")
             print("5. Recover files ")
+            print("6. Проверить версию приложения")
 
             choise = int(input("Select a menu item ( 1 - 5 ): "))
 
@@ -29,6 +32,9 @@ def mode_console():
                 xampp_control_mode_console()
             elif choise == 5:
                 file_recovery_mode_console()
+            elif choise == 6:
+                if checking_for_update():
+                    update_console()
             else:
                 print(
                     f"{Escape_Sequences.new_line}{Colors.RED}You have selected an incorrect number!{Colors.RESET}{Escape_Sequences.new_line}"

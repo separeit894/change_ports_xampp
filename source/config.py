@@ -7,7 +7,7 @@ class Escape_Sequences:
 
 # Кодировка для чтения файлов
 file_encoding = "cp1252"
-version = "V-3.0"
+version = "V-3.1"
 
 
 def defining_value_mode():

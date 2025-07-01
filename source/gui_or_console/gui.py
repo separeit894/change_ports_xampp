@@ -14,7 +14,8 @@ from ..buttons import (
     bfiles_recovery,
 )
 
-from .update_cpx import update
+from .update_cpx import checking_for_update
+from .update_cpx import update_gui
 from ..config import version
 
 
@@ -101,7 +102,9 @@ def mode_gui():
         button_file_recovery.pack(anchor=CENTER, fill=tk.X, padx=100)
 
         # Запускается цикл
-        update()
+        if checking_for_update():
+            update_gui(root, style)
+
         root.mainloop()
 
     except BaseException as e:
