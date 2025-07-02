@@ -1,18 +1,15 @@
 import os
 import traceback
 
-from ..shutting_down_processes import apache_process_off
+from ..shutting_down_processes import Process
 from ..config import Escape_Sequences
 from ..config import file_encoding
-from ..color_output import Colors
-
-from ..config import defining_value_mode
+from ..config import Colors
 
 
-def change_port_apache(new_port):
-    console, messagebox = defining_value_mode()
+def change_port_apache(new_port, console, messagebox):
     try:
-        apache_process_off()
+        Process().apache_process_off()
 
         # Cначала считываю файл, чтобы сделать backup
         file_path = "apache/conf/httpd.conf"

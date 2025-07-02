@@ -1,21 +1,15 @@
 import os
-import sys
 import traceback
-import importlib
 
-from ..shutting_down_processes import mysql_process_off
-from ..color_output import Colors
+from ..shutting_down_processes import Process
+from ..config import Colors
 from ..config import Escape_Sequences
 from ..config import file_encoding
-from ..config import defining_value_mode
-
-console, messagebox = None, None
 
 
-def change_port_mysql(new_port):
-    console, messagebox = defining_value_mode()
+def change_port_mysql(new_port, console, messagebox):
     try:
-        mysql_process_off()
+        Process().mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "mysql/bin/my.ini"

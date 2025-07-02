@@ -1,18 +1,15 @@
-import ctypes
 import traceback
 
 from ...change_ports import run_as_admin
 from ...change_ports import is_admin
-from ...change_ports import file_recovery_apache
-from ...change_ports import file_recovery_apachessl
-from ...change_ports import file_recovery_mysql
-from ...change_ports import file_recovery_xampp_control
+from ...change_ports import Recovery_Files
 from ...config import Escape_Sequences
-from ...color_output import Colors
+from ...config import Colors
 
 
-def file_recovery_mode_console():
-    if is_admin():
+def file_recovery_mode_console(console, messagebox):
+    recovery_files = Recovery_Files(console, messagebox)
+    if is_admin(console, messagebox):
         try:
             while True:
                 print("1. Restore Apache file: ")
@@ -23,13 +20,13 @@ def file_recovery_mode_console():
 
                 choise = int(input("Select a menu item (1 - 5): "))
                 if choise == 1:
-                    file_recovery_apache()
+                    recovery_files.file_recovery_apache()
                 elif choise == 2:
-                    file_recovery_apachessl()
+                    recovery_files.file_recovery_apachessl()
                 elif choise == 3:
-                    file_recovery_mysql()
+                    recovery_files.file_recovery_mysql()
                 elif choise == 4:
-                    file_recovery_xampp_control()
+                    recovery_files.file_recovery_xampp_control()
                 elif choise == 5:
                     break
 
@@ -40,8 +37,8 @@ def file_recovery_mode_console():
             )
 
     else:
-        run_as_admin()
+        run_as_admin(console, messagebox)
 
 
 if __name__ == "__main__":
-    file_recovery_mode_console
+    file_recovery_mode_console()

@@ -15,8 +15,8 @@ result_port_apachessl = None
 result_port_mysql = None
 
 
-def edit_xampp_control_button(root, style):
-    if is_admin():
+def edit_xampp_control_button(root, style, console, messagebox):
+    if is_admin(console, messagebox):
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
         window.title("Меню изменения портов в xampp_control.ini")
         window.geometry("500x300")
@@ -100,7 +100,7 @@ def edit_xampp_control_button(root, style):
 
             # Передаем параметры в функцию
             edit_file_xampp_control(
-                result_port_apache, result_port_apachessl, result_port_mysql
+                result_port_apache, result_port_apachessl, result_port_mysql, console, messagebox
             )
 
             window.after(250, window.destroy())
@@ -114,7 +114,7 @@ def edit_xampp_control_button(root, style):
     else:
         # Перезапуск программы в случае если нету прав администратора
         print("Ошибка: Требуются права администратора.")
-        run_as_admin()
+        run_as_admin(console, messagebox)
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'
 

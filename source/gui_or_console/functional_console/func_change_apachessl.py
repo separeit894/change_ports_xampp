@@ -1,11 +1,11 @@
 from ...change_ports import change_port_ssl
 from ...config import Escape_Sequences
-from ...color_output import Colors
+from ...config import Colors
 
 import traceback
 
 
-def apachessl_mode_console():
+def apachessl_mode_console(console, messagebox):
     try:
         while True:
             print("1. Enter a new Apache SSL port: ")
@@ -14,7 +14,7 @@ def apachessl_mode_console():
             choise = int(input("Select a menu item ( 1 - 2 ): "))
             if choise == 1:
                 new_port = str(input("Enter a new port: "))
-                change_port_ssl(new_port)
+                change_port_ssl(new_port, console, messagebox)
                 break
             elif choise == 2:
                 break

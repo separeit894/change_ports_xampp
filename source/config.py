@@ -7,15 +7,10 @@ class Escape_Sequences:
 
 # Кодировка для чтения файлов
 file_encoding = "cp1252"
-version = "V-3.1"
+version = "V-3.2"
 
-
-def defining_value_mode():
-    from .gui_or_console import mode_console_or_gui
-
-    console, messagebox = mode_console_or_gui()
-    return console, messagebox
-
-
-if __name__ == "__main__":
-    defining_value_mode()
+# Цвета для вывода в консоль ( Ошибки и прочее )
+class Colors:
+    RESET = "\033[0m"
+    RED = "\033[31m"
+    GREEN = "\033[32m"

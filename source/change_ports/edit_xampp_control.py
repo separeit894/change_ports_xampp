@@ -4,16 +4,13 @@ import sys
 import os
 import re
 
-from ..shutting_down_processes import xampp_control_process_off
+from ..shutting_down_processes import Process
 from ..config import Escape_Sequences
 from ..config import file_encoding
-from ..color_output import Colors
-from ..config import defining_value_mode
-
-console, messagebox = None, None
+from ..config import Colors
 
 
-def is_admin():
+def is_admin(console, messagebox):
     # Функция, которая проверяет запущена программа с правами администратора или нет
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -21,10 +18,9 @@ def is_admin():
         return False
 
 
-def run_as_admin():
+def run_as_admin(console, messagebox):
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
 
-    console, messagebox = defining_value_mode()
 
     if console:
         print(f"{os.path.abspath(sys.argv[0])} --console")
@@ -43,10 +39,9 @@ def run_as_admin():
     sys.exit(0)
 
 
-def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
-    console, messagebox = defining_value_mode()
+def edit_file_xampp_control(apache_port, apachessl_port, mysql_port, console, messagebox):
     try:
-        xampp_control_process_off()
+        Process().xampp_control_process_off()
 
         count = 0
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
@@ -145,7 +140,6 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
 
 
 if __name__ == "__main__":
-    defining_variables()
     if ctypes.windll.shell32.IsUserAnAdmin():
         edit_file_xampp_control()
     else:

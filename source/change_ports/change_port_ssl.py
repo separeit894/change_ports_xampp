@@ -2,19 +2,15 @@ import os
 import traceback
 
 
-from ..shutting_down_processes import apachessl_process_off
+from ..shutting_down_processes import Process
 from ..config import Escape_Sequences
-from ..color_output import Colors
+from ..config import Colors
 from ..config import file_encoding
-from ..config import defining_value_mode
-
-console, messagebox = None, None
 
 
-def change_port_ssl(new_port):
-    console, messagebox = defining_value_mode()
+def change_port_ssl(new_port, console, messagebox):
     try:
-        apachessl_process_off()
+        Process().apachessl_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "apache/conf/extra/httpd-ssl.conf"
