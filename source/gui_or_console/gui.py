@@ -18,7 +18,7 @@ from .update_cpx import Update
 from ..config import version
 
 
-class mode_gui:
+class GUI:
     try:
         def __init__(self, console, messagebox):
             self.console = console
@@ -117,4 +117,4 @@ class mode_gui:
 
 
 if __name__ == "__main__":
-    mode_gui().run_app()
+    GUI().run_app()

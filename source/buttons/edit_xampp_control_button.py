@@ -10,13 +10,14 @@ from ..change_ports.edit_xampp_control import (
 )
 
 
-result_port_apache = None
-result_port_apachessl = None
-result_port_mysql = None
+result_port_apache = ""
+result_port_apachessl = ""
+result_port_mysql = ""
 
 
 def edit_xampp_control_button(root, style, console, messagebox):
     if is_admin(console, messagebox):
+        from .button_apache import result_port_apache
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
         window.title("Меню изменения портов в xampp_control.ini")
         window.geometry("500x300")
@@ -37,7 +38,7 @@ def edit_xampp_control_button(root, style, console, messagebox):
         enter_pole_apache.pack(side=tk.LEFT)
 
         # Значение, которое пользователь ввел ранее
-        enter_pole_apache.insert(0, str(result_port_apache))
+        enter_pole_apache.insert(0, result_port_apache)
 
         # ApacheSSL
         Frame_ApacheSSL = ttk.Frame(window)
@@ -55,7 +56,7 @@ def edit_xampp_control_button(root, style, console, messagebox):
         # Размещается по центру
         enter_pole_apachessl.pack(side=tk.LEFT)
 
-        enter_pole_apachessl.insert(0, str(result_port_apachessl))
+        enter_pole_apachessl.insert(0, result_port_apachessl)
 
         # MySQL
         Frame_MySQL = ttk.Frame(window)

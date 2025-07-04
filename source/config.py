@@ -7,7 +7,7 @@ class Escape_Sequences:
 
 # Кодировка для чтения файлов
 file_encoding = "cp1252"
-version = "V-3.2"
+version = "V-3.3"
 
 # Цвета для вывода в консоль ( Ошибки и прочее )
 class Colors:

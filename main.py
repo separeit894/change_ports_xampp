@@ -1,5 +1,5 @@
-from source import mode_gui
-from source import Console
+from source import GUI
+from source import CLI
 
 import sys
 import importlib
@@ -11,9 +11,9 @@ class App:
         self.messagebox = messagebox
         
         if console:
-            Console(self.console, self.messagebox).mode_console()
+            CLI(self.console, self.messagebox).run_app()
         else:
-            mode_gui(self.console, self.messagebox).run_app()
+            GUI(self.console, self.messagebox).run_app()
         
     def print_console_and_messagebox(self):
         print(f"Console: {self.console}\nMessagebox: {self.messagebox}\n")

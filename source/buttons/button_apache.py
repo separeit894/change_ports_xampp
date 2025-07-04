@@ -4,8 +4,10 @@ from tkinter import ttk
 
 from ..change_ports import change_port_apache
 
+result_port_apache = ""
 
 def apache_button(root, style, console, messagebox):
+    
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
     window.title("Меню изменения порта Apache")
     window.geometry("500x250")
@@ -14,9 +16,11 @@ def apache_button(root, style, console, messagebox):
     enter_pole = ttk.Entry(window, width=20, font=("Arial", 16))
     # Размещается по центру
     enter_pole.pack(anchor=CENTER, pady=30)
-
+    enter_pole.insert(0, result_port_apache)
+    
     # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
     def on_submit():
+        global result_port_apache
         result_port_apache = str(enter_pole.get())
         # Выводит значение, которое пользователь ввел, после того как кликнул по кнопке "Применить"
         print("Вы ввели:", enter_pole.get())

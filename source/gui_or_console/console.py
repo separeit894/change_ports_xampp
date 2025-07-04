@@ -8,7 +8,7 @@ from .update_cpx import Update
 import sys
 import ctypes
 
-class Console:
+class CLI:
     def __init__(self, console, messagebox):
         self.console = console
         self.messagebox = messagebox
@@ -56,7 +56,9 @@ class Console:
             print(
                 f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.double_new_line}"
             )
-
+    
+    def run_app(self):
+        self.mode_console()
 
 if __name__ == "__main__":
-    Console().mode_console()
+    CLI().run_app()

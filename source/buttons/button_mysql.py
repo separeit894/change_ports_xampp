@@ -4,6 +4,7 @@ from tkinter import ttk
 
 from ..change_ports.change_ports_mysql_and_phpmyadmin import change_port_mysql
 
+result_port_mysql = ""
 
 def mysql_button(root, style, console, messagebox):
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
@@ -14,11 +15,14 @@ def mysql_button(root, style, console, messagebox):
     enter_pole = ttk.Entry(window, width=20, font=("Arial", 16))
     # Размещается по центру
     enter_pole.pack(anchor=CENTER, pady=30)
+    enter_pole.insert(0, result_port_mysql)
 
     # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
     def on_submit():
+        global result_port_mysql
         result_port_mysql = str(enter_pole.get())
         print("Вы ввели:", enter_pole.get())
+        
         if not result_port_mysql == "":
             # Передаем значение нового порта в функцию
             change_port_mysql(result_port_mysql, console, messagebox)

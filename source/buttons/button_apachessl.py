@@ -4,6 +4,7 @@ from tkinter import ttk
 
 from ..change_ports.change_port_ssl import change_port_ssl
 
+result_port_apachessl = ""
 
 def apachessl_button(root, style, console, messagebox):
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
@@ -15,9 +16,12 @@ def apachessl_button(root, style, console, messagebox):
 
     # Размещается по центру
     enter_pole.pack(anchor=CENTER, pady=30)
-
+    enter_pole.insert(0, result_port_apachessl)
+    
+    
     # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
     def on_submit():
+        global result_port_apachessl
         result_port_apachessl = str(enter_pole.get())
 
         # Выводит значение, которое пользователь ввел, после того как кликнул по кнопке "Применить"
