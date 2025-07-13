@@ -19,7 +19,6 @@ class Process:
 
 
     def apachessl_process_off(self):
-        # Если служба запущена, то мы её отключаем
 
         subprocess.run(
             ["taskkill", "/F", "/IM", process_name_httpd],
@@ -30,7 +29,6 @@ class Process:
 
 
     def mysql_process_off(self):
-        # Если служба запущена, то мы её отключаем
 
         subprocess.run(
             ["taskkill", "/F", "/IM", process_name_mysqld],
@@ -41,7 +39,6 @@ class Process:
 
 
     def xampp_control_process_off(self):
-        # Если служба запущена, то мы её отключаем
 
         subprocess.run(
             ["taskkill", "/F", "/IM", process_name_xampp_control],

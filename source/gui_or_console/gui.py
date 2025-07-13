@@ -1,10 +1,11 @@
 from tkinter import CENTER, W
-
 from tkinter import Tk
 from tkinter import ttk
 
 import tkinter as tk
 import traceback
+
+from .update_cpx import Update
 
 from ..buttons import (
     apache_button,
@@ -13,8 +14,6 @@ from ..buttons import (
     edit_xampp_control_button,
     bfiles_recovery,
 )
-
-from .update_cpx import Update
 from ..config import version
 
 

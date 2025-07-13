@@ -1,10 +1,10 @@
 from .functional_console import *
-import traceback
+from .update_cpx import Update
 
 from ..config import Colors
 from ..config import Escape_Sequences
 
-from .update_cpx import Update
+import traceback
 import sys
 import ctypes
 

@@ -4,10 +4,11 @@ class Escape_Sequences:
     double_new_line = "\n\n"
     tab = "\t"
 
-
 # Кодировка для чтения файлов
 file_encoding = "cp1252"
-version = "V-3.3"
+
+# Версия скрипта
+version = "V-3.4"
 
 # Цвета для вывода в консоль ( Ошибки и прочее )
 class Colors:

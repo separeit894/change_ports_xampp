@@ -14,10 +14,11 @@ result_port_apache = ""
 result_port_apachessl = ""
 result_port_mysql = ""
 
+check_completed_variables = False
 
 def edit_xampp_control_button(root, style, console, messagebox):
     if is_admin(console, messagebox):
-        from .button_apache import result_port_apache
+                
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
         window.title("Меню изменения портов в xampp_control.ini")
         window.geometry("500x300")
@@ -77,28 +78,21 @@ def edit_xampp_control_button(root, style, console, messagebox):
         def on_submit():
             global result_port_apache, result_port_mysql, result_port_apachessl
             # Если переменная пуста, то значение берется из того что пользователь ввел
-            if result_port_mysql is None:
-                result_port_mysql = str(enter_pole_mysql.get())
-            else:
-                # Если пользователь заменит число, то оно введется в переменную
-                result_port_mysql = str(enter_pole_mysql.get())
-
-            print(result_port_mysql)
-
-            if result_port_apache is None:
-                result_port_apache = str(enter_pole_apache.get())
-            else:
-                result_port_apache = str(enter_pole_apache.get())
-
-            print(result_port_apache)
-
-            if result_port_apachessl is None:
-                result_port_apachessl = str(enter_pole_apachessl.get())
-            else:
-                result_port_apachessl = str(enter_pole_apachessl.get())
-
-            print(result_port_apachessl)
-
+            
+            
+            def get_value_port(enter_pole, result_port):
+                if result_port == "":
+                    result_port = str(enter_pole.get())
+                else:
+                    result_port = str(enter_pole.get())
+                
+                return result_port
+            
+            result_port_apache = get_value_port(enter_pole_apache, result_port_apache)
+            result_port_apachessl = get_value_port(enter_pole_apachessl, result_port_apachessl)
+            result_port_mysql = get_value_port(enter_pole_mysql, result_port_mysql)
+                    
+        
             # Передаем параметры в функцию
             edit_file_xampp_control(
                 result_port_apache, result_port_apachessl, result_port_mysql, console, messagebox
