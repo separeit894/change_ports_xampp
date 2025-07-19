@@ -3,9 +3,11 @@ from tkinter import Tk
 from tkinter import ttk
 
 import tkinter as tk
-import traceback
 
-from .update_cpx import Update
+import traceback
+import webbrowser
+
+
 
 from ..buttons import (
     apache_button,
@@ -101,12 +103,29 @@ class GUI:
             )
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
             self.button_file_recovery.pack(anchor=CENTER, fill=tk.X, padx=100)
-
-            # Запускается цикл
-            update = Update(console, messagebox)
-            if update.checking_for_update():
-                update.update_gui(self.root, self.style)
             
+            self.created_by = ttk.Label(self.root, text="Created by separeit894", font=("Arial", 10))
+            self.created_by.pack(anchor="n")
+            
+            link_github_text = "GitHub"
+            self.link_github = ttk.Label(self.root, text=link_github_text, foreground="blue", cursor="hand2", font=("Arial", 10))
+            self.link_github.pack(anchor="n")
+            self.link_github.bind("<Button-1>", lambda e: self.open_links("https://github.com/separeit894"))
+            
+            main_page_text = "Main Page CPX GitHub"
+            self.main_page_cpx = ttk.Label(self.root, text=main_page_text, foreground="blue", cursor="hand2", font=("Arial", 10))
+            self.main_page_cpx.pack(anchor="n")
+            self.main_page_cpx.bind("<Button-1>", lambda e: self.open_links("https://github.com/separeit894/change_ports_xampp"))
+            
+            link_releases_text = "CPX releases here!"
+            self.link_releases = ttk.Label(self.root, text=link_releases_text, foreground="blue", cursor="hand2", font=("Arial", 10))
+            self.link_releases.pack(anchor="n")
+            self.link_releases.bind("<Button-1>", lambda e: self.open_links("https://github.com/separeit894/change_ports_xampp/releases"))
+            
+        
+        def open_links(self, url):
+            webbrowser.open(url)
+        
         def run_app(self):
             self.root.mainloop()
 

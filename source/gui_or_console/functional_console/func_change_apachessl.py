@@ -8,15 +8,19 @@ import traceback
 def apachessl_mode_console(console, messagebox):
     try:
         while True:
-            print("1. Enter a new Apache SSL port: ")
-            print("2. Go back to the main menu")
+            list_text_apachessl = [
+                "Enter a new Apache SSL port:",
+                "Go back to the main menu"
+            ]
+            for i, line in enumerate(list_text_apachessl):
+                print(f"{i}. {line}")
 
-            choise = int(input("Select a menu item ( 1 - 2 ): "))
-            if choise == 1:
+            choise = int(input("Select a menu item ( 0 - 1 ): "))
+            if choise == 0:
                 new_port = str(input("Enter a new port: "))
                 change_port_ssl(new_port, console, messagebox)
                 break
-            elif choise == 2:
+            elif choise == 1:
                 break
 
     except BaseException as e:

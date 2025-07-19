@@ -38,7 +38,6 @@ def run_as_admin(console, messagebox):
         )
     sys.exit(0)
 
-
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port, console, messagebox):
     try:
         Process().xampp_control_process_off()
@@ -74,36 +73,25 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port, console, me
 
             if not in_section:
                 continue
+            
+            def set_value_port(word: str, port: str):
+                nonlocal count, line
+                # Если переменная не имеет значения None, то переходит к внутреннему условию
+                if not port == "None" and port != "":
+                # Находим строго слово word
+                    if re.search(fr"\b{word}\b", line):
+                        # Дальше уже изменяем порт
+                        result = line.split("=")
+                        result[1] = f"={port}"
+                        line = "".join(result)
+                        lines[i] = f"{line}\n"
+                        print(f"Нашёл {word} на строке {i}: {lines[i]}")
+                        count += 1
+                        
+            set_value_port("Apache", apache_port)
+            set_value_port("ApacheSSL", apachessl_port)
+            set_value_port("MySQL", mysql_port)
 
-            # Если переменная не имеет значения None, то переходит к внутреннему условию
-            if not apache_port == "None" and apache_port != "":
-                # Находим строго слово "Apache" и так далее
-                if re.search(r"\bApache\b", line):
-                    result = line.split("=")
-                    result[1] = f"={apache_port}"
-                    line = "".join(result)
-                    lines[i] = f"{line}\n"
-                    print(f"Нашёл Apache на строке {i}: {lines[i]}")
-                    count += 1
-
-            if not apachessl_port == "None" and apachessl_port != "":
-                if re.search(r"\bApacheSSL\b", line):
-                    result = line.split("=")
-                    result[1] = f"={apachessl_port}"
-                    line = "".join(result)
-                    lines[i] = f"{line}\n"
-                    print(f"Нашёл ApacheSSL на строке {i}: {lines[i]}")
-                    count += 1
-
-            if not mysql_port == "None" and mysql_port != "":
-                if re.search(r"\bMySQL\b", line):
-                    result = line.split("=")
-                    result[1] = f"={mysql_port}"
-                    line = "".join(result)
-                    lines[i] = f"{line}\n"
-                    print(f"Нашёл MySQL на строке {i}: {lines[i]}")
-
-                    count += 1
 
         # Записываем изменения в файл
         if count > 0:

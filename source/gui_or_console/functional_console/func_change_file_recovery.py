@@ -12,22 +12,26 @@ def file_recovery_mode_console(console, messagebox):
     if is_admin(console, messagebox):
         try:
             while True:
-                print("1. Restore Apache file: ")
-                print("2. Restore ApacheSSL file: ")
-                print("3. Restore MySQL files: ")
-                print("4. Restore xampp-control.ini file ")
-                print("5. Return to the main menu")
+                list_text_file_recovery = [
+                    "Restore Apache file:",
+                    "Restore ApacheSSL file:",
+                    "Restore MySQL files:",
+                    "Restore xampp-control.ini file",
+                    "Return to the main menu"
+                ]
+                for i, line in enumerate(list_text_file_recovery):
+                    print(f"{i}. {line}")
 
-                choise = int(input("Select a menu item (1 - 5): "))
-                if choise == 1:
+                choise = int(input("Select a menu item (0 - 4): "))
+                if choise == 0:
                     recovery_files.file_recovery_apache()
-                elif choise == 2:
+                elif choise == 1:
                     recovery_files.file_recovery_apachessl()
-                elif choise == 3:
+                elif choise == 2:
                     recovery_files.file_recovery_mysql()
-                elif choise == 4:
+                elif choise == 3:
                     recovery_files.file_recovery_xampp_control()
-                elif choise == 5:
+                elif choise == 4:
                     break
 
         except BaseException as e:

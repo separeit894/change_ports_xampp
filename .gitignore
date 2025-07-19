@@ -9,3 +9,4 @@ src/__pycache__
 __*__
 command.txt
 clean_venv
+requirements.txt
