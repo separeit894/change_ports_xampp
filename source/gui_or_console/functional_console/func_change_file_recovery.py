@@ -7,9 +7,9 @@ from ...config import Escape_Sequences
 from ...config import Colors
 
 
-def file_recovery_mode_console(console, messagebox):
-    recovery_files = Recovery_Files(console, messagebox)
-    if is_admin(console, messagebox):
+def file_recovery_mode_console():
+    recovery_files = Recovery_Files()
+    if is_admin():
         try:
             while True:
                 list_text_file_recovery = [
@@ -41,7 +41,7 @@ def file_recovery_mode_console(console, messagebox):
             )
 
     else:
-        run_as_admin(console, messagebox)
+        run_as_admin()
 
 
 if __name__ == "__main__":

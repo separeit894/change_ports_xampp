@@ -5,7 +5,7 @@ from ...config import Colors
 import traceback
 
 
-def apachessl_mode_console(console, messagebox):
+def apachessl_mode_console():
     try:
         while True:
             list_text_apachessl = [
@@ -18,7 +18,7 @@ def apachessl_mode_console(console, messagebox):
             choise = int(input("Select a menu item ( 0 - 1 ): "))
             if choise == 0:
                 new_port = str(input("Enter a new port: "))
-                change_port_ssl(new_port, console, messagebox)
+                change_port_ssl(new_port)
                 break
             elif choise == 1:
                 break

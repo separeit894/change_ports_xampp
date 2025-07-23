@@ -9,18 +9,7 @@ import ctypes
 import webbrowser
 
 class CLI:
-    def __init__(self, console, messagebox):
-        self.console = console
-        self.messagebox = messagebox
-        
-    def create_console(self):
-        ctypes.windll.kernel32.AllocConsole()
-        sys.stdout = open("CONOUT$", "w")  
-        sys.stderr = open("CONOUT$", "w")
-        sys.stdin = open("CONIN$", "r")
-
     def mode_console(self):
-        self.create_console()
         try:
             while True:
                 list_text_main_menu = [
@@ -55,15 +44,15 @@ class CLI:
                     url = "https://github.com/separeit894/change_ports_xampp/releases"
                     webbrowser.open(url)
                 elif choise == 4:
-                    apache_mode_console(self.console, self.messagebox)
+                    apache_mode_console()
                 elif choise == 5:
-                    apachessl_mode_console(self.console, self.messagebox)
+                    apachessl_mode_console()
                 elif choise == 6:
-                    mysql_mode_console(self.console, self.messagebox)
+                    mysql_mode_console()
                 elif choise == 7:
-                    xampp_control_mode_console(self.console, self.messagebox)
+                    xampp_control_mode_console()
                 elif choise == 8:
-                    file_recovery_mode_console(self.console, self.messagebox)
+                    file_recovery_mode_console()
                 else:
                     print(
                         f"{Escape_Sequences.new_line}{Colors.RED}You have selected an incorrect number!{Colors.RESET}{Escape_Sequences.new_line}"

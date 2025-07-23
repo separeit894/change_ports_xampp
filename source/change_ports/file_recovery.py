@@ -10,9 +10,6 @@ from ..config import file_encoding
 
 class Recovery_Files:
     try:
-        def __init__(self, console, messagebox):
-            self.console = console
-            self.messagebox = messagebox
             
         def file_recovery_apache(self):
             # Функция берет резервный файл, и записывает его данные в основной
@@ -27,22 +24,18 @@ class Recovery_Files:
                 with open(file_path, "w", encoding=file_encoding) as file:
                     file.writelines(src)
 
-                if self.console:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}File Apache overwritten{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    self.messagebox.showinfo(
-                        "Успешное восстановление файла", "Файл Apache восстановлен!"
-                    )
+                
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.GREEN}File Apache overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                )
+                
 
             except BaseException as e:
-                if self.console:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    self.messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
+                
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
+                )
+                
 
 
         def file_recovery_apachessl(self):
@@ -57,21 +50,17 @@ class Recovery_Files:
                 with open(file_path, "w", encoding=file_encoding) as file:
                     file.writelines(src)
 
-                if self.console:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}File ApacheSSL overwritten{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    self.messagebox.showinfo(
-                        "Успешное восстановление файла", "Файл ApacheSSL восстановлен!"
-                    )
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.GREEN}File ApacheSSL overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                )
+                
+                    
             except BaseException as e:
-                if self.console:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    self.messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
+                
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
+                )
+                
 
 
         def file_recovery_mysql(self):
@@ -96,22 +85,18 @@ class Recovery_Files:
                 with open(file_path_php, "w", encoding=file_encoding) as file:
                     file.writelines(src_config)
 
-                if self.console:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}Files MySQL overwrittens{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    self.messagebox.showinfo(
-                        "Успешное восстановление файлов", "Файлы MySQL восстановлены!"
-                    )
+                
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.GREEN}Files MySQL overwrittens{Colors.RESET}{Escape_Sequences.new_line}"
+                )
+        
 
             except BaseException as e:
-                if self.console:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    self.messagebox.showerror("Обнаружена ошибка", traceback.format_exc())
+                
+                print(
+                    f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{traceback.format_exc()}{Colors.RESET}{Escape_Sequences.new_line}"
+                )
+                
 
 
         def file_recovery_xampp_control(self):
@@ -127,23 +112,19 @@ class Recovery_Files:
                     with open(file_path, "w", encoding=file_encoding) as file:
                         file.writelines(src)
 
-                    if self.console:
-                        print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}File xampp-control overwritten{Colors.RESET}{Escape_Sequences.new_line}"
-                        )
-                    else:
-                        self.messagebox.showinfo(
-                            "Успешное восстановление файла", "Файл xampp-control восстановлен!"
-                        )
+                    
+                    print(
+                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}File xampp-control overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                    )
+                    
 
                 except BaseException as e:
                     tb = traceback.format_exc()
-                    if self.console:
-                        print(
-                            f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
-                        )
-                    else:
-                        self.messagebox.showerror("Обнаружена ошибка", tb)
+                    
+                    print(
+                        f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+                    )
+                    
             else:
                 print("Error: Administrator privileges are required.")
                 run_as_admin()

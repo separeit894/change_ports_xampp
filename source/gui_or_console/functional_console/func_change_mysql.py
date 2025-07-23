@@ -4,7 +4,7 @@ from ...config import Escape_Sequences
 from ...config import Colors
 
 
-def mysql_mode_console(console, messagebox):
+def mysql_mode_console():
     from ...change_ports import change_port_mysql
 
     try:
@@ -20,7 +20,7 @@ def mysql_mode_console(console, messagebox):
             choise = int(input("Select a menu item ( 0 - 1 ): "))
             if choise == 0:
                 new_port = str(input("Enter new port: "))
-                change_port_mysql(new_port, console, messagebox)
+                change_port_mysql(new_port)
                 break
             elif choise == 1:
                 break
