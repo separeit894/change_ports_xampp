@@ -21,9 +21,8 @@ from ..config import version
 
 class GUI:
     try:
-        def __init__(self, console, messagebox):
-            self.console = console
-            self.messagebox = messagebox
+        def __init__(self):
+            
             self.root = Tk()
             self.root.title("Change Ports Xampp")
             # Создаю окно на 600x400
@@ -55,7 +54,7 @@ class GUI:
             self.button_apache = ttk.Button(
                 self.root,
                 text="Apache",
-                command=lambda: apache_button(self.root, self.style, self.console, self.messagebox),
+                command=lambda: apache_button(self.root, self.style),
                 style="Big.TButton",
             )
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
@@ -66,7 +65,7 @@ class GUI:
             self.button_apachessl = ttk.Button(
                 self.root,
                 text="ApacheSSL",
-                command=lambda: apachessl_button(self.root, self.style, self.console, self.messagebox),
+                command=lambda: apachessl_button(self.root, self.style),
                 style="Big.TButton",
             )
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
@@ -76,7 +75,7 @@ class GUI:
             self.button_mysql = ttk.Button(
                 self.root,
                 text="MySQL",
-                command=lambda: mysql_button(self.root, self.style, self.console, self.messagebox),
+                command=lambda: mysql_button(self.root, self.style),
                 style="Big.TButton",
             )
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
@@ -87,7 +86,7 @@ class GUI:
             self.button_xampp_control = ttk.Button(
                 self.root,
                 text="\tEdit xampp control.ini\nТребуются права администратора!",
-                command=lambda: edit_xampp_control_button(self.root, self.style, self.console, self.messagebox),
+                command=lambda: edit_xampp_control_button(self.root, self.style),
                 style="Big.TButton",
             )
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
@@ -98,7 +97,7 @@ class GUI:
             self.button_file_recovery = ttk.Button(
                 self.root,
                 text="Восстановление файлов",
-                command=lambda: bfiles_recovery(self.root, self.style, self.console, self.messagebox),
+                command=lambda: bfiles_recovery(self.root, self.style),
                 style="Big.TButton",
             )
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине

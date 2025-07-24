@@ -6,7 +6,7 @@ from ..change_ports.change_ports_mysql_and_phpmyadmin import change_port_mysql
 
 result_port_mysql = ""
 
-def mysql_button(root, style, console, messagebox):
+def mysql_button(root, style):
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
     window.title("Меню изменения порта MySQL")
     window.geometry("500x250")
@@ -25,7 +25,7 @@ def mysql_button(root, style, console, messagebox):
         
         if not result_port_mysql == "":
             # Передаем значение нового порта в функцию
-            change_port_mysql(result_port_mysql, console, messagebox)
+            change_port_mysql(result_port_mysql)
             window.after(250, window.destroy())
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'

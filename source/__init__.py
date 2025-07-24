@@ -22,7 +22,7 @@ from .buttons import bfiles_recovery
 
 from .change_ports import Recovery_Files
 
-from .gui_or_console import CLI
+
 from .gui_or_console import GUI
 
 

@@ -6,8 +6,9 @@ from ..config import Escape_Sequences
 from ..config import file_encoding
 from ..config import Colors
 
+from tkinter import messagebox
 
-def change_port_apache(new_port, console, messagebox):
+def change_port_apache(new_port):
     try:
         Process().apache_process_off()
 
@@ -71,24 +72,14 @@ def change_port_apache(new_port, console, messagebox):
         # Сохраняем уже измененный файл
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
-
-        if console:
-            print(
-                f"{Escape_Sequences.double_new_line}{Colors.GREEN}Apache port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
-            )
-        else:
-            messagebox.showinfo("Информация", "Порт изменен успешно!")
+        
+        messagebox.showinfo("Информация", "Порт изменен успешно!")
 
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Переход в исключения")
         tb = traceback.format_exc()
-        if console:
-            print(
-                f"{Escape_Sequences.double_new_line}{Colors.RED}Обнаружена ошибка!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
-            )
-        else:
-            messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+        messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 
 
 if __name__ == "__main__":

@@ -5,11 +5,11 @@ import tkinter as tk
 from ..change_ports.file_recovery import Recovery_Files
 
 
-def bfiles_recovery(root, style, console, messagebox):
+def bfiles_recovery(root, style):
     window = Toplevel(root)
     window.title("Меню восстановление файлов")
     window.geometry("500x300")
-    recovery_files = Recovery_Files(console, messagebox)
+    recovery_files = Recovery_Files()
     # Восстановления файла Apache
     spaces_for_apache = "           "
     button_apache = ttk.Button(

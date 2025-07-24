@@ -6,7 +6,7 @@ from ..change_ports import change_port_apache
 
 result_port_apache = ""
 
-def apache_button(root, style, console, messagebox):
+def apache_button(root, style):
     
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
     window.title("Меню изменения порта Apache")
@@ -25,7 +25,7 @@ def apache_button(root, style, console, messagebox):
         # Выводит значение, которое пользователь ввел, после того как кликнул по кнопке "Применить"
         print("Вы ввели:", enter_pole.get())
         if not result_port_apache == "":
-            change_port_apache(result_port_apache, console, messagebox)
+            change_port_apache(result_port_apache)
             window.after(250, window.destroy())
 
     # Кнопка submit_button, прикрепляется к окну window Используется стиль 'Small.TButton'

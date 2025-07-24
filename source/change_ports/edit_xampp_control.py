@@ -9,8 +9,9 @@ from ..config import Escape_Sequences
 from ..config import file_encoding
 from ..config import Colors
 
+from tkinter import messagebox
 
-def is_admin(console, messagebox):
+def is_admin():
     # Функция, которая проверяет запущена программа с правами администратора или нет
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -18,27 +19,14 @@ def is_admin(console, messagebox):
         return False
 
 
-def run_as_admin(console, messagebox):
+def run_as_admin():
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
-
-
-    if console:
-        print(f"{os.path.abspath(sys.argv[0])} --console")
-        ctypes.windll.shell32.ShellExecuteW(
-            None,
-            "runas",
-            sys.executable,
-            f"{os.path.abspath(sys.argv[0])} --console",
-            None,
-            1,
-        )
-    else:
-        ctypes.windll.shell32.ShellExecuteW(
+    ctypes.windll.shell32.ShellExecuteW(
             None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1
         )
     sys.exit(0)
 
-def edit_file_xampp_control(apache_port, apachessl_port, mysql_port, console, messagebox):
+def edit_file_xampp_control(apache_port, apachessl_port, mysql_port):
     try:
         Process().xampp_control_process_off()
 
@@ -98,33 +86,17 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port, console, me
             with open(file_path, "w", encoding=file_encoding) as file:
                 file.writelines(lines)
 
-            if console:
-                if count > 1:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}Ports changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-                else:
-                    print(
-                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
-                    )
-
+            if count > 1:
+                messagebox.showinfo("Информация", "Порты изменены успешно!")
             else:
-                if count > 1:
-                    messagebox.showinfo("Информация", "Порты изменены успешно!")
-                else:
-                    messagebox.showinfo("Информация", "Порт изменен успешно!")
+                messagebox.showinfo("Информация", "Порт изменен успешно!")
 
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Entering exceptions")
         tb = traceback.format_exc()
 
-        if console:
-            print(
-                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
-            )
-        else:
-            messagebox.showerror("Обнаружена ошибка", f"{tb}")
+        messagebox.showerror("Обнаружена ошибка", f"{tb}")
 
 
 if __name__ == "__main__":

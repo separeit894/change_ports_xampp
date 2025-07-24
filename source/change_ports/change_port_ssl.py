@@ -7,8 +7,10 @@ from ..config import Escape_Sequences
 from ..config import Colors
 from ..config import file_encoding
 
+from tkinter import messagebox
 
-def change_port_ssl(new_port, console, messagebox):
+
+def change_port_ssl(new_port):
     try:
         Process().apachessl_process_off()
 
@@ -82,24 +84,14 @@ def change_port_ssl(new_port, console, messagebox):
         # Сохраняем изменный файл
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
-
-        if console:
-            print(
-                f"{Escape_Sequences.double_new_line}{Colors.GREEN}ApacheSSL port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
-            )
-        else:
-            messagebox.showinfo("Информация", "Порт изменен успешно!")
+        
+        messagebox.showinfo("Информация", "Порт изменен успешно!")
 
     except BaseException as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Entering exceptions")
         tb = traceback.format_exc()
-        if console:
-            print(
-                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
-            )
-        else:
-            messagebox.showerror("Обнаружена ошибка!", f"{tb}")
+        messagebox.showerror("Обнаружена ошибка!", f"{tb}")
 
 
 if __name__ == "__main__":

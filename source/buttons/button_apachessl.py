@@ -6,7 +6,7 @@ from ..change_ports.change_port_ssl import change_port_ssl
 
 result_port_apachessl = ""
 
-def apachessl_button(root, style, console, messagebox):
+def apachessl_button(root, style):
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
     window.title("Меню изменения порта ApacheSSL")
     window.geometry("500x250")
@@ -29,7 +29,7 @@ def apachessl_button(root, style, console, messagebox):
 
         if not result_port_apachessl == "":
             # Передаем значение нового порта в функцию
-            change_port_ssl(result_port_apachessl, console, messagebox)
+            change_port_ssl(result_port_apachessl)
             window.after(250, window.destroy())
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit Имеет стиль 'Small.TButton

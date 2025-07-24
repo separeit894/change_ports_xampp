@@ -8,7 +8,7 @@ class Escape_Sequences:
 file_encoding = "cp1252"
 
 # Версия скрипта
-version = "V-3.5"
+version = "V-3.6-GUI"
 
 # Цвета для вывода в консоль ( Ошибки и прочее )
 class Colors:
