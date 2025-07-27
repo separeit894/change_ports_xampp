@@ -16,12 +16,6 @@ git clone https://github.com/separeit894/change_ports_xampp
 
 Перед тем как запускаете скрипт, не забудьте переместить содержимое в корневую директорию xampp
 
-Устанавливаем нужные библиотеки
-
-```bash
-pip install -r requirements.txt
-```
-
 Запускаем скрипт
 
 ```bash
