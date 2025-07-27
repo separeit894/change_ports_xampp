@@ -9,7 +9,7 @@
 Сначала клонируйте репозиторий
 
 ```bash
-git clone https://github.com/separeit894/change_ports_xampp
+git clone --branch console https://github.com/separeit894/change_ports_xampp
 ```
 
 ### Затем, после того как клонировали репозиторий, вам нужно перейти в него
