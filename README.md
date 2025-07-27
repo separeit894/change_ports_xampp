@@ -1,4 +1,4 @@
-# Change Ports Xampp
+# Change Ports Xampp CLI
 
 ![Recomended Python versions](https://img.shields.io/badge/python-3.7+-blue.svg)
 
