@@ -9,6 +9,7 @@ from .edit_xampp_control import is_admin
 from .edit_xampp_control import run_as_admin
 
 from .file_recovery import Recovery_Files
+from .process_off import Process
 
 __all__ = [
     "change_port_apache",
@@ -18,5 +19,6 @@ __all__ = [
     "is_admin",
     "run_as_admin",
     "ctypes",
-    "Recovery_Files"
+    "Recovery_Files",
+    "Process"
 ]

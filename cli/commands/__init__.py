@@ -1,0 +1,5 @@
+from .func_change_apache import apache_mode_console
+from .func_change_apachessl import apachessl_mode_console
+from .func_change_mysql import mysql_mode_console
+from .func_change_xampp_control import xampp_control_mode_console
+from .func_change_file_recovery import file_recovery_mode_console
