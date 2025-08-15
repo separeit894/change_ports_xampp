@@ -1,19 +1,4 @@
-<<<<<<< Updated upstream
-from source import GUI
 
-
-import sys
-import importlib
-
-
-# Класс отвечает за работу приложения
-class App:    
-    GUI().run_app()
-
-
-if __name__ == "__main__":
-    app = App()
-=======
 from cli import CLI
 from gui import GUI
 
@@ -45,4 +30,5 @@ def main():
 
 if __name__ == "__main__":
     main()
->>>>>>> Stashed changes
+
+
