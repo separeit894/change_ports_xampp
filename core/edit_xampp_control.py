@@ -21,23 +21,13 @@ def is_admin():
 
 def run_as_admin():
     # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
-
-    parser = argparse.ArgumentParser(
-        description="Change Ports XAMPP — меняет порты Apache, MySQL и др."
-    )
-    
-    # Добавляем опцию --console
-    parser.add_argument(
-        '--console',
-        action='store_true',
-        help='Запустить в консольном режиме (CLI)'
-    )
-
-    # Парсим аргументы
-    args = parser.parse_args()
-
-    if args.console:
-        print(f"{os.path.abspath(sys.argv[0])} --console")
+    console = False
+    if len(sys.argv) > 1:
+        if "--console" == sys.argv[1]:
+            console = True
+            
+    if console:
+        
         ctypes.windll.shell32.ShellExecuteW(
             None,
             "runas",

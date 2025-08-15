@@ -6,6 +6,24 @@ import tkinter as tk
 from core import Recovery_Files
 
 
+def on_apache_click():
+    if Recovery_Files().file_recovery_apache:
+        messagebox.showinfo("Успех", "Файл Apache уже восстановлен!")
+    
+def on_apachessl_click():
+    if Recovery_Files().file_recovery_apachessl:
+        messagebox.showinfo("Успех", "Файл ApacheSSL уже восстановлен!")
+
+def on_mysql_click():
+    if Recovery_Files().file_recovery_mysql:
+        messagebox.showinfo("Успех", "Файл MySQL уже восстановлен!")
+        
+
+def on_xampp_control_click():
+    if Recovery_Files().file_recovery_xampp_control:
+        messagebox.showinfo("Успех", "Файл xampp control уже восстановлен!")
+        
+
 def bfiles_recovery(root, style):
     window = Toplevel(root)
     window.title("Меню восстановление файлов")
@@ -14,28 +32,24 @@ def bfiles_recovery(root, style):
     # Восстановления файла Apache
     spaces_for_apache = "           "
     
-    result_f_f_r_ap = recovery_files.file_recovery_apache
+    
     button_apache = ttk.Button(
         window,
         text=f"Восстановить файл\n{spaces_for_apache}Apache",
-        command=result_f_f_r_ap,
+        command=on_apache_click,
         style="Big.TButton",
     )
     
-    if result_f_f_r_ap:
-        messagebox.showinfo(
-            "Успешное восстановление файла", "Файл Apache восстановлен!"
-        )
+    
 
     button_apache.pack(anchor="center", fill=tk.X, padx=150)
 
     # Восстановление файла ApacheSSL
-    result_r_f_f_r_a = recovery_files.file_recovery_apachessl
     spaces_for_apachessl = "        "
     button_apachessl = ttk.Button(
         window,
         text=f"Восстановить файл\n{spaces_for_apachessl}ApacheSSL",
-        command=result_r_f_f_r_a,
+        command=on_apachessl_click,
         style="Big.TButton",
     )
     
@@ -43,12 +57,11 @@ def bfiles_recovery(root, style):
     button_apachessl.pack(anchor="center", fill=tk.X, padx=150)
 
     # Восстановление файлов MySQL
-    result_r_f_f_r_m = recovery_files.file_recovery_mysql
     spaces_for_mysql = "           "
     button_mysql = ttk.Button(
         window,
         text=f"Восстановить файл\n{spaces_for_mysql}MySQL",
-        command=result_r_f_f_r_m,
+        command=on_mysql_click,
         style="Big.TButton",
     )
     
@@ -57,12 +70,12 @@ def bfiles_recovery(root, style):
 
     button_mysql.pack(anchor="center", fill=tk.X, padx=150)
 
-    result_r_f_f_r_x = recovery_files.file_recovery_xampp_control
+    
     # Восстановление файла xampp-control.ini
     button_xampp_control = ttk.Button(
         window,
         text="Восстановить файл\n    xampp-control.ini",
-        command=result_r_f_f_r_x,
+        command=on_xampp_control_click,
         style="Big.TButton",
     )
     
