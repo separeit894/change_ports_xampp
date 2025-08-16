@@ -87,7 +87,7 @@ def change_port_ssl(new_port) -> bool:
         return True
 
 
-    except BaseException as e:
+    except Exception as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Entering exceptions")
         tb = traceback.format_exc()

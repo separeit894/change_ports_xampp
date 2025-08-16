@@ -25,7 +25,7 @@ class Recovery_Files:
                     
                 return True
 
-            except BaseException as e:
+            except Exception as e:
                 tb = traceback.format_exc()
                 print(tb)
                 return False
@@ -45,7 +45,7 @@ class Recovery_Files:
 
                 return True
                 
-            except BaseException as e:
+            except Exception as e:
                 tb = traceback.format_exc()
                 print(tb)
                 return False
@@ -75,7 +75,7 @@ class Recovery_Files:
 
                 return True
 
-            except BaseException as e:
+            except Exception as e:
                 tb = traceback.format_exc()
                 print(tb)
                 return False
@@ -96,7 +96,7 @@ class Recovery_Files:
 
                     return True
 
-                except BaseException as e:
+                except Exception as e:
                     tb = traceback.format_exc()
                     print(tb)
                     return False
@@ -105,7 +105,7 @@ class Recovery_Files:
                 print("Error: Administrator privileges are required.")
                 run_as_admin()
                 
-    except BaseException:
+    except Exception:
         tb = traceback.format_exc()
         print(tb)
 

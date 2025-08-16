@@ -9,38 +9,9 @@ import argparse
 from config import Escape_Sequences
 from config import file_encoding
 from config import Colors
+from .administrator_rights import run_as_admin
+from .administrator_rights import is_admin
 
-
-def is_admin():
-    # Функция, которая проверяет запущена программа с правами администратора или нет
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
-
-
-def run_as_admin():
-    # Функция перезапускает скрипт в случае если скрипт до этого был запущен без прав администратора
-    console = False
-    if len(sys.argv) > 1:
-        if "--console" == sys.argv[1]:
-            console = True
-            
-    if console:
-        
-        ctypes.windll.shell32.ShellExecuteW(
-            None,
-            "runas",
-            sys.executable,
-            f"{os.path.abspath(sys.argv[0])} --console",
-            None,
-            1,
-        )
-    else:
-        ctypes.windll.shell32.ShellExecuteW(
-            None, "runas", sys.executable, os.path.abspath(sys.argv[0]), None, 1
-        )
-    sys.exit(0)
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
     try:
@@ -103,7 +74,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
         return True
     
 
-    except BaseException as e:
+    except Exception as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Entering exceptions")
         tb = traceback.format_exc()
@@ -111,7 +82,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
         return False
 
 if __name__ == "__main__":
-    if ctypes.windll.shell32.IsUserAnAdmin():
+    if is_admin:
         edit_file_xampp_control()
     else:
         print("Error: Administrator privileges are required.")

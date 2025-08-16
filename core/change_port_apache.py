@@ -9,7 +9,7 @@ from config import Colors
 
 def change_port_apache(new_port) -> bool:
     try:
-        from core import Process
+        from .process_off import Process
         Process().apache_process_off()
 
         # Cначала считываю файл, чтобы сделать backup
@@ -76,9 +76,9 @@ def change_port_apache(new_port) -> bool:
         return True
         
 
-    except BaseException as e:
+    except Exception as ex:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Переход в исключения")
+        
         tb = traceback.format_exc()
         print(tb)
         return False

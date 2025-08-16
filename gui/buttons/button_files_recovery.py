@@ -7,20 +7,24 @@ from core import Recovery_Files
 
 
 def on_apache_click():
-    if Recovery_Files().file_recovery_apache:
+    result = Recovery_Files().file_recovery_apache()
+    if result:
         messagebox.showinfo("Успех", "Файл Apache уже восстановлен!")
     
 def on_apachessl_click():
-    if Recovery_Files().file_recovery_apachessl:
+    result = Recovery_Files().file_recovery_apachessl()
+    if result:
         messagebox.showinfo("Успех", "Файл ApacheSSL уже восстановлен!")
 
 def on_mysql_click():
-    if Recovery_Files().file_recovery_mysql:
+    result = Recovery_Files().file_recovery_mysql()
+    if result:
         messagebox.showinfo("Успех", "Файл MySQL уже восстановлен!")
         
 
 def on_xampp_control_click():
-    if Recovery_Files().file_recovery_xampp_control:
+    result = Recovery_Files().file_recovery_xampp_control()
+    if result:
         messagebox.showinfo("Успех", "Файл xampp control уже восстановлен!")
         
 

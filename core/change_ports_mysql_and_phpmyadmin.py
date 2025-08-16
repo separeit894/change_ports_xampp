@@ -81,7 +81,7 @@ def change_port_mysql(new_port) -> bool:
 
         
 
-    except BaseException as e:
+    except Exception as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
         print("Entering exceptions")
         tb = traceback.format_exc()

@@ -125,7 +125,7 @@ class GUI:
         def run_app(self):
             self.root.mainloop()
 
-    except BaseException as e:
+    except Exception as ex:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
 

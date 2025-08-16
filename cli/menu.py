@@ -9,14 +9,7 @@ import ctypes
 import webbrowser
 
 class CLI:
-    def create_console(self):
-        ctypes.windll.kernel32.AllocConsole()
-        sys.stdout = open("CONOUT$", "w", buffering=1)  
-        sys.stderr = open("CONOUT$", "w", buffering=1)
-        sys.stdin = open("CONIN$", "r")
-
     def mode_console(self):
-        self.create_console()
         try:
             while True:
                 list_text_main_menu = [
@@ -65,7 +58,7 @@ class CLI:
                         f"{Escape_Sequences.new_line}{Colors.RED}You have selected an incorrect number!{Colors.RESET}{Escape_Sequences.new_line}"
                     )
 
-        except BaseException as e:
+        except Exception as ex:
             tb = traceback.format_exc()
             print(
                 f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.double_new_line}"
@@ -73,6 +66,7 @@ class CLI:
     
     def run_app(self):
         self.mode_console()
+        input("\nНажмите Enter, чтобы выйти...") 
 
 if __name__ == "__main__":
     CLI().run_app()
