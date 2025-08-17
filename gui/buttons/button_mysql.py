@@ -9,7 +9,7 @@ result_port_mysql = ""
 
 def mysql_button(root, style):
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
-    window.title("Меню изменения порта MySQL")
+    window.title("MySQL Port Change Menu")
     window.geometry("500x250")
 
     # Поле ввода, прикрепляется к окну window, будет иметь шрифт Arial 16 пунктов
@@ -22,19 +22,19 @@ def mysql_button(root, style):
     def on_submit():
         global result_port_mysql
         result_port_mysql = str(enter_pole.get())
-        print("Вы ввели:", enter_pole.get())
+        print("You have entered:", enter_pole.get())
         
         if not result_port_mysql == "":
             # Передаем значение нового порта в функцию
             result = change_port_mysql(result_port_mysql)
             if result:
-                messagebox.showinfo("Информация", "Порт изменен успешно!")
+                messagebox.showinfo("Information", "The port has been changed successfully!")
             window.after(250, window.destroy())
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'
 
     submit_button = ttk.Button(
-        window, text="Применить", command=on_submit, style="Small.TButton"
+        window, text="Apply", command=on_submit, style="Small.TButton"
     )
 
     submit_button.pack()

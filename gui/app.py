@@ -37,12 +37,12 @@ class GUI:
 
             # Обозначение версии приложения
             self.version_int = version.split("-")[1]
-            self.text_version = ttk.Label(self.root, text=f"Версия: {self.version_int}", font=("Arial", 8))
+            self.text_version = ttk.Label(self.root, text=f"Version: {self.version_int}", font=("Arial", 8))
 
             self.text_version.pack(anchor=W)
 
             # Текст 'Главное меню', который будет использовать шрифт Arial 12 пунктов
-            self.main_label = ttk.Label(self.root, text="Главное меню", font=("Arial", 12))
+            self.main_label = ttk.Label(self.root, text="Main Menu", font=("Arial", 12))
             # Размещает этот текст по центру
             self.main_label.pack(anchor=CENTER, padx=10, pady=30)
 
@@ -82,7 +82,7 @@ class GUI:
 
             self.button_xampp_control = ttk.Button(
                 self.root,
-                text="\tEdit xampp control.ini\nТребуются права администратора!",
+                text="\tEdit xampp control.ini\nAdministrator rights are required!",
                 command=lambda: edit_xampp_control_button(self.root, self.style),
                 style="Big.TButton",
             )
@@ -93,7 +93,7 @@ class GUI:
 
             self.button_file_recovery = ttk.Button(
                 self.root,
-                text="Восстановление файлов",
+                text="File Recovery",
                 command=lambda: bfiles_recovery(self.root, self.style),
                 style="Big.TButton",
             )

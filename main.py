@@ -33,11 +33,11 @@ def main():
     try:
         
         ensure_stdio()
-        #print("="*50)
-        #print("DEBUG: sys.argv =", sys.argv)
-        #print("DEBUG: len(sys.argv) =", len(sys.argv))
-        #print("="*50)
-        #input("Нажмите Enter...")  # чтобы окно не закрылось
+        # print("="*50)
+        # print("DEBUG: sys.argv =", sys.argv)
+        # print("DEBUG: len(sys.argv) =", len(sys.argv))
+        # print("="*50)
+        # input("Нажмите Enter...")  # чтобы окно не закрылось
         parser = argparse.ArgumentParser(
             description="Change Ports XAMPP — меняет порты Apache, MySQL и др."
         )
@@ -48,7 +48,7 @@ def main():
             action='store_true',
             help='Запустить в консольном режиме (CLI)'
         )
-        #print("sys.argv =", sys.argv)
+        print("sys.argv =", sys.argv)
         filtered_args = [arg for arg in sys.argv[1:] if arg != sys.argv[0]]
         # Парсим аргументы
         args = parser.parse_args(filtered_args)
@@ -59,8 +59,8 @@ def main():
             CLI().run_app()
             
         else:
-            
             GUI().run_app()
+            
     except Exception as ex:
         print(ex)
 

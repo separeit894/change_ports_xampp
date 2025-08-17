@@ -46,7 +46,7 @@ def xampp_control_mode_console():
                 elif choise == 3:
                     break
 
-        except BaseException as e:
+        except Exception as e:
             tb = traceback.format_exc()
             print(
                 f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"

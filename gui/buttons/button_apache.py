@@ -10,7 +10,7 @@ result_port_apache = ""
 def apache_button(root, style):
     
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
-    window.title("Меню изменения порта Apache")
+    window.title("Port Change Menu Apache")
     window.geometry("500x250")
 
     # Поле ввода, прикрепляется к окну window, будет иметь шрифт Arial 16 пунктов
@@ -24,16 +24,16 @@ def apache_button(root, style):
         global result_port_apache
         result_port_apache = str(enter_pole.get())
         # Выводит значение, которое пользователь ввел, после того как кликнул по кнопке "Применить"
-        print("Вы ввели:", enter_pole.get())
+        print("You have entered:", enter_pole.get())
         if not result_port_apache == "":
             result = change_port_apache(result_port_apache)
             if result:
-                messagebox.showinfo("Информация", "Порт изменен успешно!")
+                messagebox.showinfo("Information", "The port has been changed successfully!")
             window.after(250, window.destroy())
 
     # Кнопка submit_button, прикрепляется к окну window Используется стиль 'Small.TButton'
     submit_button = ttk.Button(
-        window, text="Применить", command=on_submit, style="Small.TButton"
+        window, text="Apply", command=on_submit, style="Small.TButton"
     )
     submit_button.pack()
 

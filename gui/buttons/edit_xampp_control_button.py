@@ -20,7 +20,7 @@ def edit_xampp_control_button(root, style):
     if is_admin():
                 
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
-        window.title("Меню изменения портов в xampp_control.ini")
+        window.title("Menu for changing ports in xampp_control.ini")
         window.geometry("500x300")
 
         # Apache
@@ -99,19 +99,19 @@ def edit_xampp_control_button(root, style):
             )
             
             if result:
-                messagebox.showinfo("Информация", "Порты изменены успешно!")
+                messagebox.showinfo("Information", "Ports changed successfully!")
 
             window.after(250, window.destroy())
 
         submit_button = ttk.Button(
-            window, text="Применить", command=on_submit, style="Small.TButton"
+            window, text="Apply", command=on_submit, style="Small.TButton"
         )
 
         submit_button.pack()
 
     else:
         # Перезапуск программы в случае если нету прав администратора
-        print("Ошибка: Требуются права администратора.")
+        print("Error: Administrator rights are required.")
         run_as_admin()
 
     # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit. Имеет стиль 'Small.TButton'

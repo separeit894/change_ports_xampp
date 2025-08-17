@@ -66,7 +66,7 @@ class CLI:
     
     def run_app(self):
         self.mode_console()
-        input("\nНажмите Enter, чтобы выйти...") 
+        
 
 if __name__ == "__main__":
     CLI().run_app()
