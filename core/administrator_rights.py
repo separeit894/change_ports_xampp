@@ -2,19 +2,23 @@ import ctypes
 import os
 import sys
 
+
+
 def is_admin():
     # Функция, которая проверяет запущена программа с правами администратора или нет
+    from config import rights_administrator
     try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
+        return bool(rights_administrator)
     except:
         return False
 
 
 def run_as_admin():
     """Перезапускает скрипт с правами администратора."""
+    
     executable = sys.executable
-    #print("executable: ", executable)
-    script = os.path.abspath(sys.argv[0])
+    # print("executable: ", executable)
+    
     
     # Формируем строку аргументов: только флаги, без мусора
     args = []
@@ -22,25 +26,29 @@ def run_as_admin():
     # Сохраняем только настоящие флаги (начинающиеся с --)
     #print("sys.argv[1: ] : ", sys.argv[1:])
     for arg in sys.argv[1:]:
-        
-        if arg.startswith('--') or arg.startswith('-'):
+        if arg.startswith('--') == True or arg.startswith('-') == True:
             args.append(arg)
     
     # Собираем команду: python путь_к_скрипту [аргументы]
-    cmd = f'"{script}" '
+    
+    cmd = ""
     if args:
-        cmd += " ".join(args)
+        for i in args:
+            cmd += i+" "
     
     #print("cmd: ", cmd)
     # Запускаем от имени администратора
+
+   
     ret = ctypes.windll.shell32.ShellExecuteW(
         None,           # hwnd
         "runas",        # действие: запуск от админа
         executable,     # программа (python.exe)
-        cmd,            # команда (с аргументами)
+        os.path.abspath(0) + "\main.py " + cmd if sys.argv[0].endswith(".py") else cmd,  # команда (с аргументами)
         None,           # рабочая папка
         1               # показать окно
     )
+    
     
     # Если ошибка — например, отменили UAC
     if ret <= 32:
