@@ -1,11 +1,15 @@
 from cli import CLI
 from gui import GUI
-
+from datetime import datetime
 import os
 import sys
 import ctypes
 import argparse
+import logging
 
+logging.basicConfig(level=logging.DEBUG, filename="CPX.log")
+
+now = datetime.now()
 
 
 executable = "CPX.exe" if sys.argv[0].endswith(".exe") or sys.argv[0].lower().endswith("x")  else "python main.py"
@@ -54,6 +58,7 @@ def main():
             epilog=epilog
         )
         
+        logging.info(parser.format_help())
         # Добавляем опцию --console
         parser.add_argument(
             '--console',
@@ -77,16 +82,20 @@ def main():
         )
         
         #print("sys.argv =", sys.argv)
-        # filtered_args = [arg for arg in sys.argv[1:] if arg != sys.argv[0]]
+        
         # Парсим аргументы
+        
         args = parser.parse_args()
         if args.version:
             from config import version
             print(f"Change Ports Xampp {version}")
+            
+            logging.info(f"{now.strftime('%Y-%m-%d-%H-%M-%S')} : --version : {version}")
             sys.exit(0)
             
         if args.no_admin:
             import config
+            logging.info(f"{now.strftime('%Y-%m-%d-%H-%M-%S')} : --no_admin : disabling restart with administrator rights")
             config.rights_administrator = True
 
             
@@ -95,15 +104,18 @@ def main():
         # Решаем, что запускать
         if args.console:
             create_console()
+            logging.info("CLI run")
             CLI().run_app()
             #input("Нажмите Enter: ")
             
         else:
+            logging.info("GUI run")
             GUI().run_app()
             #input("Нажмите Enter: ")
-            
+           
     except Exception as ex:
         print(ex)
+        logging.info(f"{now.strftime('%Y-%m-%d-%H-%M-%S')} : Exception : main.py : \n{ex}")
         # input("Нажмите Enter: ")
 
 
@@ -111,9 +123,11 @@ if __name__ == "__main__":
     try:
         main()
         # input("Нажмите Enter: ")
+        logging.info(f"{now.strftime('%Y-%m-%d-%H-%M-%S')} : Close program")
         
     except Exception as e:
         import traceback
         print(f"🚨 Критическая ошибка:\n{traceback.format_exc()}")
-        input("Нажмите Enter: ")
+        logging.info(f"{now.strftime('%Y-%m-%d-%H-%M-%S')} : Close Program with error\n{traceback.format_exc()}")
+        # input("Нажмите Enter: ")
         

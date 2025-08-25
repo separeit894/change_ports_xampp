@@ -11,3 +11,4 @@ command.txt
 clean_venv
 requirements.txt
 Makefile
+CPX.log
