@@ -131,4 +131,3 @@ if __name__ == "__main__":
         logging.info(f"{now.strftime('%Y-%m-%d-%H-%M-%S')} : Close Program with error\n{traceback.format_exc()}")
         # input("Нажмите Enter: ")
         
-        
