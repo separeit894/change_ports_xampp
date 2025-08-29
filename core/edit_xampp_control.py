@@ -1,10 +1,7 @@
-import ctypes
 import traceback
-import sys
 import os
 import re
-
-import argparse
+import logging
 
 from config import Escape_Sequences
 from config import file_encoding
@@ -12,11 +9,15 @@ from config import Colors
 from .administrator_rights import run_as_admin
 from .administrator_rights import is_admin
 
+from datetime import datetime
+
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
+
 
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
     try:
         from core import Process
-        Process().xampp_control_process_off()
+        Process.xampp_control_process_off()
 
         count = 0
         file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
@@ -34,6 +35,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
         if not os.path.exists(backup_path):
             with open(backup_path, "w", encoding=file_encoding) as file:
                 file.writelines(lines)
+                logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)}")
 
         in_section = False
 
@@ -50,7 +52,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
             if not in_section:
                 continue
             
-            def set_value_port(word: str, port: str):
+            def set_value_port(word: str, port: str) -> None:
                 nonlocal count, line
                 # Если переменная не имеет значения None, то переходит к внутреннему условию
                 if not port == "None" and port != "":
@@ -71,18 +73,21 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
 
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(lines)
+        
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : The port(s) change in xampp-control.ini was successful")
         return True
     
 
     except Exception as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Entering exceptions")
         tb = traceback.format_exc()
-        print(tb)
+        print(f"Error \n{tb}")
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error\n{tb}")
         return False
 
+
 if __name__ == "__main__":
-    if is_admin:
+    if is_admin():
         edit_file_xampp_control()
     else:
         print("Error: Administrator privileges are required.")

@@ -1,16 +1,20 @@
 import os
 import traceback
-
+import logging
 
 from config import Escape_Sequences
 from config import file_encoding
 from config import Colors
 
+from datetime import datetime
+
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 def change_port_apache(new_port) -> bool:
     try:
         from .process_off import Process
-        Process().apache_process_off()
+        Process.apache_process_off()
+        
 
         # Cначала считываю файл, чтобы сделать backup
         file_path = "apache/conf/httpd.conf"
@@ -29,6 +33,9 @@ def change_port_apache(new_port) -> bool:
         if not os.path.exists(backup_path):
             with open(backup_path, "w", encoding=file_encoding) as file:
                 file.writelines(src)
+                logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Creating an http.conf backup")
+        
+        
 
         # Создаем переменную в которую будем вводить порт
         index_port_listen = None
@@ -73,6 +80,7 @@ def change_port_apache(new_port) -> bool:
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
         
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} :  Apache port change was successful")
         return True
         
 
@@ -81,6 +89,7 @@ def change_port_apache(new_port) -> bool:
         
         tb = traceback.format_exc()
         print(tb)
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error\n{tb}")
         return False
 
 

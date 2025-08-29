@@ -16,7 +16,7 @@ result_port_mysql = ""
 
 check_completed_variables = False
 
-def edit_xampp_control_button(root, style):
+def edit_xampp_control_button(root, style) -> None:
     if is_admin():
                 
         window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон

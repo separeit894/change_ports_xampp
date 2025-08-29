@@ -1,16 +1,20 @@
 import os
 import traceback
+import logging
 
+from datetime import datetime
 
 from config import Colors
 from config import Escape_Sequences
 from config import file_encoding
 
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
+
 
 def change_port_mysql(new_port) -> bool:
     try:
         from core import Process
-        Process().mysql_process_off()
+        Process.mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "mysql/bin/my.ini"
@@ -27,6 +31,7 @@ def change_port_mysql(new_port) -> bool:
         if not os.path.exists(backup_path_ini):
             with open(backup_path_ini, "w", encoding=file_encoding) as file:
                 file.writelines(src)
+                logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Creating a backup of my.ini MySQL file")
 
         # Цикл считывает каждую строку файла
         for i, line in enumerate(src):
@@ -51,6 +56,7 @@ def change_port_mysql(new_port) -> bool:
         if not os.path.exists(backup_path_php):
             with open(backup_path_php, "w", encoding=file_encoding) as file:
                 file.writelines(src)
+                logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Creating a backup config.ini.php the phpMyAdmin file")
 
         # Новая переменная, которая будет в себе содержать измененное содержимое строки с портом
         index_cfg_server = None
@@ -76,19 +82,16 @@ def change_port_mysql(new_port) -> bool:
         # Сохраняем результат
         with open(file_path_php, "w", encoding=file_encoding) as file:
             file.writelines(src)
-            
-        return True
-
         
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : MySQL port change was successful")
+        return True
 
     except Exception as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Entering exceptions")
         tb = traceback.format_exc()
         print(tb)
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error\n{tb}")
         return False
-
-
 
 
 if __name__ == "__main__":

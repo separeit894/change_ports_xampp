@@ -66,7 +66,7 @@ python main.py -h
 python main.py --version
 ```
 ```bash
-python main -v
+python main.py -v
 ```
 
 ### **--console** 

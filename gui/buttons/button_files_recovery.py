@@ -6,33 +6,32 @@ import tkinter as tk
 from core import Recovery_Files
 
 
-def on_apache_click():
-    result = Recovery_Files().file_recovery_apache()
+def on_apache_click() -> None:
+    result = Recovery_Files.file_recovery_apache()
     if result:
         messagebox.showinfo("Success", "The Apache file has already been restored!")
     
-def on_apachessl_click():
-    result = Recovery_Files().file_recovery_apachessl()
+def on_apachessl_click() -> None:
+    result = Recovery_Files.file_recovery_apachessl()
     if result:
         messagebox.showinfo("Success", "File ApacheSSL has already been restored!")
 
-def on_mysql_click():
-    result = Recovery_Files().file_recovery_mysql()
+def on_mysql_click() -> None:
+    result = Recovery_Files.file_recovery_mysql()
     if result:
         messagebox.showinfo("Success", "The MySQL file has already been restored!")
         
 
-def on_xampp_control_click():
-    result = Recovery_Files().file_recovery_xampp_control()
+def on_xampp_control_click() -> None:
+    result = Recovery_Files.file_recovery_xampp_control()
     if result:
         messagebox.showinfo("Success", "File xampp control has already been restored!")
         
 
-def bfiles_recovery(root, style):
+def bfiles_recovery(root, style) -> None:
     window = Toplevel(root)
     window.title("File Recovery Menu")
     window.geometry("500x300")
-    recovery_files = Recovery_Files()
     # Восстановления файла Apache
     spaces_for_apache = "           "
     
@@ -43,7 +42,6 @@ def bfiles_recovery(root, style):
         command=on_apache_click,
         style="Big.TButton",
     )
-    
     
 
     button_apache.pack(anchor="center", fill=tk.X, padx=150)
@@ -69,8 +67,6 @@ def bfiles_recovery(root, style):
         style="Big.TButton",
     )
     
-    
-    
 
     button_mysql.pack(anchor="center", fill=tk.X, padx=150)
 
@@ -86,11 +82,11 @@ def bfiles_recovery(root, style):
 
     button_xampp_control.pack(anchor="center", fill=tk.X, padx=150)
 
-    def close_window():
+    def close_window() -> None:
         print("Closing the window")
         window.destroy()
 
-    def reset_timer():
+    def reset_timer() -> None:
         print("Resetting the timer")
         global timer
         window.after_cancel(timer)

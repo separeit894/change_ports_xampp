@@ -1,4 +1,5 @@
 import ctypes
+
 # для вывода в консоль
 class Escape_Sequences:
     new_line = "\n"
@@ -15,9 +16,11 @@ class Colors:
 file_encoding = "cp1252"
 
 # Версия скрипта
-version = "V-4.2"
+version = "V-4.3"
 
 # Rights Administrator
 rights_administrator = ctypes.windll.shell32.IsUserAnAdmin()
+
+
 
 

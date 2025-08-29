@@ -4,10 +4,15 @@ from tkinter import ttk
 from tkinter import messagebox
 
 from core import change_port_mysql
+from datetime import datetime
+import os
+import logging
+
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 result_port_mysql = ""
 
-def mysql_button(root, style):
+def mysql_button(root, style) -> None:
     window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
     window.title("MySQL Port Change Menu")
     window.geometry("500x250")
@@ -23,7 +28,7 @@ def mysql_button(root, style):
         global result_port_mysql
         result_port_mysql = str(enter_pole.get())
         print("You have entered:", enter_pole.get())
-        
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : Port MySQL that user entered : {result_port_mysql}")
         if not result_port_mysql == "":
             # Передаем значение нового порта в функцию
             result = change_port_mysql(result_port_mysql)

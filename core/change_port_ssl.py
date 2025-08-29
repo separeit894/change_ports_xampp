@@ -1,22 +1,27 @@
 import os
 import traceback
-
-
+import logging
 
 from config import Escape_Sequences
 from config import Colors
 from config import file_encoding
 
+from datetime import datetime
+
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
+
 
 def change_port_ssl(new_port) -> bool:
     try:
         from core import Process
-        Process().apachessl_process_off()
+        Process.apachessl_process_off()
+        
 
         # Сначала открываю файл, чтобы сделать его backup
         file_path = "apache/conf/extra/httpd-ssl.conf"
         with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
+            
 
         # Если нету папки backup, то он её создает
         backup = "backup"
@@ -28,6 +33,7 @@ def change_port_ssl(new_port) -> bool:
         if not os.path.exists(backup_path):
             with open(backup_path, "w", encoding=file_encoding) as file:
                 file.writelines(src)
+                logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Creating a backup of the http-ssl.conf file")
 
         # Создаем переменную, в которой позже будем хранить значения нового порта
         index_listen = None
@@ -83,15 +89,17 @@ def change_port_ssl(new_port) -> bool:
         # Сохраняем изменный файл
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
-            
+        
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Successful modification of the ApacheSSL port")
         return True
 
 
     except Exception as e:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        print("Entering exceptions")
+        
         tb = traceback.format_exc()
         print(tb)
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error\n{tb}")
         return False
 
 

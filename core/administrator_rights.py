@@ -1,10 +1,13 @@
 import ctypes
 import os
 import sys
+import logging
 
+from datetime import datetime
 
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
-def is_admin():
+def is_admin() -> bool:
     # Функция, которая проверяет запущена программа с правами администратора или нет
     from config import rights_administrator
     try:
@@ -13,7 +16,7 @@ def is_admin():
         return False
 
 
-def run_as_admin():
+def run_as_admin() -> None:
     """Перезапускает скрипт с правами администратора."""
     
     executable = sys.executable
@@ -53,8 +56,10 @@ def run_as_admin():
     # Если ошибка — например, отменили UAC
     if ret <= 32:
         print("❌ Не удалось запустить от имени администратора")
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : ❌ Не удалось запустить от имени администратора : ret = {ret} ")
         sys.exit(1)
-    
+        
+    logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Restarting with adaministrator rights")
     sys.exit(0)
     
 if __name__ == "__main__":
