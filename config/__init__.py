@@ -16,7 +16,7 @@ class Colors:
 file_encoding = "cp1252"
 
 # Версия скрипта
-version = "V-4.3"
+version = "V-4.4"
 
 # Rights Administrator
 rights_administrator = ctypes.windll.shell32.IsUserAnAdmin()

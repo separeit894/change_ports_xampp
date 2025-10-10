@@ -4,6 +4,13 @@ from tkinter import ttk
 import tkinter as tk
 
 from core import Recovery_Files
+from datetime import datetime
+
+import os
+import logging
+import traceback
+
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 
 def on_apache_click() -> None:
@@ -29,72 +36,78 @@ def on_xampp_control_click() -> None:
         
 
 def bfiles_recovery(root, style) -> None:
-    window = Toplevel(root)
-    window.title("File Recovery Menu")
-    window.geometry("500x300")
-    # Восстановления файла Apache
-    spaces_for_apache = "           "
-    
-    
-    button_apache = ttk.Button(
-        window,
-        text=f"Restore the file\n{spaces_for_apache}Apache",
-        command=on_apache_click,
-        style="Big.TButton",
-    )
-    
+    try:
+        window = Toplevel(root)
+        window.title("File Recovery Menu")
+        window.geometry("500x300")
+        # Восстановления файла Apache
+        spaces_for_apache = "           "
+        
+        
+        button_apache = ttk.Button(
+            window,
+            text=f"Restore the file\n{spaces_for_apache}Apache",
+            command=on_apache_click,
+            style="Big.TButton",
+        )
+        
 
-    button_apache.pack(anchor="center", fill=tk.X, padx=150)
+        button_apache.pack(anchor="center", fill=tk.X, padx=150)
 
-    # Восстановление файла ApacheSSL
-    spaces_for_apachessl = "        "
-    button_apachessl = ttk.Button(
-        window,
-        text=f"Restore the file\n{spaces_for_apachessl}ApacheSSL",
-        command=on_apachessl_click,
-        style="Big.TButton",
-    )
-    
+        # Восстановление файла ApacheSSL
+        spaces_for_apachessl = "        "
+        button_apachessl = ttk.Button(
+            window,
+            text=f"Restore the file\n{spaces_for_apachessl}ApacheSSL",
+            command=on_apachessl_click,
+            style="Big.TButton",
+        )
+        
 
-    button_apachessl.pack(anchor="center", fill=tk.X, padx=150)
+        button_apachessl.pack(anchor="center", fill=tk.X, padx=150)
 
-    # Восстановление файлов MySQL
-    spaces_for_mysql = "           "
-    button_mysql = ttk.Button(
-        window,
-        text=f"Restore the file\n{spaces_for_mysql}MySQL",
-        command=on_mysql_click,
-        style="Big.TButton",
-    )
-    
+        # Восстановление файлов MySQL
+        spaces_for_mysql = "           "
+        button_mysql = ttk.Button(
+            window,
+            text=f"Restore the file\n{spaces_for_mysql}MySQL",
+            command=on_mysql_click,
+            style="Big.TButton",
+        )
+        
 
-    button_mysql.pack(anchor="center", fill=tk.X, padx=150)
+        button_mysql.pack(anchor="center", fill=tk.X, padx=150)
 
-    
-    # Восстановление файла xampp-control.ini
-    button_xampp_control = ttk.Button(
-        window,
-        text="Restore the file\n    xampp-control.ini",
-        command=on_xampp_control_click,
-        style="Big.TButton",
-    )
-    
+        
+        # Восстановление файла xampp-control.ini
+        button_xampp_control = ttk.Button(
+            window,
+            text="Restore the file\n    xampp-control.ini",
+            command=on_xampp_control_click,
+            style="Big.TButton",
+        )
+        
 
-    button_xampp_control.pack(anchor="center", fill=tk.X, padx=150)
+        button_xampp_control.pack(anchor="center", fill=tk.X, padx=150)
 
-    def close_window() -> None:
-        print("Closing the window")
-        window.destroy()
+        def close_window() -> None:
+            print("Closing the window")
+            window.destroy()
 
-    def reset_timer() -> None:
-        print("Resetting the timer")
-        global timer
-        window.after_cancel(timer)
+        def reset_timer() -> None:
+            print("Resetting the timer")
+            global timer
+            window.after_cancel(timer)
+            timer = window.after(10000, close_window)
+
+        window.bind("<Any-Button>", reset_timer)
+
         timer = window.after(10000, close_window)
-
-    window.bind("<Any-Button>", reset_timer)
-
-    timer = window.after(10000, close_window)
+    
+    except Exception as e:
+        tb = traceback.format_exc()
+        print(f"An error has been detected!\n{tb}")
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")
 
 
 if __name__ == "__main__":

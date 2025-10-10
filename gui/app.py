@@ -5,6 +5,8 @@ import tkinter as tk
 
 import traceback
 import webbrowser
+import logging
+import os
 
 from .buttons import (
     apache_button,
@@ -15,6 +17,9 @@ from .buttons import (
 )
 from config import version
 
+from datetime import datetime
+
+logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 class GUI:
     try:
@@ -128,6 +133,7 @@ class GUI:
     except Exception as ex:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")
 
 
 if __name__ == "__main__":

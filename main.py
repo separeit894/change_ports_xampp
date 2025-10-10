@@ -93,7 +93,6 @@ def main():
         
         
         # Парсим аргументы
-        
         args = parser.parse_args()
         if args.help:
             print(epilog)

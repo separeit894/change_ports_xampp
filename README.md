@@ -1,6 +1,6 @@
 # Change Ports Xampp
 
-![Recomended Python versions](https://img.shields.io/badge/python-3.7+-blue.svg)    ![Tkinter Version](https://img.shields.io/badge/tkinter-v8.6-green.svg)
+![Recomended Python versions](assets/python-3.7+-blue.svg)    ![Tkinter Version](assets/tkinter-v8.6-green.svg)
 
 Скрипт, сделанный для того чтобы легко изменять порты в xampp ( Только Windows )
 
@@ -90,3 +90,4 @@ python main.py --console --no_admin
 ## Ответственность пользователя
 
 Используя этот проект, вы соглашаетесь с тем, что несете полную ответственность за его использование. Разработчик не несет ответственности за любые убытки, повреждения или другие последствия, возникающие в результате использования данного программного обеспечения. Пожалуйста, используйте его на свой страх и риск.
+
