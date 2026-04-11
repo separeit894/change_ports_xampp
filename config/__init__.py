@@ -1,4 +1,12 @@
 import ctypes
+import codecs
+import sys
+import os
+import logging
+
+from datetime import datetime
+
+logging.basicConfig(level=logging.DEBUG, filename="CPX.log")
 
 # для вывода в консоль
 class Escape_Sequences:
@@ -9,18 +17,37 @@ class Escape_Sequences:
 # Цвета для вывода в консоль ( Ошибки и прочее )
 class Colors:
     RESET = "\033[0m"
-    RED = "\033[31m"
-    GREEN = "\033[32m"
+    BOLD = "\033[1m"
 
-# Кодировка для чтения файлов
 file_encoding = "cp1252"
 
+def set_encoding(encoding: str):
+    global file_encoding
+    try:
+        codecs.lookup(encoding)
+        file_encoding = encoding
+        print("Successful encoding change")
+        logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Successful encoding change")
+    except LookupError:
+        print("There is no such encoding")
+        logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : There is no such encoding")
+        sys.exit(1)
+        
+def get_encoding() -> str:
+    return file_encoding
+    
 # Версия скрипта
-version = "V-4.4"
+version = "v-4.4.0"
 
 # Rights Administrator
 rights_administrator = ctypes.windll.shell32.IsUserAnAdmin()
 
+__all__ = [
+    "Escape_Sequences",
+    "Colors",
+    "file_encoding",
+    "rights_administrator"
+]
 
 
 

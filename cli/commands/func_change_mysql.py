@@ -31,7 +31,7 @@ def mysql_mode_console() -> None:
                 result = change_port_mysql(new_port)
                 if result:
                     print(
-                        f"{Escape_Sequences.double_new_line}{Colors.GREEN}MySQL port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+                        f"{Escape_Sequences.double_new_line}{Colors.BOLD}MySQL port changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                     )
                     logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : MySQL ports changed successfully!")
                     
@@ -43,7 +43,7 @@ def mysql_mode_console() -> None:
     except Exception as e:
         tb = traceback.format_exc()
         print(
-            f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+            f"{Escape_Sequences.double_new_line}{Colors.BOLD}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
         )
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : An error has been detected! : \n{tb}")
 

@@ -1,6 +1,7 @@
 from tkinter import CENTER, W
 from tkinter import Tk
 from tkinter import ttk
+
 import tkinter as tk
 
 import traceback
@@ -14,6 +15,7 @@ from .buttons import (
     mysql_button,
     edit_xampp_control_button,
     bfiles_recovery,
+    parametrs_button
 )
 from config import version
 
@@ -24,11 +26,10 @@ logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 class GUI:
     try:
         def __init__(self):
-            
             self.root = Tk()
             self.root.title("Change Ports Xampp")
             # Создаю окно на 600x400
-            self.root.geometry("600x450")
+            self.root.geometry("600x550")
 
             # Создаю новый стиль кнопок для MySQL, ApacheSSL, Apache
             self.style = ttk.Style()
@@ -45,13 +46,13 @@ class GUI:
             self.text_version = ttk.Label(self.root, text=f"Version: {self.version_int}", font=("Arial", 8))
 
             self.text_version.pack(anchor=W)
-
+            
+            self.button_parametrs = ttk.Button(self.root, text="Parametrs", command=lambda: parametrs_button(self.root, self.style))
+            self.button_parametrs.pack(anchor="ne", padx=10, pady=10)
             # Текст 'Главное меню', который будет использовать шрифт Arial 12 пунктов
             self.main_label = ttk.Label(self.root, text="Main Menu", font=("Arial", 12))
             # Размещает этот текст по центру
             self.main_label.pack(anchor=CENTER, padx=10, pady=30)
-
-            # Внизу кнопка 'Apache', прикреплен к главному окну ( root ). Используется стиль Big.TButton ( см. 16 стр )
 
             self.button_apache = ttk.Button(
                 self.root,
@@ -62,7 +63,6 @@ class GUI:
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
             self.button_apache.pack(anchor=CENTER, fill=tk.X, padx=100)
 
-            # Кнопка 'ApacheSSL', прикреплен к главному окну ( root ). Используется стиль Big.TButton ( см. 16 стр )
 
             self.button_apachessl = ttk.Button(
                 self.root,
@@ -73,7 +73,7 @@ class GUI:
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
             self.button_apachessl.pack(anchor=CENTER, fill=tk.X, padx=100)
 
-            # Кнопка 'MySQL', прикреплена к главному окну ( root ). Ссылается на функцию 'mysql_button' (см. код с 116 - 134 стр.). Используется стиль Big.TButton ( см. 16 стр )
+            
             self.button_mysql = ttk.Button(
                 self.root,
                 text="MySQL",
@@ -95,7 +95,6 @@ class GUI:
             self.button_xampp_control.pack(anchor=CENTER, fill=tk.X, padx=100)
 
             # Эта кнопка сделана для того чтобы восстановить файлы, в случае их некорректной работы
-
             self.button_file_recovery = ttk.Button(
                 self.root,
                 text="File Recovery",

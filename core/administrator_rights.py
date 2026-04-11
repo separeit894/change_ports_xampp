@@ -20,34 +20,29 @@ def run_as_admin() -> None:
     """Перезапускает скрипт с правами администратора."""
     
     executable = sys.executable
-    # print("executable: ", executable)
-    
-    
+    print("executable: ", executable)
     # Формируем строку аргументов: только флаги, без мусора
     args = []
     
     # Сохраняем только настоящие флаги (начинающиеся с --)
-    #print("sys.argv[1: ] : ", sys.argv[1:])
+    print(f"sys.argv[1: ] :  {sys.argv[1:]}")
     for arg in sys.argv[1:]:
         if arg.startswith('--') == True or arg.startswith('-') == True:
             args.append(arg)
     
     # Собираем команду: python путь_к_скрипту [аргументы]
-    
     cmd = ""
     if args:
         for i in args:
             cmd += i+" "
     
-    #print("cmd: ", cmd)
+    print("cmd: ", cmd)
     # Запускаем от имени администратора
-
-   
     ret = ctypes.windll.shell32.ShellExecuteW(
         None,           # hwnd
         "runas",        # действие: запуск от админа
         executable,     # программа (python.exe)
-        os.path.abspath(0) + "\main.py " + cmd if sys.argv[0].endswith(".py") else cmd,  # команда (с аргументами)
+        os.path.abspath("") + "\main.py " + cmd if sys.argv[0].endswith(".py") else cmd,  # команда (с аргументами)
         None,           # рабочая папка
         1               # показать окно
     )

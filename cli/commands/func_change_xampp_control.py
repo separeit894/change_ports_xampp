@@ -35,7 +35,7 @@ def xampp_control_mode_console() -> None:
                     result = edit_file_xampp_control(new_port_apache, "None", "None")
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Port(s) changed successfully!")
                 elif choise == 1:
@@ -44,7 +44,7 @@ def xampp_control_mode_console() -> None:
                     result = edit_file_xampp_control("None", new_port_apachessl, "None")
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Port(s) changed successfully!")
                 elif choise == 2:
@@ -53,7 +53,7 @@ def xampp_control_mode_console() -> None:
                     result = edit_file_xampp_control("None", "None", new_port_mysql)
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Port(s) changed successfully!")
                 elif choise == 3:
@@ -63,7 +63,7 @@ def xampp_control_mode_console() -> None:
         except Exception as e:
             tb = traceback.format_exc()
             print(
-                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+                f"{Escape_Sequences.double_new_line}{Colors.BOLD}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
             )
             logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : An error has been detected! : \n{tb}")
     else:

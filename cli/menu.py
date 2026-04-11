@@ -25,7 +25,8 @@ class CLI:
                     "Change port ApacheSSL", 
                     "Change port MySQL", 
                     "Edit xampp control.ini. Administrator rights required!",
-                    "Recover files"
+                    "Recover files",
+                    "Parametrs"
                     ]
                 
                 for i, line in enumerate(list_text_main_menu):
@@ -61,18 +62,27 @@ class CLI:
                     xampp_control_mode_console()
                 elif choise == 8:
                     file_recovery_mode_console()
+                elif choise == 9:
+                    encoding = input("Enter encoding who you was use: ")
+                    from config import set_encoding
+                    set_encoding(encoding)
                 else:
                     print(
                         f"{Escape_Sequences.new_line}{Colors.RED}You have selected an incorrect number!{Colors.RESET}{Escape_Sequences.new_line}"
                     )
                     logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : choise : {choise}")
 
-        except Exception as ex:
+        except KeyboardInterrupt:
+            print("\nClose Program with help ctrl+c")
+            logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Exception KeyboardInterrupt")
+            
+        except Exception:
             tb = traceback.format_exc()
             print(
                 f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.double_new_line}"
             )
             logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Error\n{tb}")
+            
     
     def run_app(self):
         self.mode_console()

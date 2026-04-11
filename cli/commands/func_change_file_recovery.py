@@ -34,28 +34,28 @@ def file_recovery_mode_console() -> None:
                     result = recovery_files.file_recovery_apache()
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}File Apache overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}File Apache overwritten{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : File Apache overwritten")
                 elif choise == 1:
                     result = recovery_files.file_recovery_apachessl()
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}File ApacheSSL overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}File ApacheSSL overwritten{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : File ApacheSSL overwritten")
                 elif choise == 2:
                     result = recovery_files.file_recovery_mysql()
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}Files MySQL overwrittens{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}Files MySQL overwrittens{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Files MySQL overwritten")
                 elif choise == 3:
                     result = recovery_files.file_recovery_xampp_control()
                     if result:
                         print(
-                            f"{Escape_Sequences.double_new_line}{Colors.GREEN}File xampp-control overwritten{Colors.RESET}{Escape_Sequences.new_line}"
+                            f"{Escape_Sequences.double_new_line}{Colors.BOLD}File xampp-control overwritten{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : File xampp-control overwritten")
                 elif choise == 4:
@@ -65,7 +65,7 @@ def file_recovery_mode_console() -> None:
         except Exception as e:
             tb = traceback.format_exc()
             print(
-                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
+                f"{Escape_Sequences.double_new_line}{Colors.BOLD}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"
             )
             logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : An error has been detected! : \n{tb}")
             
