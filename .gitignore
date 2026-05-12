@@ -12,3 +12,4 @@ clean_venv
 requirements.txt
 Makefile
 CPX.log
+.vscode
