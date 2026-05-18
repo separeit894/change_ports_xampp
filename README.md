@@ -1,8 +1,9 @@
 # Change Ports Xampp
 
-![Recomended Python versions](assets/python-3.7+-blue.svg)    ![Tkinter Version](assets/tkinter-v8.6-green.svg) ![License](assets/license.svg)
-
+![Recomended Python versions](assets/python-3.7+-blue.svg)    ![Tkinter Version](assets/tkinter-v8.6-green.svg) ![License](assets/license.svg) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/separeit894/change_ports_xampp/total?label=GitHub%20Downloads&color=%230099ff) ![SourceForge Downloads](https://img.shields.io/sourceforge/dt/change-ports-xampp?label=SourceForge%20Downloads&color=%23ff8400)
+<hr>
 Скрипт, сделанный для того чтобы легко изменять порты в xampp ( Только Windows )
+<hr>
 
 ## Содержание
 
