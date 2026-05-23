@@ -44,7 +44,7 @@ def apache_button(root, style) -> None:
             window, text="Apply", command=on_submit, style="Small.TButton"
         )
         submit_button.pack()
-    except Exception as e:
+    except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")

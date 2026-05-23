@@ -8,7 +8,6 @@ import traceback
 import logging
 import os
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 
 def apachessl_mode_console() -> None:

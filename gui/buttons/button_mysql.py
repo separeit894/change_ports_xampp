@@ -10,7 +10,6 @@ import os
 import logging
 import traceback
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 result_port_mysql = ""
 

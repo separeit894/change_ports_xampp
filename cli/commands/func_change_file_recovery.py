@@ -10,7 +10,6 @@ from config import Colors
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 
 def file_recovery_mode_console() -> None:

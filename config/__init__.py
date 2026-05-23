@@ -37,7 +37,18 @@ def get_encoding() -> str:
     return file_encoding
     
 # Версия скрипта
-version = "v-4.4.0"
+version = "v-4.4.1"
+
+# Режим, в котором запущена программа (GUI\CLI) По умолчанию GUI
+mode_run = "GUI"
+
+def set_mode_run(mode: str) -> str:
+    global mode_run
+    mode_run = mode
+    return mode_run
+
+def get_mode_run() -> str:
+    return mode_run
 
 # Rights Administrator
 rights_administrator = ctypes.windll.shell32.IsUserAnAdmin()

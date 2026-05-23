@@ -1,7 +1,5 @@
-from cli import CLI
-from gui import GUI
-
 from datetime import datetime
+from config import set_mode_run
 
 import io
 import os
@@ -56,7 +54,7 @@ def main():
         )
         
         parser.add_argument(
-            '--no_admin',
+            '--no-admin',
             action='store_true',
             help='Remove the Administrator startup mode.'
         )
@@ -97,11 +95,15 @@ def main():
             
             
         if args.console:
+            from cli import CLI
             create_console()
+            set_mode_run("CLI")
             logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : The program started in CLI mode")
             CLI().run_app()
             
         else:
+            from gui import GUI
+            set_mode_run("GUI")
             logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : The program started in GUI mode")
             GUI().run_app()
            

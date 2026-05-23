@@ -10,7 +10,6 @@ import os
 import logging
 import webbrowser
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 
 class CLI:

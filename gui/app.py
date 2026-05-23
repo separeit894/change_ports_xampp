@@ -21,7 +21,6 @@ from config import version
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 class GUI:
     try:

@@ -5,10 +5,10 @@ import logging
 from config import Escape_Sequences
 from config import Colors
 from config import file_encoding
+from config import get_mode_run
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 
 def change_port_ssl(new_port) -> bool:
@@ -98,7 +98,16 @@ def change_port_ssl(new_port) -> bool:
         # Переходим в исключения если возникла, какая нибудь ошибка
         
         tb = traceback.format_exc()
-        print(tb)
+        def show_error(tb):
+            mode_run = get_mode_run()
+            if mode_run == "CLI":
+                print(f"Обнаружена ошибка : {tb}")
+            else:
+                print(f"Обнаружена ошибка : {tb}")
+                from tkinter import messagebox
+                messagebox.showerror("Обнаружена ошибка :", tb)
+                
+        show_error(tb)
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error\n{tb}")
         return False
 

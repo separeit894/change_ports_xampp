@@ -7,8 +7,6 @@ from config import Colors
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
-
 
 def xampp_control_mode_console() -> None:
     from core import run_as_admin

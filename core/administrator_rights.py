@@ -5,7 +5,7 @@ import logging
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
+
 
 def is_admin() -> bool:
     # Функция, которая проверяет запущена программа с правами администратора или нет
@@ -46,7 +46,6 @@ def run_as_admin() -> None:
         None,           # рабочая папка
         1               # показать окно
     )
-    
     
     # Если ошибка — например, отменили UAC
     if ret <= 32:

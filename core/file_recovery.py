@@ -5,14 +5,13 @@ import os
 
 from .administrator_rights import run_as_admin, is_admin
 from .process_off import Process
+
 from config import Escape_Sequences
 from config import Colors
 from config import file_encoding
+from config import get_mode_run
 
 from datetime import datetime
-
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
-
 
 
 class Recovery_Files:
@@ -36,7 +35,16 @@ class Recovery_Files:
 
             except Exception as e:
                 tb = traceback.format_exc()
-                print(f"Error \n{tb}")
+                def show_error(tb):
+                    mode_run = get_mode_run()
+                    if mode_run == "CLI":
+                        print(f"Обнаружена ошибка : {tb}")
+                    else:
+                        print(f"Обнаружена ошибка : {tb}")
+                        from tkinter import messagebox
+                        messagebox.showerror("Обнаружена ошибка :", tb)
+                show_error(tb)
+                
                 logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error restore Apache file\n{tb}")
                 return False
 
@@ -58,7 +66,16 @@ class Recovery_Files:
                 
             except Exception as e:
                 tb = traceback.format_exc()
-                print(f"Error restore file ApacheSSL : \n{tb}")
+                def show_error(tb):
+                    mode_run = get_mode_run()
+                    if mode_run == "CLI":
+                        print(f"Обнаружена ошибка : {tb}")
+                    else:
+                        print(f"Обнаружена ошибка : {tb}")
+                        from tkinter import messagebox
+                        messagebox.showerror("Обнаружена ошибка :", tb)
+                show_error(tb)
+                
                 logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error restore file ApacheSSL\n{tb}")
                 return False
 
@@ -90,7 +107,17 @@ class Recovery_Files:
 
             except Exception as e:
                 tb = traceback.format_exc()
-                print(f"Error restored file(s) MySQL \n{tb}")
+                def show_error(tb):
+                    mode_run = get_mode_run()
+                    if mode_run == "CLI":
+                        print(f"Обнаружена ошибка : {tb}")
+                    else:
+                        print(f"Обнаружена ошибка : {tb}")
+                        from tkinter import messagebox
+                        messagebox.showerror("Обнаружена ошибка :", tb)
+                        
+                show_error(tb)
+                
                 logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error restored file(s) MySQL \n{tb}")
                 return False
 
@@ -113,7 +140,15 @@ class Recovery_Files:
 
                 except Exception as e:
                     tb = traceback.format_exc()
-                    print(f"Error restored file xampp-control.ini \n{tb}")
+                    def show_error(tb):
+                        mode_run = get_mode_run()
+                        if mode_run == "CLI":
+                            print(f"Обнаружена ошибка : {tb}")
+                        else:
+                            print(f"Обнаружена ошибка : {tb}")
+                            from tkinter import messagebox
+                            messagebox.showerror("Обнаружена ошибка :", tb)
+                    show_error(tb)
                     logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error restored file xampp-control.ini \n{tb}")
                     return False
                     
@@ -123,7 +158,16 @@ class Recovery_Files:
                 
     except Exception:
         tb = traceback.format_exc()
-        print(tb)
+        def show_error(tb):
+            mode_run = get_mode_run()
+            if mode_run == "CLI":
+                print(f"Обнаружена ошибка : {tb}")
+            else:
+                print(f"Обнаружена ошибка : {tb}")
+                from tkinter import messagebox
+                messagebox.showerror("Обнаружена ошибка :", tb)
+                
+        show_error(tb)
 
 if __name__ == "__main__":
     Recovery_Files.file_recovery_apache()

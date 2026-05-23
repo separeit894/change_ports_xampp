@@ -16,7 +16,6 @@ import traceback
 import logging
 import os
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 result_port_apache = ""
 result_port_apachessl = ""

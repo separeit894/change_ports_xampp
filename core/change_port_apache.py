@@ -8,7 +8,6 @@ from config import Colors
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 def change_port_apache(new_port) -> bool:
     try:
@@ -86,10 +85,23 @@ def change_port_apache(new_port) -> bool:
 
     except Exception as ex:
         # Переходим в исключения если возникла, какая нибудь ошибка
-        
+
         tb = traceback.format_exc()
-        print(tb)
+        def show_error(tb):
+            from config import get_mode_run
+            mode_run = get_mode_run()
+            if mode_run == "CLI":
+                print(f"Обнаружена ошибка : {tb}")
+            else:
+                print(f"Обнаружена ошибка : {tb}")
+                from tkinter import messagebox
+                messagebox.showerror("Обнаружена ошибка :", tb)
+                
+        show_error(tb)
+            
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Error\n{tb}")
+        
+        
         return False
 
 

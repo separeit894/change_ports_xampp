@@ -7,7 +7,6 @@ from config import Colors
 
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
 
 
 def apache_mode_console() -> None:

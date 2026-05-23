@@ -3,8 +3,6 @@ import logging
 import os
 from datetime import datetime
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
-
 
 # Службы
 process_name_httpd = "httpd.exe"
