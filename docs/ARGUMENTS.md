@@ -1,4 +1,4 @@
-<a href="https://github.com/separeit894/change_ports_xampp">Назад на главную странцу</a>
+<a style="text-align: center; display: block" href="https://github.com/separeit894/change_ports_xampp">Назад на главную страницу</a>
 
 ### **--help** или **-h** 
 
