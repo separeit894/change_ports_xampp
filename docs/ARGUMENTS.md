@@ -1,4 +1,4 @@
-<a style="text-align: center; display: block" href="https://github.com/separeit894/change_ports_xampp">Назад на главную страницу</a>
+<div style="text-align: center"><a href="https://github.com/separeit894/change_ports_xampp">Назад на главную страницу</a></div>
 
 ### **--help** или **-h** 
 
@@ -10,8 +10,6 @@ python main.py --help
 ```bash
 python main.py -h
 ```
-
-
 
 ### **--version** или **-v**
 - **Описание**: Выводит версию программы
@@ -39,4 +37,17 @@ python main.py --no-admin
 **В CLI**
 ```bash
 python main.py --console --no-admin
+```
+
+### **-e** или **--encoding**
+- **Описание**: Задаёт кодировку, в которой будут сохраняться файлы
+- **Примеры**:
+```bash
+python main.py -e utf-8
+```
+
+или 
+
+```bash
+python main.py --encoding utf-8
 ```
