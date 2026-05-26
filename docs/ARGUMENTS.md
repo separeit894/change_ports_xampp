@@ -11,8 +11,6 @@ python main.py --help
 python main.py -h
 ```
 
-
-
 ### **--version** или **-v**
 - **Описание**: Выводит версию программы
 - **Примеры**: 
@@ -39,4 +37,17 @@ python main.py --no-admin
 **В CLI**
 ```bash
 python main.py --console --no-admin
+```
+
+### **-e** или **--encoding**
+- **Описание**: Задаёт кодировку, в которой будут сохраняться файлы
+- **Примеры**:
+```bash
+python main.py -e utf-8
+```
+
+или 
+
+```bash
+python main.py --encoding utf-8
 ```
