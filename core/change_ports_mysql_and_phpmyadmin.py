@@ -4,11 +4,7 @@ import logging
 
 from datetime import datetime
 
-from config import Colors
-from config import Escape_Sequences
-from config import file_encoding
 from config import get_mode_run
-
 
 
 def change_port_mysql(new_port) -> bool:
@@ -17,7 +13,9 @@ def change_port_mysql(new_port) -> bool:
         Process.mysql_process_off()
 
         # Сначала открываю файл, чтобы сделать его backup
-        file_path = "mysql/bin/my.ini"
+        from config import get_file_path_MySQLINI 
+        from config import file_encoding
+        file_path = get_file_path_MySQLINI()
         with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
 
@@ -47,7 +45,8 @@ def change_port_mysql(new_port) -> bool:
             file.writelines(src)
 
         # Считываем другой файл
-        file_path_php = "phpMyAdmin/config.inc.php"
+        from config import get_file_path_PhpMyAdminConfig
+        file_path_php = get_file_path_PhpMyAdminConfig()
         with open(file_path_php, "r", encoding=file_encoding) as file:
             src = file.readlines()
 
@@ -68,13 +67,13 @@ def change_port_mysql(new_port) -> bool:
                 # Дальше он ищет $cfg['Servers'][$i]['port'], чтобы присвоить номер строки переменной
                 if "$cfg['Servers'][$i]['port']" in src[i]:
                     print(i, line)
-                    # Присваеваем значение этой строки
+                    # Присваиваем значение этой строки
                     index_cfg_server = i
                     # меняем порт
                     src[i] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"
 
         # В случае, если переменная пустая, то есть так и не нашла эту строку ( см. 52 строку кода )
-        # то он эту строку создаст по умолчанию на 21 строке кода ( не знаю почему на 21, мне просто так захотелось )
+        # то он эту строку создаст по умолчанию на 21 строке кода 
 
         if index_cfg_server is None:
             src[21] = f"$cfg['Servers'][$i]['port'] = '{new_port}';\n"

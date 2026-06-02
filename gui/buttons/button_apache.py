@@ -1,7 +1,9 @@
-from tkinter import Toplevel
-from tkinter import CENTER
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import (
+    Toplevel,
+    CENTER,
+    ttk,
+    messagebox
+)
 
 from core import change_port_apache
 from datetime import datetime
@@ -10,9 +12,8 @@ import os
 import logging
 import traceback
 
-logging.basicConfig(filename="CPX.log", level=logging.DEBUG)
-
 result_port_apache = ""
+
 
 def apache_button(root, style) -> None:
     try:
@@ -44,6 +45,7 @@ def apache_button(root, style) -> None:
             window, text="Apply", command=on_submit, style="Small.TButton"
         )
         submit_button.pack()
+        
     except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")

@@ -1,7 +1,9 @@
-from tkinter import Toplevel
-from tkinter import CENTER
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import (
+    Toplevel,
+    CENTER,
+    ttk,
+    messagebox
+)
 
 from core import change_port_mysql
 from datetime import datetime

@@ -2,10 +2,6 @@ import os
 import traceback
 import logging
 
-from config import Escape_Sequences
-from config import file_encoding
-from config import Colors
-
 from datetime import datetime
 
 
@@ -13,10 +9,13 @@ def change_port_apache(new_port) -> bool:
     try:
         from .process_off import Process
         Process.apache_process_off()
-        
 
         # Cначала считываю файл, чтобы сделать backup
-        file_path = "apache/conf/httpd.conf"
+        from config import get_file_path_Apache
+        from config import get_encoding
+        
+        file_encoding = get_encoding()
+        file_path = get_file_path_Apache()
         with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
 

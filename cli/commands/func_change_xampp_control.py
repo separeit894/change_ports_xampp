@@ -2,18 +2,22 @@ import traceback
 import os
 import logging
 
-from config import Escape_Sequences
-from config import Colors
+from config import (
+    Escape_Sequences,
+    Colors
+)
 
 from datetime import datetime
 
 
 def xampp_control_mode_console() -> None:
-    from core import run_as_admin
-    from core import is_admin
-    from core import edit_file_xampp_control
-
-    if is_admin():
+    from core import (
+        run_as_admin,
+        edit_file_xampp_control,
+    )
+    from config import check_platform
+        
+    if check_platform():
         try:
             while True:
                 list_text_xampp_control = [
@@ -25,8 +29,9 @@ def xampp_control_mode_console() -> None:
                 for i, line in enumerate(list_text_xampp_control):
                     print(f"{i}. {line}")
 
-                choise = int(input("Select a menu item ( 0 - 3 ): "))
+                choise = int(input(f"Select a menu item ( 0 - {len(list_text_xampp_control) - 1} ): "))
                 logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : choise : {choise}")
+                
                 if choise == 0:
                     new_port_apache = str(input("Enter new port Apache: "))
                     logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : new_port_apache that user entered : {new_port_apache}")
@@ -36,6 +41,7 @@ def xampp_control_mode_console() -> None:
                             f"{Escape_Sequences.double_new_line}{Colors.BOLD}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Port(s) changed successfully!")
+                        
                 elif choise == 1:
                     new_port_apachessl = str(input("Enter new port ApaceSSL: "))
                     logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : new_port_apachessl that user entered : {new_port_apachessl}")
@@ -45,6 +51,7 @@ def xampp_control_mode_console() -> None:
                             f"{Escape_Sequences.double_new_line}{Colors.BOLD}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Port(s) changed successfully!")
+                        
                 elif choise == 2:
                     new_port_mysql = str(input("Enter new port MySQL: "))
                     logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : new_port_mysql that user entered : {new_port_mysql}")
@@ -54,11 +61,16 @@ def xampp_control_mode_console() -> None:
                             f"{Escape_Sequences.double_new_line}{Colors.BOLD}Port(s) changed successfully!{Colors.RESET}{Escape_Sequences.new_line}"
                         )
                         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Port(s) changed successfully!")
+                        
                 elif choise == 3:
                     logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Returned to the main menu")
                     break
+                
+                else:
+                    print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}There is no such number in this list! Сhose Again{Colors.RESET}{Escape_Sequences.new_line}")
+                    continue
 
-        except Exception as e:
+        except Exception:
             tb = traceback.format_exc()
             print(
                 f"{Escape_Sequences.double_new_line}{Colors.BOLD}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.new_line}"

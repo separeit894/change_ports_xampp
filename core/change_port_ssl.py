@@ -4,11 +4,10 @@ import logging
 
 from config import Escape_Sequences
 from config import Colors
-from config import file_encoding
+
 from config import get_mode_run
 
 from datetime import datetime
-
 
 
 def change_port_ssl(new_port) -> bool:
@@ -18,7 +17,10 @@ def change_port_ssl(new_port) -> bool:
         
 
         # Сначала открываю файл, чтобы сделать его backup
-        file_path = "apache/conf/extra/httpd-ssl.conf"
+        from config import get_file_path_ApacheSSL
+        from config import file_encoding
+        
+        file_path = get_file_path_ApacheSSL()
         with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
             

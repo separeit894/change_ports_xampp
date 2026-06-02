@@ -1,6 +1,8 @@
-from tkinter import Toplevel
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import (
+    Toplevel,
+    ttk,
+    messagebox
+)
 
 from datetime import datetime
 
@@ -25,7 +27,8 @@ check_completed_variables = False
 
 def edit_xampp_control_button(root, style) -> None:
     try:
-        if is_admin():
+        from config import check_platform
+        if check_platform():
                     
             window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
             window.title("Menu for changing ports in xampp_control.ini")

@@ -1,5 +1,9 @@
 from datetime import datetime
-from config import set_mode_run
+from config import (
+    set_mode_run,
+    create_config_json,
+    use_config_json
+)
 
 import io
 import os
@@ -66,6 +70,17 @@ def main():
             help="Specifies the encoding to be used for reading and writing. The default is \"cp1251\""
         )
         
+        parser.add_argument(
+            '--create-config',
+            action="store_true",
+            help="Creates a config in which you can enter the encoding and location of files. It will load it every time the program is started, if the configuration file is present. Not if it doesn't exist"
+        )
+        
+        parser.add_argument(
+            '--use-config',
+            type=str,
+            help="Creates a config in which you can enter the encoding and location of files. It will load it every time the program is started, if the configuration file is present. Not if it doesn't exist"
+        )
         
         # Парсим аргументы
         args = parser.parse_args()
@@ -85,15 +100,22 @@ def main():
             sys.exit(0)
             
         if args.no_admin:
-            import config
+            from config import set_value_rights_administrator
+            
             logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : --no_admin : disabling restart with administrator rights")
-            config.rights_administrator = True
+            set_value_rights_administrator()
         
         if args.encoding:
             from config import set_encoding
             set_encoding(args.encoding)
-            
-            
+        
+        if args.create_config:
+            create_config_json()
+            sys.exit()
+        
+        if args.use_config:
+            use_config_json(args.use_config)
+                
         if args.console:
             from cli import CLI
             create_console()
@@ -106,11 +128,12 @@ def main():
             set_mode_run("GUI")
             logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : The program started in GUI mode")
             GUI().run_app()
+        
+        
            
     except Exception as ex:
         import traceback
         print(traceback.format_exc())
-    
         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : Exception : main.py : \n{ex}")
 
 

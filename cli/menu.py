@@ -1,7 +1,9 @@
 from .commands import *
 
-from config import Colors
-from config import Escape_Sequences
+from config import (
+    Escape_Sequences,
+    Colors
+)
 
 from datetime import datetime
 
@@ -38,7 +40,7 @@ class CLI:
                     print(f"{i}. {line}")
                 
 
-                choise = int(input("Select a menu item ( 1 - 8 ): "))
+                choise = int(input(f"Select a menu item ( 1 - {len(list_text_main_menu) - 1} ): "))
                 if choise == 1:
                     url = "https://github.com/separeit894"
                     webbrowser.open(url)
@@ -62,9 +64,10 @@ class CLI:
                 elif choise == 8:
                     file_recovery_mode_console()
                 elif choise == 9:
-                    encoding = input("Enter encoding who you was use: ")
-                    from config import set_encoding
-                    set_encoding(encoding)
+                    change_settings_mode_console()
+                    # encoding = input("Enter encoding who you was use: ")
+                    # from config import set_encoding
+                    # set_encoding(encoding)
                 else:
                     print(
                         f"{Escape_Sequences.new_line}{Colors.RED}You have selected an incorrect number!{Colors.RESET}{Escape_Sequences.new_line}"
@@ -78,7 +81,7 @@ class CLI:
         except Exception:
             tb = traceback.format_exc()
             print(
-                f"{Escape_Sequences.double_new_line}{Colors.RED}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.double_new_line}"
+                f"{Escape_Sequences.double_new_line}{Colors.BOLD}An error has been detected!{Escape_Sequences.new_line}{tb}{Colors.RESET}{Escape_Sequences.double_new_line}"
             )
             logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : CLI : Error\n{tb}")
             

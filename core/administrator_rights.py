@@ -1,4 +1,3 @@
-import ctypes
 import os
 import sys
 import logging
@@ -6,19 +5,18 @@ import logging
 from datetime import datetime
 
 
-
 def is_admin() -> bool:
-    # Функция, которая проверяет запущена программа с правами администратора или нет
-    from config import rights_administrator
-    try:
-        return bool(rights_administrator)
-    except:
-        return False
+    # Проверяет запущена программа с правами администратора
+    from config import get_value_rights_administrator
+    
+    result : bool = get_value_rights_administrator()
+    return result
+    
 
 
 def run_as_admin() -> None:
     """Перезапускает скрипт с правами администратора."""
-    
+    import ctypes
     executable = sys.executable
     print("executable: ", executable)
     # Формируем строку аргументов: только флаги, без мусора

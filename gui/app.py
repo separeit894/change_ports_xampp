@@ -1,6 +1,9 @@
-from tkinter import CENTER, W
-from tkinter import Tk
-from tkinter import ttk
+from tkinter import (
+    CENTER,
+    W,
+    Tk,
+    ttk
+)
 
 import tkinter as tk
 
@@ -17,7 +20,10 @@ from .buttons import (
     bfiles_recovery,
     parametrs_button
 )
-from config import version
+from config import (
+    get_encoding,
+    version
+)
 
 from datetime import datetime
 
@@ -27,7 +33,7 @@ class GUI:
         def __init__(self):
             self.root = Tk()
             self.root.title("Change Ports Xampp")
-            # Создаю окно на 600x400
+            # Создаю окно на 600x550
             self.root.geometry("600x550")
 
             # Создаю новый стиль кнопок для MySQL, ApacheSSL, Apache
@@ -39,17 +45,18 @@ class GUI:
             self.style.configure(
                 "Small.TButton", font=("Arial", 10), padding=10, width=20, height=5
             )
+            self.style.configure("BigText.TButton", font=("Arial",13))
 
             # Обозначение версии приложения
             self.version_int = version.split("-")[1]
-            self.text_version = ttk.Label(self.root, text=f"Version: {self.version_int}", font=("Arial", 8))
+            self.text_version = ttk.Label(self.root, text=f"Version: {self.version_int}", font=("Arial", 12))
 
             self.text_version.pack(anchor=W)
             
-            self.button_parametrs = ttk.Button(self.root, text="Parametrs", command=lambda: parametrs_button(self.root, self.style))
+            self.button_parametrs = ttk.Button(self.root, text="Settings", style="BigText.TButton", command=lambda: parametrs_button(self.root, self.style))
             self.button_parametrs.pack(anchor="ne", padx=10, pady=10)
             # Текст 'Главное меню', который будет использовать шрифт Arial 12 пунктов
-            self.main_label = ttk.Label(self.root, text="Main Menu", font=("Arial", 12))
+            self.main_label = ttk.Label(self.root, text="Main Menu", font=("Arial", 16))
             # Размещает этот текст по центру
             self.main_label.pack(anchor=CENTER, padx=10, pady=30)
 
@@ -121,12 +128,47 @@ class GUI:
             self.link_releases.pack(anchor="n")
             self.link_releases.bind("<Button-1>", lambda e: self.open_links("https://github.com/separeit894/change_ports_xampp/releases"))
             
+            
+            self.use_encoding = tk.StringVar()
+            self.use_encoding.set(get_encoding())
+            
+            self.lbl_use_encoding = ttk.Label(self.root, text=f"Currently used encoding: {self.use_encoding.get()}", font=("Arial", 13))
+            self.lbl_use_encoding.pack(anchor="sw")
+            
+            def on_change(*args):
+                self.update_use_encoding(self.use_encoding.get())
+                
+            self.use_encoding.trace_add('write', on_change)
+            
+            self.update_use_encoding(self.use_encoding.get())
+            
+            self.check_encoding_loop()
         
+        def check_encoding_loop(self):
+            # 1. Получаем актуальное значение из config/__init__.py
+            current_actual_enc = get_encoding()
+            
+            # 2. Если оно отличается от того, что сейчас на экране
+            if current_actual_enc != self.use_encoding.get():
+                self.use_encoding.set(current_actual_enc)
+                self.update_use_encoding(current_actual_enc)
+                
+            # 3. Повторяем проверку каждые 500 миллисекунд (полсекунды)
+            self.root.after(1000, self.check_encoding_loop)
+            
+            
+        def update_use_encoding(self, use_encoding):
+            self.lbl_use_encoding.config(text=f"Currently used encoding: {use_encoding}")
+            
+            
         def open_links(self, url):
             webbrowser.open(url)
         
         def run_app(self):
             self.root.mainloop()
+    
+    
+        
 
     except Exception as ex:
         tb = traceback.format_exc()

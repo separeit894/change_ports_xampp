@@ -3,9 +3,6 @@ import os
 import re
 import logging
 
-from config import Escape_Sequences
-from config import file_encoding
-from config import Colors
 from config import get_mode_run
 
 from .administrator_rights import run_as_admin
@@ -14,15 +11,17 @@ from .administrator_rights import is_admin
 from datetime import datetime
 
 
-
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
     try:
         from core import Process
         Process.xampp_control_process_off()
 
         count = 0
-        file_path = "xampp-control.ini"  # можно заменить на полный путь, если нужно
-
+        
+        from config import get_file_path_xampp_control_ini
+        from config import get_encoding
+        file_path = get_file_path_xampp_control_ini()
+        file_encoding = get_encoding()
         with open(file_path, "r", encoding=file_encoding) as file:
             lines = file.readlines()
 
@@ -79,7 +78,7 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
         return True
     
 
-    except Exception as e:
+    except Exception:
         # Переходим в исключения если возникла, какая нибудь ошибка
         tb = traceback.format_exc()
         def show_error(tb):

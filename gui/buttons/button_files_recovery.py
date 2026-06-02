@@ -1,7 +1,10 @@
-from tkinter import Toplevel
-from tkinter import messagebox
-from tkinter import ttk
 import tkinter as tk
+
+from tkinter import (
+    Toplevel,
+    messagebox,
+    ttk
+)
 
 from core import Recovery_Files
 from datetime import datetime
