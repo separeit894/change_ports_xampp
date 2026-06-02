@@ -62,6 +62,7 @@ python main.py --create-config
 
 ### **--use-config**
 - **Описание**: Использует конфигурацию, файл json
+- **Примеры**:
 
 ```bash
 python main.py --use-config config.json 
