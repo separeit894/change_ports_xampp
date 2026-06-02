@@ -51,3 +51,18 @@ python main.py -e utf-8
 ```bash
 python main.py --encoding utf-8
 ```
+
+
+### **--create-config**
+- **Описание**: Создаёт конфигурацию со встроенными значениями. 
+- **Примеры**:
+```bash
+python main.py --create-config
+```
+
+### **--use-config**
+- **Описание**: Использует конфигурацию, файл json
+
+```bash
+python main.py --use-config config.json 
+```
