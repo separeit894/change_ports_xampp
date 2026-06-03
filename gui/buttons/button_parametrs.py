@@ -7,10 +7,6 @@ from tkinter import (
     messagebox
 )
 from datetime import datetime
-
-import os
-import logging
-import traceback
 from config import (
     get_encoding, 
     set_encoding, 
@@ -25,6 +21,11 @@ from config import (
     get_file_path_xampp_control_ini,
     set_file_path_xampp_control_ini
 )
+
+import os
+import logging
+import traceback
+
 
 def parametrs_button(root, style):
     try:

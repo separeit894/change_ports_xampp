@@ -17,11 +17,10 @@ result_port_apachessl = ""
 
 def apachessl_button(root, style) -> None:
     try:
-        window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
+        window = Toplevel(root) 
         window.title("Port Change Menu ApacheSSL")
         window.geometry("500x250")
 
-        # Поле ввода, прикрепляется к окну window, будет иметь шрифт Arial 16 пунктов
         enter_pole = ttk.Entry(window, width=20, font=("Arial", 16))
 
         # Размещается по центру
@@ -29,7 +28,7 @@ def apachessl_button(root, style) -> None:
         enter_pole.insert(0, result_port_apachessl)
         
         
-        # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
+        
         def on_submit() -> None:
             global result_port_apachessl
             result_port_apachessl = str(enter_pole.get())
@@ -45,13 +44,12 @@ def apachessl_button(root, style) -> None:
                 window.after(250, window.destroy())
 
         # Кнопка 'Применить', прикрепляется к окну window. Ссылается на функцию on_submit Имеет стиль 'Small.TButton
-
         submit_button = ttk.Button(
             window, text="Apply", command=on_submit, style="Small.TButton"
         )
         submit_button.pack()
     
-    except Exception as e:
+    except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")

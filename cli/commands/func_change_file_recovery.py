@@ -4,7 +4,6 @@ import logging
 
 from core import (
     run_as_admin,
-    is_admin,
     Recovery_Files
 )
 from config import (

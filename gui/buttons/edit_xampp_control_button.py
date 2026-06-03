@@ -30,7 +30,7 @@ def edit_xampp_control_button(root, style) -> None:
         from config import check_platform
         if check_platform():
                     
-            window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
+            window = Toplevel(root)  
             window.title("Menu for changing ports in xampp_control.ini")
             window.geometry("500x300")
 
@@ -125,12 +125,10 @@ def edit_xampp_control_button(root, style) -> None:
             print("Error: Administrator rights are required.")
             run_as_admin()
 
-    except Exception as e:
+    except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")
     
-
-
 if __name__ == "__main__":
     edit_file_xampp_control()

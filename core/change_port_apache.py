@@ -10,12 +10,15 @@ def change_port_apache(new_port) -> bool:
         from .process_off import Process
         Process.apache_process_off()
 
-        # Cначала считываю файл, чтобы сделать backup
-        from config import get_file_path_Apache
-        from config import get_encoding
+        from config import (
+            get_encoding,
+            get_file_path_Apache
+        )
         
         file_encoding = get_encoding()
         file_path = get_file_path_Apache()
+
+        # Считывает файл, чтобы сделать backup
         with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
 
@@ -24,9 +27,7 @@ def change_port_apache(new_port) -> bool:
         if not os.path.exists(backup):
             os.makedirs(backup)
 
-        # Если до этого порты менялись, то уже есть первоначальный бэкап,
-        # и заменятся он не будет. Это делается для того чтобы сохранить рабочий вариант файла,
-        # перезаписывание возможно приведет к неисправной обработке файла xampp
+        # Первоначальный бэкап менятся не будет
         backup_path = "backup/httpd.conf"
         if not os.path.exists(backup_path):
             with open(backup_path, "w", encoding=file_encoding) as file:
@@ -35,19 +36,17 @@ def change_port_apache(new_port) -> bool:
         
         
 
-        # Создаем переменную в которую будем вводить порт
+        # Создаем переменную, в которую будем вводить порт
         index_port_listen = None
 
         # Проходясь по циклу, скрипт ищет строку #Listen
-        # Чтобы затем заменить порт
-
         for i, line in enumerate(src):
             # Проверям не начинается строка с #, в ином случае просто игнорируем строку
             if not line.startswith("#"):
                 # Если # нету, то он ищет слово Listen
                 if "Listen" in src[i]:
                     print(i, line)
-                    # Присваеваем переменную номер строки файла
+                    # Присваиваем переменную номер строки файла
                     index_port_listen = i
 
         # Меняем порт
@@ -56,16 +55,14 @@ def change_port_apache(new_port) -> bool:
         # Создаем вторую переменную, в которую позже будем хранить новое значения порта
         index_port_servername = None
 
-        # Цикл считывает строки файла,
-        # в if проверяется не начинается файл с #,
-        # если да, то он пропускает строку
-        # если нет, то он продолжает считывать строку, иская слово ServerName
+        
 
         for i, line in enumerate(src):
             if not line.startswith("#"):
+                # если нет, то он продолжает считывать строку, иская слово ServerName
                 if "ServerName" in src[i]:
                     print(i, line)
-                    # Присваевам номер строки файла в переменную
+                    # Присваиваем номер строки файла в переменную
                     index_port_servername = i
 
         src[index_port_servername] = src[index_port_servername].split(":")
@@ -82,7 +79,7 @@ def change_port_apache(new_port) -> bool:
         return True
         
 
-    except Exception as ex:
+    except Exception:
         # Переходим в исключения если возникла, какая нибудь ошибка
 
         tb = traceback.format_exc()

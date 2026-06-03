@@ -2,10 +2,11 @@ import os
 import traceback
 import logging
 
-from config import Escape_Sequences
-from config import Colors
-
-from config import get_mode_run
+from config import (
+    Escape_Sequences,
+    Colors,
+    get_mode_run
+)
 
 from datetime import datetime
 
@@ -15,16 +16,18 @@ def change_port_ssl(new_port) -> bool:
         from core import Process
         Process.apachessl_process_off()
         
-
-        # Сначала открываю файл, чтобы сделать его backup
-        from config import get_file_path_ApacheSSL
-        from config import file_encoding
         
+        from config import (
+            get_file_path_ApacheSSL,
+            get_encoding
+        )
+
+        file_encoding = get_encoding()
         file_path = get_file_path_ApacheSSL()
+        # Открыть файл, чтобы сделать его backup
         with open(file_path, "r", encoding=file_encoding) as file:
             src = file.readlines()
             
-
         # Если нету папки backup, то он её создает
         backup = "backup"
         if not os.path.exists(backup):
@@ -40,30 +43,17 @@ def change_port_ssl(new_port) -> bool:
         # Создаем переменную, в которой позже будем хранить значения нового порта
         index_listen = None
 
-        # Цикл считывает файл, проходит по каждой строке
-        # Внешнее условие проверяет - не начинается строка #,
-        # если он начинается #, то он пропускает строку файла
-        # если нет, он начинает искать слово Listen,
-        # и если он его находит, присваивает значения номера строки в переменную
-
         for i, line in enumerate(src):
             if not line.startswith("#"):
                 if "Listen" in src[i]:
                     print(i, line)
                     index_listen = i
 
-        # В этой строке уже вводится новый порт, который ввел пользователь
+        # Строка с новым портом
         src[index_listen] = f"Listen {new_port}\n"
 
         # Новая переменная, которая будет хранить порт
         index_virtualhost = None
-
-        # Тот же цикл, что и с 28 - 32 строку кода,
-        # Так же проверяет не начинается строка #
-        # если да, пропускает строку
-        # если нет, переходит к внутреннему условие
-        # Но он уже ищет <VirtualHost _default_:
-        # После : мы уже ставим другой порт
 
         for i, line in enumerate(src):
             if not line.startswith("#"):
@@ -71,13 +61,11 @@ def change_port_ssl(new_port) -> bool:
                     print(i, line)
                     index_virtualhost = i
 
-        # Присваеваем переменной новый порт
+        # Строка с новым портом
         src[index_virtualhost] = f"<VirtualHost _default_:{new_port}>\n"
 
         # Переменная, которая будет хранить значение порта
         index_servername = None
-
-        # Тот же самый цикл что и с 48 - 52 строку кода
 
         for i, line in enumerate(src):
             if not line.startswith("#"):
@@ -85,10 +73,10 @@ def change_port_ssl(new_port) -> bool:
                     print(i, line)
                     index_servername = i
 
-        # Присваеваем строке, новый порт
+        # Новый порт
         src[index_servername] = f"ServerName www.example.com:{new_port}\n"
 
-        # Сохраняем изменный файл
+        # Сохранение
         with open(file_path, "w", encoding=file_encoding) as file:
             file.writelines(src)
         
@@ -96,9 +84,9 @@ def change_port_ssl(new_port) -> bool:
         return True
 
 
-    except Exception as e:
+    except Exception:
+
         # Переходим в исключения если возникла, какая нибудь ошибка
-        
         tb = traceback.format_exc()
         def show_error(tb):
             mode_run = get_mode_run()

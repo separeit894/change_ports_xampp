@@ -65,9 +65,6 @@ class CLI:
                     file_recovery_mode_console()
                 elif choise == 9:
                     change_settings_mode_console()
-                    # encoding = input("Enter encoding who you was use: ")
-                    # from config import set_encoding
-                    # set_encoding(encoding)
                 else:
                     print(
                         f"{Escape_Sequences.new_line}{Colors.RED}You have selected an incorrect number!{Colors.RESET}{Escape_Sequences.new_line}"
@@ -88,7 +85,7 @@ class CLI:
     
     def run_app(self):
         self.mode_console()
-        
+       
 
 if __name__ == "__main__":
     CLI().run_app()
