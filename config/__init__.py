@@ -62,7 +62,7 @@ def get_encoding() -> str:
     return file_encoding
     
 # Версия скрипта
-version = "v-4.5.0"
+version = "v-4.5.1"
 
 # Режим, в котором запущена программа (GUI\CLI). По умолчанию GUI
 mode_run = "GUI"
