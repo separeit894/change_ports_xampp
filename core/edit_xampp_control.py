@@ -5,8 +5,10 @@ import logging
 
 from config import get_mode_run
 
-from .administrator_rights import run_as_admin
-from .administrator_rights import is_admin
+from .administrator_rights import (
+    run_as_admin,
+    is_admin
+)
 
 from datetime import datetime
 
@@ -18,19 +20,21 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
 
         count = 0
         
-        from config import get_file_path_xampp_control_ini
-        from config import get_encoding
+        from config import (
+            get_file_path_xampp_control_ini,
+            get_encoding
+        )
+
         file_path = get_file_path_xampp_control_ini()
         file_encoding = get_encoding()
+
         with open(file_path, "r", encoding=file_encoding) as file:
             lines = file.readlines()
 
-        # Если нету папки backup, то он её создает
         backup = "backup"
         if not os.path.exists(backup):
             os.makedirs(backup)
 
-        # Если нету резервного файла, то он его создает
         backup_path = "backup/xampp-control.ini"
         if not os.path.exists(backup_path):
             with open(backup_path, "w", encoding=file_encoding) as file:
@@ -47,18 +51,16 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
                 continue
 
             if in_section and line.startswith("["):
-                break  # выходим из раздела
+                break  
 
             if not in_section:
                 continue
             
             def set_value_port(word: str, port: str) -> None:
                 nonlocal count, line
-                # Если переменная не имеет значения None, то переходит к внутреннему условию
+    
                 if not port == "None" and port != "":
-                # Находим строго слово word
                     if re.search(fr"\b{word}\b", line):
-                        # Дальше уже изменяем порт
                         result = line.split("=")
                         result[1] = f"={port}"
                         line = "".join(result)
@@ -79,7 +81,6 @@ def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
     
 
     except Exception:
-        # Переходим в исключения если возникла, какая нибудь ошибка
         tb = traceback.format_exc()
         def show_error(tb):
             mode_run = get_mode_run()

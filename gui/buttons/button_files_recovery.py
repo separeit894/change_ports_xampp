@@ -14,7 +14,6 @@ import logging
 import traceback
 
 
-
 def on_apache_click() -> None:
     result = Recovery_Files.file_recovery_apache()
     if result:
@@ -42,7 +41,7 @@ def bfiles_recovery(root, style) -> None:
         window = Toplevel(root)
         window.title("File Recovery Menu")
         window.geometry("500x300")
-        # Восстановления файла Apache
+        
         spaces_for_apache = "           "
         
         
@@ -106,7 +105,8 @@ def bfiles_recovery(root, style) -> None:
 
         timer = window.after(10000, close_window)
     
-    except Exception as e:
+    
+    except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")

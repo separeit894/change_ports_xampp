@@ -17,17 +17,16 @@ result_port_mysql = ""
 
 def mysql_button(root, style) -> None:
     try:
-        window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
+        window = Toplevel(root)  
         window.title("MySQL Port Change Menu")
         window.geometry("500x250")
 
-        # Поле ввода, прикрепляется к окну window, будет иметь шрифт Arial 16 пунктов
         enter_pole = ttk.Entry(window, width=20, font=("Arial", 16))
         # Размещается по центру
         enter_pole.pack(anchor=CENTER, pady=30)
         enter_pole.insert(0, result_port_mysql)
 
-        # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
+        
         def on_submit():
             global result_port_mysql
             result_port_mysql = str(enter_pole.get())
@@ -48,7 +47,7 @@ def mysql_button(root, style) -> None:
 
         submit_button.pack()
         
-    except Exception as e:
+    except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")

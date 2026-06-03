@@ -62,7 +62,7 @@ def get_encoding() -> str:
     return file_encoding
     
 # Версия скрипта
-version = "v-4.5.1"
+version = "v-4.5.2"
 
 # Режим, в котором запущена программа (GUI\CLI). По умолчанию GUI
 mode_run = "GUI"
@@ -250,9 +250,10 @@ def use_config_json(config_file: str):
         print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}Encoding : {file_encoding} is incorrect or does not exist.{Colors.RESET}{Escape_Sequences.new_line}")
         sys.exit(1)
             
-def check_platform() -> bool:
-        from platform import system
-        os_name = system()
+def check_platform(*args) -> bool:
+    from platform import system
+    os_name = system()
+    if not args[0] == "get_system":
         if os_name == "Windows":
             from core import is_admin
             return is_admin()
@@ -260,6 +261,8 @@ def check_platform() -> bool:
             return True
         else:
             return True
+    else:
+        return os_name
         
 __all__ = [
     "Escape_Sequences",

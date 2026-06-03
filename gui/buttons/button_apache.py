@@ -17,17 +17,15 @@ result_port_apache = ""
 
 def apache_button(root, style) -> None:
     try:
-        window = Toplevel(root)  # Используем Toplevel вместо Tk() для дочерних окон
+        window = Toplevel(root) 
         window.title("Port Change Menu Apache")
         window.geometry("500x250")
 
-        # Поле ввода, прикрепляется к окну window, будет иметь шрифт Arial 16 пунктов
+        
         enter_pole = ttk.Entry(window, width=20, font=("Arial", 16))
-        # Размещается по центру
         enter_pole.pack(anchor=CENTER, pady=30)
         enter_pole.insert(0, result_port_apache)
         
-        # Функция, которая будеть работать если пользователь нажмет на кнопку 'Применить'
         def on_submit() -> None:
             global result_port_apache
             result_port_apache = str(enter_pole.get())

@@ -33,7 +33,6 @@ class GUI:
         def __init__(self):
             self.root = Tk()
             self.root.title("Change Ports Xampp")
-            # Создаю окно на 600x550
             self.root.geometry("600x550")
 
             # Создаю новый стиль кнопок для MySQL, ApacheSSL, Apache
@@ -55,7 +54,7 @@ class GUI:
             
             self.button_parametrs = ttk.Button(self.root, text="Settings", style="BigText.TButton", command=lambda: parametrs_button(self.root, self.style))
             self.button_parametrs.pack(anchor="ne", padx=10, pady=10)
-            # Текст 'Главное меню', который будет использовать шрифт Arial 12 пунктов
+            # Текст 'Главное меню', который будет использовать шрифт Arial 16 пунктов
             self.main_label = ttk.Label(self.root, text="Main Menu", font=("Arial", 16))
             # Размещает этот текст по центру
             self.main_label.pack(anchor=CENTER, padx=10, pady=30)
@@ -89,7 +88,6 @@ class GUI:
             # Кнопка будет размещена по центру, отступ по x 100, будет растягиваться по ширине
             self.button_mysql.pack(anchor=CENTER, fill=tk.X, padx=100)
 
-            # Кнопка 'edit xampp control.ini', прикреплена к главному окну ( root ). Используется стиль Big.TButton ( см. 16 стр )
 
             self.button_xampp_control = ttk.Button(
                 self.root,
@@ -167,10 +165,8 @@ class GUI:
         def run_app(self):
             self.root.mainloop()
     
-    
-        
 
-    except Exception as ex:
+    except Exception:
         tb = traceback.format_exc()
         print(f"An error has been detected!\n{tb}")
         logging.error(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : GUI : An error has been detected!\n{tb}")

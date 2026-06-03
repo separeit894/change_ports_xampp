@@ -1,9 +1,9 @@
-import ctypes
 import traceback
 import logging
 import os
 
-from .administrator_rights import run_as_admin, is_admin
+from .administrator_rights import run_as_admin
+
 from .process_off import Process
 
 from config import get_encoding
@@ -87,7 +87,7 @@ class Recovery_Files:
             try:
                 Process.mysql_process_off()
                 file_encoding = get_encoding()
-                # Восстановление файла my.ini MySQL
+                
                 backup_path_ini = "backup/my.ini"
                 with open(backup_path_ini, "r", encoding=file_encoding) as file:
                     src = file.readlines()

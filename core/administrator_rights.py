@@ -4,6 +4,10 @@ import logging
 
 from datetime import datetime
 
+from config import (
+    Escape_Sequences,
+    Colors
+)
 
 def is_admin() -> bool:
     # Проверяет запущена программа с правами администратора
@@ -22,7 +26,7 @@ def run_as_admin() -> None:
     # Формируем строку аргументов: только флаги, без мусора
     args = []
     
-    # Сохраняем только настоящие флаги (начинающиеся с --)
+    # Сохраняем только настоящие флаги (начинающиеся с -- или с -)
     print(f"sys.argv[1: ] :  {sys.argv[1:]}")
     for arg in sys.argv[1:]:
         if arg.startswith('--') == True or arg.startswith('-') == True:
@@ -47,7 +51,7 @@ def run_as_admin() -> None:
     
     # Если ошибка — например, отменили UAC
     if ret <= 32:
-        print("❌ Не удалось запустить от имени администратора")
+        print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}Не удалось запустить от имени администратора{Colors.RESET}{Escape_Sequences.new_line}")
         logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : ❌ Не удалось запустить от имени администратора : ret = {ret} ")
         sys.exit(1)
         
