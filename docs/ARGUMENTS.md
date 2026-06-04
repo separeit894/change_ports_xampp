@@ -67,3 +67,15 @@ python main.py --create-config
 ```bash
 python main.py --use-config config.json 
 ```
+
+### **--dpoff**, **--disable-process-off**
+- **Описание**: Отключает выключение процессов ( На случай, если возникли ошибки и прочее)
+- **Прочее**:
+
+```bash
+python main.py --dpoff
+```
+
+```bash
+python main.py --disable-process-off
+```
