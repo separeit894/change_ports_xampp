@@ -16,14 +16,16 @@ from datetime import datetime
 def edit_file_xampp_control(apache_port, apachessl_port, mysql_port) -> bool:
     try:
         from core import Process
-        Process.xampp_control_process_off()
-
-        count = 0
-        
         from config import (
+            get_value_disable_process_off,
             get_file_path_xampp_control_ini,
             get_encoding
-        )
+        ) 
+        
+        if not get_value_disable_process_off():
+            Process.xampp_control_process_off()
+
+        count = 0
 
         file_path = get_file_path_xampp_control_ini()
         file_encoding = get_encoding()

@@ -28,7 +28,8 @@ check_completed_variables = False
 def edit_xampp_control_button(root, style) -> None:
     try:
         from config import check_platform
-        if check_platform():
+        result = check_platform()
+        if result:
                     
             window = Toplevel(root)  
             window.title("Menu for changing ports in xampp_control.ini")

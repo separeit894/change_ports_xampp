@@ -62,7 +62,7 @@ def get_encoding() -> str:
     return file_encoding
     
 # Версия скрипта
-version = "v-4.5.2"
+version = "v-4.5.3"
 
 # Режим, в котором запущена программа (GUI\CLI). По умолчанию GUI
 mode_run = "GUI"
@@ -77,15 +77,17 @@ def get_mode_run() -> str:
 
 rights_administrator = None
 
+def create_value_rights_administrator():
+    global rights_administrator
+    import ctypes 
+    rights_administrator = ctypes.windll.shell32.IsUserAnAdmin()
 
 def set_value_rights_administrator():
     global rights_administrator
-    import ctypes
-    rights_administrator = not ctypes.windll.shell32.IsUserAnAdmin()
-    print(rights_administrator)
+    rights_administrator = True
    
 def get_value_rights_administrator():
-    return rights_administrator 
+    return rights_administrator
 
 # Apache
 
@@ -250,10 +252,10 @@ def use_config_json(config_file: str):
         print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}Encoding : {file_encoding} is incorrect or does not exist.{Colors.RESET}{Escape_Sequences.new_line}")
         sys.exit(1)
             
-def check_platform(*args) -> bool:
+def check_platform(get_system: bool = False):
     from platform import system
     os_name = system()
-    if not args[0] == "get_system":
+    if not get_system:
         if os_name == "Windows":
             from core import is_admin
             return is_admin()
@@ -263,11 +265,26 @@ def check_platform(*args) -> bool:
             return True
     else:
         return os_name
-        
+    
+if check_platform(True) == "Windows":
+    print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}Значение переменной rights administrator задано{Colors.RESET}{Escape_Sequences.new_line}")
+    create_value_rights_administrator()
+else:
+    rights_administrator = True
+
+disable_process_off = False
+
+def set_value_disable_process_off(value: bool):
+    global disable_process_off
+    disable_process_off = value
+
+def get_value_disable_process_off() -> bool:
+    return disable_process_off
+
+
 __all__ = [
     "Escape_Sequences",
     "Colors",
-    "file_encoding",
     "get_value_rights_administrator",
     "set_value_rights_administrator,"
     "set_file_path_apache",
@@ -280,7 +297,9 @@ __all__ = [
     "set_file_path_xampp_control_ini",
     "create_config_json",
     "use_config_json",
-    "check_platform"
+    "check_platform",
+    "set_value_disable_process_off",
+    "get_value_disable_process_off"
 ]
 
 

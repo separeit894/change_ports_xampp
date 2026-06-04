@@ -15,8 +15,7 @@ class Process:
     @staticmethod
     def apache_process_off() -> None:
         # Если служба запущена, то мы её отключаем
-        result = check_platform("get_system")
-        
+        result = check_platform(True)
         if result == "Windows":
             subprocess.run(
                 ["taskkill", "/F", "/IM", process_name_httpd],
@@ -34,7 +33,7 @@ class Process:
 
     @staticmethod
     def apachessl_process_off() -> None:
-        result = check_platform("get_system")
+        result = check_platform(True)
         if result == "Windows":
             subprocess.run(
                 ["taskkill", "/F", "/IM", process_name_httpd],
@@ -54,7 +53,7 @@ class Process:
 
     @staticmethod
     def mysql_process_off() -> None:
-        result = check_platform("get_system")
+        result = check_platform(True)
         
         if result == "Windows":
             subprocess.run(
@@ -74,7 +73,7 @@ class Process:
 
     @staticmethod
     def xampp_control_process_off() -> None:
-        result = check_platform("get_system")
+        result = check_platform(True)
         if result == "Windows":
             subprocess.run(
                 ["taskkill", "/F", "/IM", process_name_xampp_control],

@@ -14,13 +14,14 @@ from datetime import datetime
 def change_port_ssl(new_port) -> bool:
     try:
         from core import Process
-        Process.apachessl_process_off()
-        
-        
         from config import (
+            get_value_disable_process_off,
             get_file_path_ApacheSSL,
             get_encoding
-        )
+        ) 
+        
+        if not get_value_disable_process_off():
+            Process.apachessl_process_off()
 
         file_encoding = get_encoding()
         file_path = get_file_path_ApacheSSL()

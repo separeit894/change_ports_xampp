@@ -18,7 +18,10 @@ class Recovery_Files:
         def file_recovery_apache() -> bool:
             # Функция берет резервный файл, и записывает его данные в основной
             try:
-                Process.apache_process_off()
+                from config import get_value_disable_process_off
+        
+                if not get_value_disable_process_off():
+                    Process.apache_process_off()
 
                 backup_path = "backup/httpd.conf"
                 file_encoding = get_encoding()
@@ -52,13 +55,21 @@ class Recovery_Files:
         @staticmethod
         def file_recovery_apachessl() -> bool:
             try:
-                Process.apachessl_process_off()
+                from config import (
+                    get_value_disable_process_off,
+                    get_file_path_ApacheSSL
+                )
+        
+                if not get_value_disable_process_off():
+                    Process.apachessl_process_off()
+                    
                 file_encoding = get_encoding()
                 backup_path = "backup/httpd-ssl.conf"
+                
                 with open(backup_path, "r", encoding=file_encoding) as file:
                     src = file.readlines()
 
-                from config import get_file_path_ApacheSSL
+                
                 file_path = get_file_path_ApacheSSL()
                 with open(file_path, "w", encoding=file_encoding) as file:
                     file.writelines(src)
@@ -85,14 +96,22 @@ class Recovery_Files:
         @staticmethod
         def file_recovery_mysql() -> bool:
             try:
-                Process.mysql_process_off()
+                from config import (
+                    get_value_disable_process_off,
+                    get_file_path_MySQLINI,
+                    get_file_path_PhpMyAdminConfig
+                )
+                
+                if not get_value_disable_process_off():
+                    Process.mysql_process_off()
+                
                 file_encoding = get_encoding()
                 
                 backup_path_ini = "backup/my.ini"
                 with open(backup_path_ini, "r", encoding=file_encoding) as file:
                     src = file.readlines()
 
-                from config import get_file_path_MySQLINI
+                
                 file_path_ini = get_file_path_MySQLINI()
                 with open(file_path_ini, "w", encoding=file_encoding) as file:
                     file.writelines(src)
@@ -102,7 +121,6 @@ class Recovery_Files:
                 with open(backup_path_php, "r", encoding=file_encoding) as file:
                     src_config = file.readlines()
 
-                from config import get_file_path_PhpMyAdminConfig
                 file_path_php = get_file_path_PhpMyAdminConfig()
                 with open(file_path_php, "w", encoding=file_encoding) as file:
                     file.writelines(src_config)
@@ -129,16 +147,21 @@ class Recovery_Files:
 
         @staticmethod
         def file_recovery_xampp_control() -> bool:
-            from config import check_platform
+            from config import (
+                check_platform, 
+                get_value_disable_process_off,
+                get_file_path_xampp_control_ini
+            )
             if check_platform():
                 try:
-                    Process().xampp_control_process_off()
+                    if not get_value_disable_process_off():
+                        Process().xampp_control_process_off()
+                        
                     file_encoding = get_encoding()
                     backup_path = "backup/xampp-control.ini"
                     with open(backup_path, "r", encoding=file_encoding) as file:
                         src = file.readlines()
 
-                    from config import get_file_path_xampp_control_ini
                     file_path = get_file_path_xampp_control_ini()
                     with open(file_path, "w", encoding=file_encoding) as file:
                         file.writelines(src)

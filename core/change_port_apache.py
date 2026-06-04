@@ -8,12 +8,14 @@ from datetime import datetime
 def change_port_apache(new_port) -> bool:
     try:
         from .process_off import Process
-        Process.apache_process_off()
-
         from config import (
+            get_value_disable_process_off,
             get_encoding,
             get_file_path_Apache
         )
+        
+        if not get_value_disable_process_off():
+            Process.apache_process_off()
         
         file_encoding = get_encoding()
         file_path = get_file_path_Apache()
@@ -34,8 +36,6 @@ def change_port_apache(new_port) -> bool:
                 file.writelines(src)
                 logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : {os.path.basename(__file__)} : Creating an http.conf backup")
         
-        
-
         # Создаем переменную, в которую будем вводить порт
         index_port_listen = None
 
@@ -54,8 +54,6 @@ def change_port_apache(new_port) -> bool:
 
         # Создаем вторую переменную, в которую позже будем хранить новое значения порта
         index_port_servername = None
-
-        
 
         for i, line in enumerate(src):
             if not line.startswith("#"):

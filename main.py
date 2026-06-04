@@ -82,6 +82,13 @@ def main():
             help="Creates a config in which you can enter the encoding and location of files. It will load it every time the program is started, if the configuration file is present. Not if it doesn't exist"
         )
         
+        parser.add_argument(
+            '--dpoff',
+            '--disable-process-off',
+            action="store_true",
+            help="The argument disables shutting down processes"
+        )
+        
         # Парсим аргументы
         args = parser.parse_args()
         
@@ -115,6 +122,10 @@ def main():
         
         if args.use_config:
             use_config_json(args.use_config)
+        
+        if args.dpoff:
+            from config import set_value_disable_process_off
+            set_value_disable_process_off(True)
                 
         if args.console:
             from cli import CLI

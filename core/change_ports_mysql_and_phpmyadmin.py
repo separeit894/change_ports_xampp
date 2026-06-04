@@ -10,13 +10,15 @@ from config import get_mode_run
 def change_port_mysql(new_port) -> bool:
     try:
         from core import Process
-        Process.mysql_process_off()
-
-        
         from config import (
+            get_value_disable_process_off,
             get_file_path_MySQLINI,
+            get_file_path_PhpMyAdminConfig,
             get_encoding
         )
+        
+        if not get_value_disable_process_off():
+            Process.mysql_process_off()
 
 
         file_path = get_file_path_MySQLINI()
@@ -47,7 +49,6 @@ def change_port_mysql(new_port) -> bool:
             file.writelines(src)
 
         # Считываем другой файл (PhpMyAdmin)
-        from config import get_file_path_PhpMyAdminConfig
 
         file_path_php = get_file_path_PhpMyAdminConfig()
 
