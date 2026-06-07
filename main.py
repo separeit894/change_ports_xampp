@@ -110,7 +110,7 @@ def main():
             from config import set_value_rights_administrator
             
             logging.info(f"{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')} : --no_admin : disabling restart with administrator rights")
-            set_value_rights_administrator()
+            set_value_rights_administrator(True)
         
         if args.encoding:
             from config import set_encoding
