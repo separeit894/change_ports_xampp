@@ -62,7 +62,7 @@ def get_encoding() -> str:
     return file_encoding
     
 # Версия скрипта
-version = "v-4.5.3"
+version = "v-4.5.5"
 
 # Режим, в котором запущена программа (GUI\CLI). По умолчанию GUI
 mode_run = "GUI"
@@ -82,9 +82,9 @@ def create_value_rights_administrator():
     import ctypes 
     rights_administrator = ctypes.windll.shell32.IsUserAnAdmin()
 
-def set_value_rights_administrator():
+def set_value_rights_administrator(value: bool):
     global rights_administrator
-    rights_administrator = True
+    rights_administrator = value
    
 def get_value_rights_administrator():
     return rights_administrator
@@ -213,6 +213,7 @@ def create_config_json():
         with open(FILE_CONFIG, "w") as f:
             json.dump(
                 {
+                    "Auto-Load": "n",
                     "Encoding": get_encoding(),
                     "Apache Path": get_file_path_Apache(),
                     "ApacheSSL Path": get_file_path_ApacheSSL(),
@@ -225,7 +226,7 @@ def create_config_json():
             ),
         return False
 
-def use_config_json(config_file: str):
+def use_config_json(config_file: str, get_auto_load_value: str = 'n'):
     try:
         if os.path.exists(config_file):
             global file_encoding, file_path_Apache, file_path_ApacheSSL, file_path_mysql_ini, file_path_php, file_path_xampp_control_ini
@@ -234,6 +235,17 @@ def use_config_json(config_file: str):
                 result: dict = json.load(f)
             
             print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}RESULT LOAD CONFIG FILE : {config_file}{Colors.RESET}{Escape_Sequences.new_line}{result}{Escape_Sequences.new_line}")
+            
+            if get_auto_load_value == 'y':
+
+                auto_load_config_file = result.get("Auto-Load")
+                print(f"auto_load_config_file : {auto_load_config_file}")
+                if auto_load_config_file == 'y': 
+                    return True
+                else: return False
+                
+            else: pass
+            
             
             file_encoding = result.get("Encoding")
             # Проверяет на существование кодировки
@@ -267,7 +279,7 @@ def check_platform(get_system: bool = False):
         return os_name
     
 if check_platform(True) == "Windows":
-    print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}Значение переменной rights administrator задано{Colors.RESET}{Escape_Sequences.new_line}")
+    # print(f"{Escape_Sequences.double_new_line}{Colors.BOLD}Значение переменной rights administrator задано{Colors.RESET}{Escape_Sequences.new_line}")
     create_value_rights_administrator()
 else:
     rights_administrator = True

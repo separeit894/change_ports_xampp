@@ -126,6 +126,18 @@ def main():
         if args.dpoff:
             from config import set_value_disable_process_off
             set_value_disable_process_off(True)
+            
+        try:
+            config_filename = "config.json"
+            if os.path.exists(config_filename):
+                print("[+] File config.json found...")
+                if use_config_json(config_filename, 'y'):
+                    print("Succesfully run...")
+                    use_config_json(config_filename)
+            else:
+                raise FileNotFoundError
+        except FileNotFoundError:
+            print("[-] File config.json not found...")
                 
         if args.console:
             from cli import CLI

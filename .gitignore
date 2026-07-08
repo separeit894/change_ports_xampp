@@ -13,4 +13,4 @@ requirements.txt
 Makefile
 CPX.log
 .vscode
-config.json
+config.json*
