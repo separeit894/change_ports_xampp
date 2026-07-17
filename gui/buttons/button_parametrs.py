@@ -31,19 +31,23 @@ def parametrs_button(root, style):
     try:
         window = Toplevel(root)
         window.title("Settings")
-        window.geometry("650x450")
+        main_width="650"
+        main_height="450"
+        window.geometry(f"{main_width}x{main_height}")
         
         
         encoding_label = ttk.Label(window, text=f"Current Encoding : {get_encoding()}", font=("Arial", 12), width=30)
         encoding_label.pack(anchor=CENTER)
         
+        width_text = 30
+        width_label = 20
         # Encoding Frame
         
         Frame_encoding = ttk.Frame(window)
-        Frame_encoding.pack(pady=10, padx=40)
+        Frame_encoding.pack(pady=10)
         
-        label_encoding = ttk.Label(Frame_encoding, text="Encoding : ", font=("Arial", 12))
-        label_encoding.pack(anchor="sw", side=tk.LEFT)
+        label_encoding = ttk.Label(Frame_encoding, text="Encoding", width=width_label, font=("Arial", 16))
+        label_encoding.pack(side=tk.LEFT)
         
         enter_pole_encoding = ttk.Entry(Frame_encoding, width=20, font=("Arial", 16))
         enter_pole_encoding.pack(side=tk.LEFT)
@@ -54,7 +58,7 @@ def parametrs_button(root, style):
         Frame_path_Apache = ttk.Frame(window)
         Frame_path_Apache.pack(pady=10)
         
-        label_path_Apache = ttk.Label(Frame_path_Apache, text="Path Apache : ", font=("Arial", 12))
+        label_path_Apache = ttk.Label(Frame_path_Apache, text="Path Apache", width=width_label, font=("Arial", 16))
         label_path_Apache.pack(side=tk.LEFT)
         
         enter_pole_path_Apache = ttk.Entry(Frame_path_Apache, width=20, font=("Arial", 16))
@@ -66,7 +70,7 @@ def parametrs_button(root, style):
         Frame_path_ApacheSSL = ttk.Frame(window)
         Frame_path_ApacheSSL.pack(pady=10)
         
-        label_path_ApacheSSL = ttk.Label(Frame_path_ApacheSSL, text="Path ApacheSSL : ", font=("Arial", 12))
+        label_path_ApacheSSL = ttk.Label(Frame_path_ApacheSSL, text="Path ApacheSSL", width=width_label, font=("Arial", 16))
         label_path_ApacheSSL.pack(side=tk.LEFT)
         
         enter_pole_path_ApacheSSL = ttk.Entry(Frame_path_ApacheSSL, width=20, font=("Arial", 16))
@@ -78,7 +82,7 @@ def parametrs_button(root, style):
         Frame_path_MySQL = ttk.Frame(window)
         Frame_path_MySQL.pack(pady=10)
         
-        label_path_MySQL = ttk.Label(Frame_path_MySQL, text="Path MySQL : ", font=("Arial", 12))
+        label_path_MySQL = ttk.Label(Frame_path_MySQL, text="Path MySQL", width=width_label, font=("Arial", 16))
         label_path_MySQL.pack(side=tk.LEFT)
         
         enter_pole_path_MySQL = ttk.Entry(Frame_path_MySQL, width=20, font=("Arial", 16))
@@ -90,7 +94,7 @@ def parametrs_button(root, style):
         Frame_path_PhpMyAdmin = ttk.Frame(window)
         Frame_path_PhpMyAdmin.pack(pady=10)
         
-        label_path_PhpMyAdmin = ttk.Label(Frame_path_PhpMyAdmin, text="Path PhpMyAdmin : ", font=("Arial", 12))
+        label_path_PhpMyAdmin = ttk.Label(Frame_path_PhpMyAdmin, text="Path PhpMyAdmin", width=width_label, font=("Arial", 16))
         label_path_PhpMyAdmin.pack(side=tk.LEFT)
         
         enter_pole_path_PhpMyAdmin = ttk.Entry(Frame_path_PhpMyAdmin, width=20, font=("Arial", 16))
@@ -102,7 +106,7 @@ def parametrs_button(root, style):
         Frame_path_XamppControlINI = ttk.Frame(window)
         Frame_path_XamppControlINI.pack(pady=10)
         
-        label_path_XamppControlINI = ttk.Label(Frame_path_XamppControlINI, text="Path XamppControlINI : ", font=("Arial", 12))
+        label_path_XamppControlINI = ttk.Label(Frame_path_XamppControlINI, text="Path XamppControlINI", width=width_label, font=("Arial", 16))
         label_path_XamppControlINI.pack(side=tk.LEFT)
         
         enter_pole_path_XamppControlINI = ttk.Entry(Frame_path_XamppControlINI, width=20, font=("Arial", 16))
